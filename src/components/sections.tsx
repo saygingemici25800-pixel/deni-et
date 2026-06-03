@@ -99,29 +99,67 @@ export function Hero() {
   );
 }
 
-/* ---------------- 2 · GÜVEN ŞERİDİ (kömür · büyük rakamlar) ---------------- */
+/* ---------------- 2 · GÜVEN ŞERİDİ (kömür · büyük rakamlar) ----------------
+   value = DEV Bonny (krem); sayı → güçlü tek satır, kelime → ince+kalın yığın.
+   label = küçük Light cream-soft. Büyük↔küçük + ince↔kalın ZITLIK; baseline grid.
+   4 sütun (masaüstü) ↔ 2x2 (mobil), aralarda tam-ortada hairline. */
+function TrustValue({value}: {value: string}) {
+  const parts = value.trim().split(/\s+/);
+  if (parts.length === 1) {
+    // Sayı / tek kelime — güçlü, tek satır.
+    return <span className="block font-medium">{value}</span>;
+  }
+  // Kelime value — ince (Thin) + kalın (Bold), iki satıra yığılır.
+  const [first, ...rest] = parts;
+  return (
+    <span className="block">
+      <span className="block font-thin">{first}</span>
+      <span className="block font-bold">{rest.join(' ')}</span>
+    </span>
+  );
+}
+
 export function TrustBar() {
   const t = useTranslations();
   const trust = t.raw('trust') as {value: string; label: string}[];
   return (
     <section id="guven" className="surface-charcoal scroll-mt-24 md:scroll-mt-28">
-      <div className={`${wrap} py-20 md:py-28`}>
-        <div className="grid grid-cols-2 md:grid-cols-4">
-          {trust.map((s, i) => (
-            <div
-              key={s.value}
-              className={`py-6 md:px-8 ${i > 0 ? 'md:border-l md:border-[color:var(--line)]' : ''}`}
-            >
-              <p
-                className="font-medium leading-none"
-                style={{fontSize: 'clamp(2.5rem, 1.5rem + 4vw, 4.5rem)', letterSpacing: '-0.02em'}}
-              >
-                {s.value}
-              </p>
-              <p className="type-eyebrow mt-4">{s.label}</p>
-            </div>
-          ))}
-        </div>
+      <div className={`${wrap} py-16 md:py-24`}>
+        <ul className="grid grid-cols-2 md:grid-cols-4">
+          {trust.map((s, i) => {
+            // Ayraçlar: mobil 2x2 (sağ sütun border-l, alt satır border-t);
+            // masaüstü tek satır (i>0 → border-l), üst border kalkar.
+            const borders = [
+              'border-[color:var(--line)]',
+              i % 2 === 1 ? 'border-l' : '',
+              i >= 2 ? 'border-t' : '',
+              'md:border-t-0',
+              i >= 1 ? 'md:border-l' : 'md:border-l-0',
+            ].join(' ');
+            return (
+              <li key={s.value} className={`trust-item flex flex-col px-5 py-8 md:px-8 md:py-2 ${borders}`}>
+                {/* value alanı — sabit yükseklik + alta hizalı → baseline grid */}
+                <span
+                  className="flex items-end text-bone"
+                  style={{
+                    fontSize: 'clamp(2.4rem, 1.6rem + 3.2vw, 3.75rem)',
+                    lineHeight: 0.9,
+                    letterSpacing: '-0.02em',
+                    minHeight: 'clamp(4rem, 2.6rem + 5.4vw, 6.5rem)',
+                  }}
+                >
+                  <TrustValue value={s.value} />
+                </span>
+                <span
+                  className="mt-4 font-light text-cream-soft"
+                  style={{fontSize: '0.95rem', lineHeight: 1.35, maxWidth: '22ch'}}
+                >
+                  {s.label}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );

@@ -399,3 +399,36 @@
     opacity: 0.32;
   }
 }
+
+/* =================================================================
+   TrustBar (#guven) — kademeli scroll reveal (YALNIZ-CSS).
+   scroll-driven animation (view timeline). Desteklemeyen tarayıcı:
+   @supports dışında kalır → öğeler normal görünür. reduced-motion:
+   media dışında kalır → hareketsiz, anında görünür.
+   ================================================================= */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .trust-item {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: trust-reveal both linear;
+      animation-timeline: view();
+      animation-range: entry 5% entry 48%;
+    }
+    .trust-item:nth-child(2) {
+      animation-range: entry 12% entry 55%;
+    }
+    .trust-item:nth-child(3) {
+      animation-range: entry 19% entry 62%;
+    }
+    .trust-item:nth-child(4) {
+      animation-range: entry 26% entry 69%;
+    }
+  }
+}
+@keyframes trust-reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
