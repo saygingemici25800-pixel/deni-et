@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "siteName": "Deniz Et · Kasap Orhan",
+    "title": "Deniz Et · Kasap Orhan — Fethiye'nin Kasabı",
+    "description": "1980'den beri Fethiye merkezde, ustanın elinden taze et. Ev yapımı sucuk, kuzu lokum, mangallık et. Siparişini WhatsApp'tan ilet."
+  },
+  "nav": {
+    "story": "Hikâye",
+    "products": "Ürünler",
+    "grill": "Mangal",
+    "contact": "İletişim",
+    "blog": "Blog",
+    "order": "Sipariş Ver",
+    "lang": "EN"
+  },
+  "hero": {
+    "eyebrow": "Fethiye · 1980'den beri",
+    "title": "Kırk yıldır aynı el, aynı söz.",
+    "subtitle": "Fethiye merkezde, Kasap Orhan'ın tezgahında. Ev yapımı sucuk, kuzu lokum, sabah seçilen et. Siparişini WhatsApp'tan ilet, gerisini biz hazırlayalım.",
+    "ctaPrimary": "WhatsApp'tan Sipariş Ver",
+    "ctaSecondary": "Ustaya Yaz"
+  },
+  "trust": [
+    { "value": "1980", "label": "Aynı sokak, aynı titizlik" },
+    { "value": "40+", "label": "Yıllık usta eli" },
+    { "value": "Ev yapımı", "label": "Sucuk · kuzu lokum" },
+    { "value": "Her sabah", "label": "Taze seçilen et" }
+  ],
+  "story": {
+    "eyebrow": "Hikâye",
+    "title": "Bir tezgah, kırk yıl, tek söz.",
+    "body": "1980'de Kasap Orhan açtı kepenkleri; bugün hâlâ aynı sokakta, aynı titizlikle. Fethiye değişti, turist geldi geçti, fiyatlar oynadı — değişmeyen tek şey ustanın eli oldu. Burada et tartılmaz, seçilir. Sucuk dışarıdan gelmez, içeride yapılır. Bu yüzden bizi bir kere deneyen, adresini ezberler.",
+    "cta": "Ustaya Yaz",
+    "carousel": [
+      { "title": "1980 — Kepenkler açılır", "text": "Kasap Orhan, Fethiye merkezde tezgahını kurar." },
+      { "title": "Ustanın eli", "text": "Et tartılmaz, seçilir. Her parça elden geçer." },
+      { "title": "İmza sucuk", "text": "Baharatı bizden, dinlenmesi sabırdan." },
+      { "title": "Mangal kültürü", "text": "Yazlık akşamları, bayram sofraları, kalabalık davetler." },
+      { "title": "Bugün", "text": "Kırk yıl sonra hâlâ aynı sokak, aynı söz." }
+    ]
+  },
+  "products": {
+    "eyebrow": "Ürünler",
+    "title": "Tezgahta ne var?",
+    "intro": "Dana ve kuzu — sabah seçilir, akşam sofranda. Mangallık kuşbaşı, pirzola, antrikot; günlük şarküteri; sakatat. Ne aldığını bilirsin, kim kestiğini de."
+  },
+  "explorer": {
+    "title": "Etini tanı.",
+    "intro": "Hayvanın üstündeki parçaya dokun; hangi yemeğe yakıştığını ve nasıl pişeceğini gör.",
+    "toggleBeef": "Dana",
+    "toggleLamb": "Kuzu",
+    "panel": {
+      "dishLabel": "Uygun yemek",
+      "cookLabel": "Pişirme",
+      "cta": "Bu parçayı WhatsApp'tan iste"
+    },
+    "beef": [
+      { "id": "boyun", "name": "Boyun", "dishes": "Haşlama, sulu yemek, kıyma", "cooking": "Uzun süre, düşük ısı" },
+      { "id": "kurek", "name": "Kürek / Kol", "dishes": "Güveç, rosto, kıyma", "cooking": "Yavaş pişirme" },
+      { "id": "antrikot", "name": "Antrikot", "dishes": "Izgara, steak", "cooking": "Yüksek ateş, kısa" },
+      { "id": "kontrfile", "name": "Kontrfile", "dishes": "Izgara, steak", "cooking": "Yüksek ateş, dinlendir" },
+      { "id": "bonfile", "name": "Bonfile", "dishes": "Fileto, steak", "cooking": "Çok kısa, az pişmiş" },
+      { "id": "kaburga", "name": "Kaburga / Pirzola", "dishes": "Mangal, fırın", "cooking": "Orta, slow-cook" },
+      { "id": "dos", "name": "Döş", "dishes": "Haşlama, slow-cook", "cooking": "Uzun, sulu" },
+      { "id": "but", "name": "But (Nuar/Tranç)", "dishes": "Rosto, biftek, döner", "cooking": "Orta" },
+      { "id": "incik", "name": "İncik", "dishes": "Fırın incik, haşlama", "cooking": "Çok uzun, düşük ısı" },
+      { "id": "etek", "name": "Pançeta / Etek", "dishes": "Kavurma, fajita, kıyma", "cooking": "Orta-yüksek, ince dilim" }
+    ],
+    "lamb": [
+      { "id": "boyun", "name": "Boyun", "dishes": "Haşlama, kavurma", "cooking": "Uzun, düşük ısı" },
+      { "id": "kol", "name": "Kol / Kürek", "dishes": "Güveç, fırın, kavurma", "cooking": "Yavaş pişirme" },
+      { "id": "kaburga", "name": "Kaburga", "dishes": "Fırın, mangal", "cooking": "Orta" },
+      { "id": "pirzola", "name": "Pirzola", "dishes": "Mangal, ızgara", "cooking": "Yüksek ateş, kısa" },
+      { "id": "sirt", "name": "Sırt / Kontrfile", "dishes": "Izgara, fırın", "cooking": "Orta-yüksek" },
+      { "id": "but", "name": "But", "dishes": "Fırın but, çevirme, biftek", "cooking": "Orta" },
+      { "id": "incik", "name": "İncik", "dishes": "Fırın incik, haşlama", "cooking": "Çok uzun, düşük ısı" },
+      { "id": "dos", "name": "Döş", "dishes": "Fırın, dolma", "cooking": "Uzun" },
+      { "id": "gerdan", "name": "Gerdan", "dishes": "Haşlama, sulu yemek", "cooking": "Uzun" },
+      { "id": "bonfile", "name": "Bonfile", "dishes": "Izgara, sote", "cooking": "Çok kısa" }
+    ]
+  },
+  "signature": {
+    "eyebrow": "İmza lezzetler",
+    "title": "Bizi biz yapan iki şey.",
+    "items": [
+      { "name": "Ev yapımı sucuk", "text": "Baharatı bizden, dinlenmesi sabırdan. Marketten alamayacağın tat." },
+      { "name": "Kuzu lokum", "text": "Adı gibi, ağızda dağılan. Ustadan başka kimsenin yapamayacağı incelik." }
+    ]
+  },
+  "grill": {
+    "eyebrow": "Mangal & Davet",
+    "title": "Kalabalık mı geliyor? Sen sofrayı düşün.",
+    "body": "Misafir sayısını söyle; eti porsiyonlar, marine eder, mangala hazır teslim ederiz. Bayram, ev daveti, yazlık akşamı — tezgah senin için çalışır.",
+    "cta": "Mangalını Hazırlatalım"
+  },
+  "order": {
+    "eyebrow": "Nasıl sipariş",
+    "title": "Üç adım, tek mesaj.",
+    "steps": [
+      { "n": "1", "title": "Yaz ya da ara", "text": "WhatsApp'tan mesaj at ya da telefonla ara." },
+      { "n": "2", "title": "Ustaya danış", "text": "Ne istediğini söyle, usta önersin." },
+      { "n": "3", "title": "Gel al ya da hazırlat", "text": "Tezgahtan al ya da hazır teslim al." }
+    ],
+    "cta": "WhatsApp'tan Yaz"
+  },
+  "instagram": {
+    "title": "Tezgahtan kareler.",
+    "handle": "@denizetfethiye",
+    "cta": "Instagram'da Takip Et"
+  },
+  "contact": {
+    "eyebrow": "Konum & İletişim",
+    "title": "Tezgah burada, kapı her zaman açık.",
+    "address": "Cumhuriyet Mahallesi, 97. Sokak No: 42, Fethiye / Muğla",
+    "phone": "0537 410 8842",
+    "hours": "Çalışma saatleri için arayın",
+    "ctaDirections": "Yol Tarifi",
+    "ctaCall": "Hemen Ara"
+  },
+  "blog": {
+    "eyebrow": "Tezgah Notları",
+    "title": "Etten anlayanın notları.",
+    "intro": "Kasaptan sana: kısa, net, işe yarar bilgi. Hangi parça neye yakışır, ateş nasıl yönetilir, taze et nasıl anlaşılır.",
+    "readingTime": "dk okuma",
+    "readMore": "Oku",
+    "backToList": "Tüm yazılar"
+  },
+  "footer": {
+    "slogan": "Ustanın eli, senin sofran.",
+    "links": [
+      { "label": "Hikâye", "href": "#hikaye" },
+      { "label": "Ürünler", "href": "#urunler" },
+      { "label": "Mangal", "href": "#mangal" },
+      { "label": "İletişim", "href": "#iletisim" }
+    ],
+    "rights": "© 2026 Deniz Et · Kasap Orhan. Tüm hakları saklıdır."
+  },
+  "whatsapp": {
+    "prefill": "Merhaba, sipariş vermek istiyorum."
+  },
+  "a11y": {
+    "skipToContent": "İçeriğe geç",
+    "openMenu": "Menüyü aç",
+    "closeMenu": "Menüyü kapat",
+    "switchLanguage": "Dili değiştir",
+    "whatsappAria": "WhatsApp'tan yaz",
+    "callAria": "Telefonla ara",
+    "homeAria": "Ana sayfa — Deniz Et"
+  }
+}

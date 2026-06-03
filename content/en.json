@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "siteName": "Deniz Et · Kasap Orhan",
+    "title": "Deniz Et · Kasap Orhan — Fethiye's Butcher",
+    "description": "Fresh-cut meat by the master's hand in central Fethiye since 1980. Homemade sucuk, melt-in-mouth lamb, ready-to-grill cuts. Order on WhatsApp."
+  },
+  "nav": {
+    "story": "Story",
+    "products": "Cuts",
+    "grill": "Grill",
+    "contact": "Contact",
+    "blog": "Blog",
+    "order": "Order",
+    "lang": "TR"
+  },
+  "hero": {
+    "eyebrow": "Fethiye · since 1980",
+    "title": "Forty years. Same hands, same word.",
+    "subtitle": "In central Fethiye, at Kasap Orhan's counter. Homemade sucuk, melt-in-mouth lamb, meat chosen fresh each morning. Order on WhatsApp — we'll have it ready.",
+    "ctaPrimary": "Order on WhatsApp",
+    "ctaSecondary": "Message the Butcher"
+  },
+  "trust": [
+    { "value": "1980", "label": "Same street, same care" },
+    { "value": "40+", "label": "Years by the master's hand" },
+    { "value": "Homemade", "label": "Sucuk · lamb delight" },
+    { "value": "Every morning", "label": "Meat chosen fresh" }
+  ],
+  "story": {
+    "eyebrow": "Story",
+    "title": "One counter, forty years, one word.",
+    "body": "In 1980 Kasap Orhan opened the shutters; today he's still on the same street, with the same care. Fethiye changed, tourists came and went, prices swung — the only constant was the master's hand. Here meat isn't weighed, it's chosen. Sucuk isn't bought in, it's made inside. That's why anyone who tries us once remembers the address.",
+    "cta": "Message the Butcher",
+    "carousel": [
+      { "title": "1980 — The shutters open", "text": "Kasap Orhan sets up his counter in central Fethiye." },
+      { "title": "The master's hand", "text": "Meat isn't weighed, it's chosen. Every cut passes through his hands." },
+      { "title": "Signature sucuk", "text": "Our own spice blend, rested with patience." },
+      { "title": "Grill culture", "text": "Summer evenings, holiday tables, big gatherings." },
+      { "title": "Today", "text": "Forty years on, still the same street, the same word." }
+    ]
+  },
+  "products": {
+    "eyebrow": "Cuts",
+    "title": "What's on the counter?",
+    "intro": "Beef and lamb — chosen in the morning, on your table by evening. Ready-to-grill cubes, chops, ribeye; daily charcuterie; offal. You know what you're buying, and who cut it."
+  },
+  "explorer": {
+    "title": "Know your cut.",
+    "intro": "Tap a part of the animal to see which dish it suits and how to cook it.",
+    "toggleBeef": "Beef",
+    "toggleLamb": "Lamb",
+    "panel": {
+      "dishLabel": "Best for",
+      "cookLabel": "Cooking",
+      "cta": "Ask for this cut on WhatsApp"
+    },
+    "beef": [
+      { "id": "boyun", "name": "Neck", "dishes": "Stews, slow dishes, mince", "cooking": "Long, low heat" },
+      { "id": "kurek", "name": "Chuck / Shoulder", "dishes": "Casserole, roast, mince", "cooking": "Slow cook" },
+      { "id": "antrikot", "name": "Ribeye", "dishes": "Grill, steak", "cooking": "High heat, short" },
+      { "id": "kontrfile", "name": "Striploin", "dishes": "Grill, steak", "cooking": "High heat, rest it" },
+      { "id": "bonfile", "name": "Tenderloin", "dishes": "Filet, steak", "cooking": "Very short, rare" },
+      { "id": "kaburga", "name": "Ribs / Short ribs", "dishes": "Barbecue, oven", "cooking": "Medium, slow-cook" },
+      { "id": "dos", "name": "Brisket", "dishes": "Braise, slow-cook", "cooking": "Long, juicy" },
+      { "id": "but", "name": "Round (leg)", "dishes": "Roast, steak, döner", "cooking": "Medium" },
+      { "id": "incik", "name": "Shank", "dishes": "Braised shank, stew", "cooking": "Very long, low" },
+      { "id": "etek", "name": "Flank / Plate", "dishes": "Sauté, fajita, mince", "cooking": "Medium-high, thin slices" }
+    ],
+    "lamb": [
+      { "id": "boyun", "name": "Neck", "dishes": "Braise, sauté", "cooking": "Long, low heat" },
+      { "id": "kol", "name": "Shoulder", "dishes": "Casserole, oven, sauté", "cooking": "Slow cook" },
+      { "id": "kaburga", "name": "Ribs", "dishes": "Oven, barbecue", "cooking": "Medium" },
+      { "id": "pirzola", "name": "Chops / Rack", "dishes": "Barbecue, grill", "cooking": "High heat, short" },
+      { "id": "sirt", "name": "Loin / Saddle", "dishes": "Grill, oven", "cooking": "Medium-high" },
+      { "id": "but", "name": "Leg", "dishes": "Roast leg, spit-roast, steak", "cooking": "Medium" },
+      { "id": "incik", "name": "Shank", "dishes": "Braised shank, stew", "cooking": "Very long, low" },
+      { "id": "dos", "name": "Breast", "dishes": "Oven, stuffed", "cooking": "Long" },
+      { "id": "gerdan", "name": "Scrag (neck end)", "dishes": "Braise, slow dishes", "cooking": "Long" },
+      { "id": "bonfile", "name": "Tenderloin", "dishes": "Grill, sauté", "cooking": "Very short" }
+    ]
+  },
+  "signature": {
+    "eyebrow": "Signature flavours",
+    "title": "The two things that make us, us.",
+    "items": [
+      { "name": "Homemade sucuk", "text": "Our own spice, rested with patience. A taste you won't find on a shelf." },
+      { "name": "Lamb delight", "text": "Melts on the tongue, just like its name. A finesse only the master can manage." }
+    ]
+  },
+  "grill": {
+    "eyebrow": "Grill & Gatherings",
+    "title": "A crowd coming? You handle the table.",
+    "body": "Tell us how many guests; we portion, marinate and hand it over grill-ready. Holidays, home dinners, summer evenings — the counter works for you.",
+    "cta": "Get Your Grill Ready"
+  },
+  "order": {
+    "eyebrow": "How to order",
+    "title": "Three steps, one message.",
+    "steps": [
+      { "n": "1", "title": "Write or call", "text": "Message us on WhatsApp or call." },
+      { "n": "2", "title": "Ask the butcher", "text": "Tell us what you want; let the master suggest." },
+      { "n": "3", "title": "Pick up or prepped", "text": "Collect at the counter or take it ready." }
+    ],
+    "cta": "Write on WhatsApp"
+  },
+  "instagram": {
+    "title": "Frames from the counter.",
+    "handle": "@denizetfethiye",
+    "cta": "Follow on Instagram"
+  },
+  "contact": {
+    "eyebrow": "Location & Contact",
+    "title": "The counter is here, the door is always open.",
+    "address": "Cumhuriyet Mahallesi, 97. Sokak No: 42, Fethiye / Muğla",
+    "phone": "0537 410 8842",
+    "hours": "Call for opening hours",
+    "ctaDirections": "Directions",
+    "ctaCall": "Call Now"
+  },
+  "blog": {
+    "eyebrow": "Notes from the Counter",
+    "title": "Notes from someone who knows meat.",
+    "intro": "Butcher to you: short, clear, useful. Which cut suits what, how to manage the fire, how to spot fresh meat.",
+    "readingTime": "min read",
+    "readMore": "Read",
+    "backToList": "All posts"
+  },
+  "footer": {
+    "slogan": "The master's hand, your table.",
+    "links": [
+      { "label": "Story", "href": "#hikaye" },
+      { "label": "Cuts", "href": "#urunler" },
+      { "label": "Grill", "href": "#mangal" },
+      { "label": "Contact", "href": "#iletisim" }
+    ],
+    "rights": "© 2026 Deniz Et · Kasap Orhan. All rights reserved."
+  },
+  "whatsapp": {
+    "prefill": "Hello, I'd like to place an order."
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "switchLanguage": "Switch language",
+    "whatsappAria": "Message on WhatsApp",
+    "callAria": "Call by phone",
+    "homeAria": "Home — Deniz Et"
+  }
+}

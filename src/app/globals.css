@@ -1,0 +1,346 @@
+@import "tailwindcss";
+
+/* =================================================================
+   DENİZ ET · KASAP ORHAN — Tasarım sistemi (DESIGN-SYSTEM.md)
+   Yön: editoryal / zanaat. Kömür ↔ krem ZITLIĞI; tek font Bonny'de
+   İNCE (Thin) ile KALIN (Bold) bilinçli gerilimi. Az ama kusursuz.
+   ================================================================= */
+
+@theme {
+  /* ---- Tipografi: TEK aile Bonny (next/font → --font değişkeni) ---- */
+  --font-sans: var(--font), Georgia, serif;
+  --font-serif: var(--font), Georgia, serif;
+
+  /* ---- Palet (DESIGN-SYSTEM §2 — logodan türetildi) ---- */
+  /* Zemin / koyu */
+  --color-espresso: #1A1411;     /* ana koyu zemin (sıcak siyah) */
+  --color-espresso-2: #241B16;   /* yükseltilmiş koyu yüzey */
+  /* Açık / kağıt */
+  --color-bone: #F4EEE4;         /* krem yüzey */
+  --color-bone-2: #E8DECF;       /* ikincil krem */
+  /* Marka kırmızısı */
+  --color-et: #9A2424;           /* birincil aksiyon / vurgu */
+  --color-et-deep: #6E1A1A;      /* derinlik, hover, gölge */
+  /* Pirinç — az kullan */
+  --color-brass: #C8951C;        /* altın detay, alt çizgi, küçük vurgu */
+  /* Nötr metin */
+  --color-ink: #1A1411;          /* krem üstünde metin */
+  --color-ink-soft: #5A4F46;     /* ikincil metin */
+  --color-cream-soft: #C9BEB0;   /* koyu üstünde ikincil metin */
+}
+
+/* Tailwind utility'sine girmeyen ham token'lar (alpha ayraç + fokus). */
+:root {
+  --line: rgba(154, 36, 36, 0.22); /* ince bordo hairline */
+  --focus: #C8951C;                /* görünür fokus = pirinç */
+}
+
+/* =================================================================
+   TABAN (base)
+   ================================================================= */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    /* Kömür zemin varsayılan; krem bölümler ritimle araya girer. */
+    background-color: var(--color-espresso);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    font-weight: 300;            /* %60 gövde: Light taban */
+    line-height: 1.65;
+    font-feature-settings: "kern";
+  }
+
+  /* Görünür fokus halkası — pirinç (DESIGN-SYSTEM §8). */
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-et);
+    color: var(--color-bone);
+  }
+
+  /* Hareket azaltma: tüm animasyon/geçişi kapat (DESIGN-SYSTEM §6). */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* =================================================================
+   BİLEŞENLER (components) — zemin mantığı, ayraç, 60/30/10 tipografi
+   ================================================================= */
+@layer components {
+  /* ---- Zemin ritmi: kömür ↔ krem ---- */
+  .surface-charcoal {
+    background-color: var(--color-espresso);
+    color: var(--color-bone);
+  }
+  .surface-cream {
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+  }
+
+  /* ---- İnce saç-çizgi ayraç (1px, köşeli, bordo-şeffaf) ---- */
+  .hairline {
+    border: 0;
+    border-top: 1px solid var(--line);
+  }
+  .hairline-v {
+    border: 0;
+    border-left: 1px solid var(--line);
+  }
+
+  /* =====================================================
+     TİPOGRAFİ 60 / 30 / 10  (DESIGN-SYSTEM §3)
+     Aşırı kontrastlı ölçek: gövde sakin/küçük ↔ statement dev.
+     ===================================================== */
+
+  /* %60 — İŞ GÖREN: gövde, paragraf, UI. Light/Regular. */
+  .type-body {
+    font-weight: 400;
+    font-size: clamp(1.0625rem, 0.99rem + 0.34vw, 1.1875rem);
+    line-height: 1.65;
+    letter-spacing: 0.001em;
+  }
+  .type-body-light {
+    font-weight: 300;
+  }
+
+  /* %30 — YAPI: bölüm başlıkları (H2/H3), alt başlık, nav. Medium.
+     "Orta" tonu az kullan ki ZITLIK korunsun. */
+  .type-heading {
+    font-weight: 500;
+    font-size: clamp(2rem, 1.4rem + 3vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+  }
+  .type-heading-sm {
+    font-weight: 500;
+    font-size: clamp(1.25rem, 1.06rem + 0.95vw, 1.6rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  /* Etiket / üst başlık — %30, pirinç, izli, UPPERCASE. */
+  .type-eyebrow {
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-brass);
+  }
+
+  /* %10 — STATEMENT: dev punto, nadir, en keskin cümleler.
+     ZITLIK kuralı: taban İNCE (Thin 100); aynı satırda .bold (700)
+     ile bilinçli gerilim. <span class="thin">…</span><span class="bold">…</span> */
+  .type-statement {
+    font-weight: 100;            /* Thin — ince taban */
+    font-size: clamp(3rem, 1.2rem + 8vw, 7rem);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .type-statement .thin {
+    font-weight: 100;
+  }
+  .type-statement .bold {
+    font-weight: 700;            /* aynı kompozisyonda KALIN vurgu */
+  }
+  /* Tümü kalın isteyen nadir statement için. */
+  .type-statement-bold {
+    font-weight: 700;
+  }
+}
+
+/* =================================================================
+   İSKELET / KROM (Faz 1) — header, drawer, fab, sticky CTA, butonlar
+   ================================================================= */
+
+/* Anchor'lara yumuşak scroll; reduced-motion zaten kapatıyor (base). */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  /* Mobil sabit alt CTA bar içerik üstünü kapamasın diye nefes payı. */
+  @media (max-width: 767px) {
+    body {
+      padding-bottom: 64px;
+    }
+  }
+}
+
+@layer components {
+  /* ---- Butonlar (DESIGN-SYSTEM §5) — köşe 4px, dokunma hedefi ≥44px ---- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0 1.25rem;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    white-space: nowrap;
+    transition: transform 0.2s cubic-bezier(0.2, 0.6, 0.2, 1), background-color 0.2s,
+      color 0.2s, border-color 0.2s;
+  }
+  .btn-primary {
+    background-color: var(--color-et);
+    color: var(--color-bone);
+  }
+  .btn-primary:hover {
+    background-color: var(--color-et-deep);
+    transform: translateY(-2px);
+  }
+  .btn-outline {
+    border: 1px solid var(--color-et);
+    color: var(--color-et);
+    background: transparent;
+  }
+  .btn-outline:hover {
+    background-color: var(--color-et);
+    color: var(--color-bone);
+    transform: translateY(-2px);
+  }
+  /* Koyu zemin üstünde ikincil (krem çizgi). */
+  .btn-outline-cream {
+    border: 1px solid var(--color-cream-soft);
+    color: var(--color-bone);
+    background: transparent;
+  }
+  .btn-outline-cream:hover {
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+  }
+
+  /* ---- Sticky header + scroll-condense (Motion yok) ---- */
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  .site-header[data-scrolled='true'] {
+    background-color: var(--color-espresso);
+    border-bottom-color: var(--line);
+  }
+  .site-header__inner {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    transition: padding 0.3s ease;
+  }
+  .site-header[data-scrolled='true'] .site-header__inner {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+  .site-header__brand {
+    display: inline-flex;
+    transform-origin: left center;
+    transition: transform 0.3s ease;
+  }
+  .site-header[data-scrolled='true'] .site-header__brand {
+    transform: scale(0.92);
+  }
+
+  /* ---- Mobil tam ekran drawer ---- */
+  .drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-espresso);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  }
+  .drawer[data-open='true'] {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* ---- Yüzen WhatsApp butonu ---- */
+  .wa-fab {
+    position: fixed;
+    right: 1.25rem;
+    bottom: calc(64px + 1rem + env(safe-area-inset-bottom)); /* mobil: sticky bar üstü */
+    z-index: 40;
+    width: 56px;
+    height: 56px;
+    border-radius: 9999px;
+    background-color: #25d366; /* WhatsApp yeşili — yalnız bu butonda (DESIGN-SYSTEM §2) */
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .wa-fab[data-visible='true'] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  @media (min-width: 768px) {
+    .wa-fab {
+      bottom: 1.5rem;
+      right: 1.5rem;
+    }
+  }
+
+  /* ---- Mobil sabit alt CTA bar ---- */
+  .sticky-cta {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 45;
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+    background-color: var(--color-espresso);
+    border-top: 1px solid var(--line);
+  }
+
+  /* Skip link — odaklanınca görünür (a11y). */
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 80;
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+    font-weight: 500;
+    transform: translateY(-160%);
+    transition: transform 0.2s ease;
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+}
