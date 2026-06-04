@@ -15,17 +15,12 @@
   },
   "hero": {
     "eyebrow": "Fethiye · 1980'den beri",
+    "heritage": "Üç nesildir",
     "title": "Kırk yıldır aynı el, aynı söz.",
     "subtitle": "Fethiye merkezde, Kasap Orhan'ın tezgahında. Ev yapımı sucuk, kuzu lokum, sabah seçilen et. Siparişini WhatsApp'tan ilet, gerisini biz hazırlayalım.",
     "ctaPrimary": "WhatsApp'tan Sipariş Ver",
     "ctaSecondary": "Ustaya Yaz"
   },
-  "trust": [
-    { "value": "1980", "label": "Aynı sokak, aynı titizlik" },
-    { "value": "40+", "label": "Yıllık usta eli" },
-    { "value": "Ev yapımı", "label": "Sucuk · kuzu lokum" },
-    { "value": "Her sabah", "label": "Taze seçilen et" }
-  ],
   "story": {
     "eyebrow": "Hikâye",
     "title": "Bir tezgah, kırk yıl, tek söz.",

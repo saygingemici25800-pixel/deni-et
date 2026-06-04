@@ -57,7 +57,11 @@ export function Hero() {
     <section id="hero" className="grid scroll-mt-24 md:grid-cols-2">
       {/* Sol yarım — krem (açık). DENİZ = ince + koyu knockout. */}
       <div className="surface-cream flex min-h-[64svh] flex-col justify-center gap-7 px-5 pb-14 pt-32 md:min-h-[100svh] md:px-12 md:pb-16 md:pt-36">
-        <p className="type-eyebrow">{t('hero.eyebrow')}</p>
+        {/* eyebrow → heritage (sessiz katman) → DENİZ lockup → tagline → CTA */}
+        <div>
+          <p className="type-eyebrow">{t('hero.eyebrow')}</p>
+          <p className="hero-heritage">{t('hero.heritage')}</p>
+        </div>
         <p
           aria-hidden="true"
           className="font-thin leading-[0.85] text-ink"
@@ -101,73 +105,7 @@ export function Hero() {
   );
 }
 
-/* ---------------- 2 · GÜVEN ŞERİDİ (kömür · büyük rakamlar) ----------------
-   value = DEV Bonny (krem); sayı → güçlü tek satır, kelime → ince+kalın yığın.
-   label = küçük Light cream-soft. Büyük↔küçük + ince↔kalın ZITLIK; baseline grid.
-   4 sütun (masaüstü) ↔ 2x2 (mobil), aralarda tam-ortada hairline. */
-function TrustValue({value}: {value: string}) {
-  const parts = value.trim().split(/\s+/);
-  if (parts.length === 1) {
-    // Sayı / tek kelime — güçlü, tek satır.
-    return <span className="block font-medium">{value}</span>;
-  }
-  // Kelime value — ince (Thin) + kalın (Bold), iki satıra yığılır.
-  const [first, ...rest] = parts;
-  return (
-    <span className="block">
-      <span className="block font-thin">{first}</span>
-      <span className="block font-bold">{rest.join(' ')}</span>
-    </span>
-  );
-}
-
-export function TrustBar() {
-  const t = useTranslations();
-  const trust = t.raw('trust') as {value: string; label: string}[];
-  return (
-    <section id="guven" className="surface-charcoal scroll-mt-24 md:scroll-mt-28">
-      <div className={`${wrap} py-16 md:py-24`}>
-        <ul className="grid grid-cols-2 md:grid-cols-4">
-          {trust.map((s, i) => {
-            // Ayraçlar: mobil 2x2 (sağ sütun border-l, alt satır border-t);
-            // masaüstü tek satır (i>0 → border-l), üst border kalkar.
-            const borders = [
-              'border-[color:var(--line)]',
-              i % 2 === 1 ? 'border-l' : '',
-              i >= 2 ? 'border-t' : '',
-              'md:border-t-0',
-              i >= 1 ? 'md:border-l' : 'md:border-l-0',
-            ].join(' ');
-            return (
-              <li key={s.value} className={`trust-item flex flex-col px-5 py-8 md:px-8 md:py-2 ${borders}`}>
-                {/* value alanı — sabit yükseklik + alta hizalı → baseline grid */}
-                <span
-                  className="flex items-end text-bone"
-                  style={{
-                    fontSize: 'clamp(2.4rem, 1.6rem + 3.2vw, 3.75rem)',
-                    lineHeight: 0.9,
-                    letterSpacing: '-0.02em',
-                    minHeight: 'clamp(4rem, 2.6rem + 5.4vw, 6.5rem)',
-                  }}
-                >
-                  <TrustValue value={s.value} />
-                </span>
-                <span
-                  className="mt-4 font-light text-cream-soft"
-                  style={{fontSize: '0.95rem', lineHeight: 1.35, maxWidth: '22ch'}}
-                >
-                  {s.label}
-                </span>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- 3 · HİKÂYE (krem · CSS 3D coverflow karusel) ---------------- */
+/* ---------------- 2 · HİKÂYE (krem · CSS 3D coverflow karusel) ---------------- */
 export function Story() {
   const t = useTranslations();
   const wa = waLink(t('whatsapp.prefill'));
@@ -211,7 +149,7 @@ export function Story() {
   );
 }
 
-/* ---------------- 4 · ÜRÜNLER (kömür · interaktif Et Kâşifi 2D) ---------------- */
+/* ---------------- 3 · ÜRÜNLER (kömür · interaktif Et Kâşifi 2D) ---------------- */
 type CutData = {id: string; name: string; dishes: string; cooking: string};
 export function Products() {
   const t = useTranslations();
@@ -254,7 +192,7 @@ export function Products() {
   );
 }
 
-/* ---------------- 5 · İMZA LEZZETLER (krem · iki blok) ---------------- */
+/* ---------------- 4 · İMZA LEZZETLER (krem · iki blok) ---------------- */
 export function Signature() {
   const t = useTranslations();
   const items = t.raw('signature.items') as {name: string; text: string}[];
@@ -286,7 +224,7 @@ export function Signature() {
   );
 }
 
-/* ---------------- 6 · MANGAL & DAVET (kömür) ---------------- */
+/* ---------------- 5 · MANGAL & DAVET (kömür) ---------------- */
 export function Grill() {
   const t = useTranslations();
   const wa = waLink(t('whatsapp.prefill'));
@@ -307,7 +245,7 @@ export function Grill() {
   );
 }
 
-/* ---------------- 7 · NASIL SİPARİŞ (krem · 3 adım) ---------------- */
+/* ---------------- 6 · NASIL SİPARİŞ (krem · 3 adım) ---------------- */
 export function OrderSteps() {
   const t = useTranslations();
   const wa = waLink(t('whatsapp.prefill'));
@@ -342,7 +280,7 @@ export function OrderSteps() {
   );
 }
 
-/* ---------------- 8 · SOSYAL KANIT / INSTAGRAM (kömür) ---------------- */
+/* ---------------- 7 · SOSYAL KANIT / INSTAGRAM (kömür) ---------------- */
 export function Instagram() {
   const t = useTranslations();
   const handle = t('instagram.handle');
@@ -382,7 +320,7 @@ export function Instagram() {
   );
 }
 
-/* ---------------- 9 · KONUM & İLETİŞİM (krem · harita) ---------------- */
+/* ---------------- 8 · KONUM & İLETİŞİM (krem · harita) ---------------- */
 export function Contact() {
   const t = useTranslations();
   const address = t('contact.address');

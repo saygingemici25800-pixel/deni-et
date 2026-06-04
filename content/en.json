@@ -15,17 +15,12 @@
   },
   "hero": {
     "eyebrow": "Fethiye · since 1980",
+    "heritage": "Three generations",
     "title": "Forty years. Same hands, same word.",
     "subtitle": "In central Fethiye, at Kasap Orhan's counter. Homemade sucuk, melt-in-mouth lamb, meat chosen fresh each morning. Order on WhatsApp — we'll have it ready.",
     "ctaPrimary": "Order on WhatsApp",
     "ctaSecondary": "Message the Butcher"
   },
-  "trust": [
-    { "value": "1980", "label": "Same street, same care" },
-    { "value": "40+", "label": "Years by the master's hand" },
-    { "value": "Homemade", "label": "Sucuk · lamb delight" },
-    { "value": "Every morning", "label": "Meat chosen fresh" }
-  ],
   "story": {
     "eyebrow": "Story",
     "title": "One counter, forty years, one word.",

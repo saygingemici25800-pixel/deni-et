@@ -401,35 +401,43 @@
 }
 
 /* =================================================================
-   TrustBar (#guven) — kademeli scroll reveal (YALNIZ-CSS).
-   scroll-driven animation (view timeline). Desteklemeyen tarayıcı:
-   @supports dışında kalır → öğeler normal görünür. reduced-motion:
-   media dışında kalır → hareketsiz, anında görünür.
+   Hero · "Üç nesildir" miras satırı — eyebrow altında sessiz katman.
+   Bonny Light + ink-soft (brass DEĞİL) + kısa hairline aksanı; eyebrow'dan
+   ince ve sakin → hiyerarşi: eyebrow → heritage → tagline. Hareket: yumuşak
+   tek-sefer fade. prefers-reduced-motion: animasyon hiç tanımlanmaz →
+   statik, anında görünür. Top-level (unlayered) → Tailwind v4'te garanti.
    ================================================================= */
+.hero-heritage {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.7rem;
+  font-weight: 300;          /* Light — eyebrow (Medium 500) yanında ince */
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;    /* eyebrow 0.16em'den hafif, nefesli */
+  line-height: 1;
+  color: var(--color-ink-soft);
+}
+.hero-heritage::before {
+  content: '';
+  flex: none;
+  width: 1.75rem;
+  height: 1px;
+  background-color: var(--line); /* ince bordo hairline aksanı */
+}
 @media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .trust-item {
-      opacity: 0;
-      transform: translateY(12px);
-      animation: trust-reveal both linear;
-      animation-timeline: view();
-      animation-range: entry 5% entry 48%;
-    }
-    .trust-item:nth-child(2) {
-      animation-range: entry 12% entry 55%;
-    }
-    .trust-item:nth-child(3) {
-      animation-range: entry 19% entry 62%;
-    }
-    .trust-item:nth-child(4) {
-      animation-range: entry 26% entry 69%;
-    }
+  .hero-heritage {
+    animation: heritage-in 0.9s cubic-bezier(0.2, 0.6, 0.2, 1) 0.12s both;
   }
 }
-@keyframes trust-reveal {
+@keyframes heritage-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
 }
 

@@ -3,7 +3,6 @@ import {hasLocale} from 'next-intl';
 import {routing} from '@/i18n/routing';
 import {
   Hero,
-  TrustBar,
   Story,
   Products,
   Signature,
@@ -26,8 +25,6 @@ export default async function Page({params}: Props) {
   return (
     <>
       <Hero />
-      <hr className="hairline" />
-      <TrustBar />
       <hr className="hairline" />
       <Story />
       <hr className="hairline" />
