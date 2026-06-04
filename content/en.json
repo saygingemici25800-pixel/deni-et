@@ -145,6 +145,10 @@
     "switchLanguage": "Switch language",
     "whatsappAria": "Message on WhatsApp",
     "callAria": "Call by phone",
-    "homeAria": "Home — Deniz Et"
+    "homeAria": "Home — Deniz Et",
+    "carousel": "carousel",
+    "prevSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "slide": "Slide"
   }
 }

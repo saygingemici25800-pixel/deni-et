@@ -145,6 +145,10 @@
     "switchLanguage": "Dili değiştir",
     "whatsappAria": "WhatsApp'tan yaz",
     "callAria": "Telefonla ara",
-    "homeAria": "Ana sayfa — Deniz Et"
+    "homeAria": "Ana sayfa — Deniz Et",
+    "carousel": "karusel",
+    "prevSlide": "Önceki kart",
+    "nextSlide": "Sonraki kart",
+    "slide": "Kart"
   }
 }

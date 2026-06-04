@@ -2,6 +2,7 @@ import {useTranslations} from 'next-intl';
 import {Phone, ArrowRight, MapPin} from 'lucide-react';
 import {waLink, telLink, mapsLink} from '@/lib/contact';
 import {WhatsAppIcon} from './ui';
+import {StoryCarousel} from './StoryCarousel';
 
 /* =================================================================
    FAZ 2 — Bölümler. Tüm metin content/<locale>.json'dan.
@@ -165,40 +166,45 @@ export function TrustBar() {
   );
 }
 
-/* ---------------- 3 · HİKÂYE (krem · 2D zaman tüneli) ---------------- */
+/* ---------------- 3 · HİKÂYE (krem · CSS 3D coverflow karusel) ---------------- */
 export function Story() {
   const t = useTranslations();
   const wa = waLink(t('whatsapp.prefill'));
   const carousel = t.raw('story.carousel') as {title: string; text: string}[];
+  const [sThin, sBold] = splitZitlik(t('story.title'));
+  const labels = {
+    carousel: t('a11y.carousel'),
+    prev: t('a11y.prevSlide'),
+    next: t('a11y.nextSlide'),
+    slide: t('a11y.slide'),
+  };
   return (
     <section id="hikaye" className="surface-cream scroll-mt-24 md:scroll-mt-28">
       <div className={`${wrap} ${pad}`}>
-        <p className="type-eyebrow">{t('story.eyebrow')}</p>
+        <p className="type-eyebrow reveal">{t('story.eyebrow')}</p>
         <div className="mt-6 grid gap-10 md:grid-cols-12">
-          <div className="md:col-span-7">
-            <Statement text={t('story.title')} className="max-w-[14ch]" />
-          </div>
-          <div className="md:col-span-5 md:self-end">
-            <p className="type-body type-body-light max-w-[58ch] text-ink-soft">{t('story.body')}</p>
+          {/* Başlık — type-heading ölçeğinde ince↔kalın gerilim */}
+          <h2 className="type-heading reveal reveal-2 max-w-[16ch] md:col-span-7">
+            <span className="font-thin">
+              {sThin}
+              {sBold ? ' ' : ''}
+            </span>
+            {sBold && <span className="font-bold">{sBold}</span>}
+          </h2>
+          {/* Gövde — dar okuma ölçüsü (~60ch), nefesli */}
+          <div className="reveal reveal-3 md:col-span-5 md:self-end">
+            <p className="type-body type-body-light max-w-[60ch] text-ink-soft">{t('story.body')}</p>
             <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-outline mt-8">
               {t('story.cta')}
             </a>
           </div>
         </div>
 
-        {/* 2D zaman tüneli — 3D karusel Faz 3'te buraya takılır. */}
-        <ol className="mt-16 -mx-5 flex gap-6 overflow-x-auto px-5 pb-2 md:mx-0 md:grid md:grid-cols-5 md:px-0">
-          {carousel.map((c, i) => (
-            <li key={i} className="w-[68vw] max-w-[280px] shrink-0 md:w-auto md:max-w-none">
-              <div className="hairline mb-4" />
-              <p className="type-eyebrow text-ink-soft">0{i + 1}</p>
-              <h3 className="type-heading-sm mt-2">{c.title}</h3>
-              <p className="type-body mt-2 text-ink-soft" style={{fontSize: '0.95rem'}}>
-                {c.text}
-              </p>
-            </li>
-          ))}
-        </ol>
+        {/* CSS 3D coverflow — izole bileşen (Faz 3'te WebGL'e yükseltilebilir).
+            Not: interaktif bileşen scroll-scrub opacity'ye sarılmaz (soluk görünmesin). */}
+        <div className="mt-16 md:mt-20">
+          <StoryCarousel cards={carousel} labels={labels} />
+        </div>
       </div>
     </section>
   );
