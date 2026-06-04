@@ -52,7 +52,8 @@
     "panel": {
       "dishLabel": "Best for",
       "cookLabel": "Cooking",
-      "cta": "Ask for this cut on WhatsApp"
+      "cta": "Ask for this cut on WhatsApp",
+      "waPrefill": "Hello, I'd like some {cut}."
     },
     "beef": [
       { "id": "boyun", "name": "Neck", "dishes": "Stews, slow dishes, mince", "cooking": "Long, low heat" },

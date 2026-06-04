@@ -564,3 +564,81 @@
     width: 22px;
     background-color: var(--color-et);
   }
+
+/* =================================================================
+   Et Kâşifi (#urunler) — 2D harita + panel. Top-level (unlayered).
+   Hareket saf-CSS (zone geçişleri + panel-in). reduced-motion: global
+   reset transition/animation'ı anlık yapar.
+   ================================================================= */
+.explorer-toggle {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+}
+.explorer-toggle__btn {
+  min-height: 40px;
+  padding: 0 1.15rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+  color: var(--color-cream-soft);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+.explorer-toggle__btn[data-active='true'] {
+  background-color: var(--color-et);
+  color: var(--color-bone);
+}
+
+.explorer-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+/* NOT: SVG sunum özellikleri (fill/stroke/paint-order) Lightning CSS (Turbopack)
+   tarafından bu dosyada reddedilip sonraki kuralları düşürüyordu; bu yüzden
+   silüet/zone/tip stilleri Explorer.tsx içinde state'e bağlı INLINE veriliyor.
+   .explorer-zone yalnız transition + cursor taşır (SVG-prop yok). */
+.explorer-zone {
+  cursor: pointer;
+  outline: none;
+  transition: fill 0.25s ease, stroke 0.25s ease, stroke-width 0.25s ease, opacity 0.25s ease;
+}
+
+.explorer-panel {
+  min-height: clamp(220px, 16vw + 150px, 320px);
+  padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background-color: var(--color-bone);
+  color: var(--color-ink);
+  outline: none;
+}
+.explorer-panel:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+.explorer-panel__name {
+  margin-top: 0.4rem;
+  font-weight: 500;
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+.explorer-panel__content {
+  animation: panel-in 0.35s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

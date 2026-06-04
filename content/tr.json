@@ -52,7 +52,8 @@
     "panel": {
       "dishLabel": "Uygun yemek",
       "cookLabel": "Pişirme",
-      "cta": "Bu parçayı WhatsApp'tan iste"
+      "cta": "Bu parçayı WhatsApp'tan iste",
+      "waPrefill": "Merhaba, {cut} istiyorum."
     },
     "beef": [
       { "id": "boyun", "name": "Boyun", "dishes": "Haşlama, sulu yemek, kıyma", "cooking": "Uzun süre, düşük ısı" },

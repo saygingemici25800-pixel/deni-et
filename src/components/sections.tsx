@@ -3,6 +3,7 @@ import {Phone, ArrowRight, MapPin} from 'lucide-react';
 import {waLink, telLink, mapsLink} from '@/lib/contact';
 import {WhatsAppIcon} from './ui';
 import {StoryCarousel} from './StoryCarousel';
+import {Explorer} from './Explorer';
 
 /* =================================================================
    FAZ 2 — Bölümler. Tüm metin content/<locale>.json'dan.
@@ -210,33 +211,44 @@ export function Story() {
   );
 }
 
-/* ---------------- 4 · ÜRÜNLER (kömür · parça önizleme) ---------------- */
+/* ---------------- 4 · ÜRÜNLER (kömür · interaktif Et Kâşifi 2D) ---------------- */
+type CutData = {id: string; name: string; dishes: string; cooking: string};
 export function Products() {
   const t = useTranslations();
-  const beef = t.raw('explorer.beef') as {id: string; name: string}[];
+  const beef = t.raw('explorer.beef') as CutData[];
+  const lamb = t.raw('explorer.lamb') as CutData[];
+  // Başlık — type-heading'de ince↔kalın (son kelime kalın).
+  const pt = t('products.title');
+  const ls = pt.lastIndexOf(' ');
+  const pThin = ls > 0 ? pt.slice(0, ls) : pt;
+  const pBold = ls > 0 ? pt.slice(ls + 1) : '';
+  const labels = {
+    title: t('explorer.title'),
+    intro: t('explorer.intro'),
+    toggleBeef: t('explorer.toggleBeef'),
+    toggleLamb: t('explorer.toggleLamb'),
+    dishLabel: t('explorer.panel.dishLabel'),
+    cookLabel: t('explorer.panel.cookLabel'),
+    cta: t('explorer.panel.cta'),
+    // t.raw: {cut} ICU placeholder olarak yorumlanmasın (FORMATTING_ERROR'ı önler).
+    waPrefill: t.raw('explorer.panel.waPrefill') as string,
+  };
   return (
     <section id="urunler" className="surface-charcoal scroll-mt-24 md:scroll-mt-28">
       <div className={`${wrap} ${pad}`}>
         <p className="type-eyebrow">{t('products.eyebrow')}</p>
-        <h2 className="type-heading mt-6 max-w-[16ch]">{t('products.title')}</h2>
+        <h2 className="type-heading mt-6 max-w-[16ch]">
+          <span className="font-thin">
+            {pThin}
+            {pBold ? ' ' : ''}
+          </span>
+          {pBold && <span className="font-bold">{pBold}</span>}
+        </h2>
         <p className="type-body type-body-light mt-6 max-w-[60ch] text-cream-soft">
           {t('products.intro')}
         </p>
 
-        {/* Parça önizleme — interaktif 3D et kâşifi Faz 3'te. */}
-        <div className="mt-12">
-          <p className="type-eyebrow">{t('explorer.title')}</p>
-          <div className="mt-5 flex flex-wrap gap-x-7 gap-y-3">
-            {beef.map((c) => (
-              <span
-                key={c.id}
-                className="type-heading-sm text-cream-soft transition-colors hover:text-brass"
-              >
-                {c.name}
-              </span>
-            ))}
-          </div>
-        </div>
+        <Explorer beef={beef} lamb={lamb} labels={labels} />
       </div>
     </section>
   );
