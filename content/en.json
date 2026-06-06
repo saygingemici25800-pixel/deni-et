@@ -7,10 +7,8 @@
   "nav": {
     "story": "Story",
     "products": "Cuts",
-    "grill": "Grill",
     "contact": "Contact",
     "blog": "Blog",
-    "order": "Order",
     "lang": "TR"
   },
   "hero": {
@@ -83,36 +81,20 @@
       { "name": "Lamb delight", "text": "Melts on the tongue, just like its name. A finesse only the master can manage." }
     ]
   },
-  "grill": {
-    "eyebrow": "Grill & Gatherings",
-    "title": "A crowd coming? You handle the table.",
-    "body": "Tell us how many guests; we portion, marinate and hand it over grill-ready. Holidays, home dinners, summer evenings — the counter works for you.",
-    "cta": "Get Your Grill Ready",
-    "prefill": "Hello, I'd like to arrange a grill."
-  },
-  "order": {
-    "eyebrow": "How to order",
-    "title": "Three steps, one message.",
-    "steps": [
-      { "n": "1", "title": "Write or call", "text": "Message us on WhatsApp or call." },
-      { "n": "2", "title": "Ask the butcher", "text": "Tell us what you want; let the master suggest." },
-      { "n": "3", "title": "Pick up or prepped", "text": "Collect at the counter or take it ready." }
-    ],
-    "cta": "Write on WhatsApp"
-  },
   "instagram": {
-    "title": "Frames from the counter.",
-    "handle": "@denizetfethiye",
-    "cta": "Follow on Instagram"
+    "handle": "@denizetfethiye"
   },
   "contact": {
-    "eyebrow": "Location & Contact",
+    "eyebrow": "Contact",
     "title": "The counter is here, the door is always open.",
     "address": "Cumhuriyet Mahallesi, 97. Sokak No: 42, Fethiye / Muğla",
     "phone": "0537 410 8842",
     "hours": "Call for opening hours",
     "ctaDirections": "Directions",
-    "ctaCall": "Call Now"
+    "ctaCall": "Call Now",
+    "statement": "Come to the counter.",
+    "statementSub": "Orders, questions, grill cuts — we're one message away.",
+    "ctaWhatsapp": "Write on WhatsApp"
   },
   "blog": {
     "eyebrow": "Notes from the Counter",
@@ -127,7 +109,6 @@
     "links": [
       { "label": "Story", "href": "#hikaye" },
       { "label": "Cuts", "href": "#urunler" },
-      { "label": "Grill", "href": "#mangal" },
       { "label": "Contact", "href": "#iletisim" }
     ],
     "rights": "© 2026 Deniz Et · Kasap Orhan. All rights reserved."

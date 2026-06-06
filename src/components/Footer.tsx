@@ -1,13 +1,15 @@
 import {useTranslations} from 'next-intl';
 import {Phone} from 'lucide-react';
 import {waLink, telLink} from '@/lib/contact';
-import {Wordmark, WhatsAppIcon} from './ui';
+import {Wordmark, WhatsAppIcon, InstagramIcon} from './ui';
 
 // Footer (surface-charcoal) — koyu kapanış; üstündeki açık bölümle ZITLIK.
 export function Footer() {
   const t = useTranslations();
   const wa = waLink(t('whatsapp.prefill'));
   const links = t.raw('footer.links') as {label: string; href: string}[];
+  const igHandle = t('instagram.handle');
+  const igUrl = `https://instagram.com/${igHandle.replace('@', '')}`;
 
   return (
     <footer className="surface-charcoal">
@@ -53,6 +55,16 @@ export function Footer() {
             >
               <Phone size={18} strokeWidth={1.5} />
               <span className="type-body">{t('contact.phone')}</span>
+            </a>
+            <a
+              href={igUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Instagram ${igHandle}`}
+              className="inline-flex items-center gap-2 text-cream-soft transition-colors hover:text-brass"
+            >
+              <InstagramIcon size={18} />
+              <span className="type-body">{igHandle}</span>
             </a>
           </div>
         </div>

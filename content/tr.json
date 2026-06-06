@@ -7,10 +7,8 @@
   "nav": {
     "story": "Hikâye",
     "products": "Ürünler",
-    "grill": "Mangal",
     "contact": "İletişim",
     "blog": "Blog",
-    "order": "Sipariş Ver",
     "lang": "EN"
   },
   "hero": {
@@ -83,36 +81,20 @@
       { "name": "Kuzu lokum", "text": "Adı gibi, ağızda dağılan. Ustadan başka kimsenin yapamayacağı incelik." }
     ]
   },
-  "grill": {
-    "eyebrow": "Mangal & Davet",
-    "title": "Kalabalık mı geliyor? Sen sofrayı düşün.",
-    "body": "Misafir sayısını söyle; eti porsiyonlar, marine eder, mangala hazır teslim ederiz. Bayram, ev daveti, yazlık akşamı — tezgah senin için çalışır.",
-    "cta": "Mangalını Hazırlatalım",
-    "prefill": "Merhaba, mangal hazırlığı istiyorum."
-  },
-  "order": {
-    "eyebrow": "Nasıl sipariş",
-    "title": "Üç adım, tek mesaj.",
-    "steps": [
-      { "n": "1", "title": "Yaz ya da ara", "text": "WhatsApp'tan mesaj at ya da telefonla ara." },
-      { "n": "2", "title": "Ustaya danış", "text": "Ne istediğini söyle, usta önersin." },
-      { "n": "3", "title": "Gel al ya da hazırlat", "text": "Tezgahtan al ya da hazır teslim al." }
-    ],
-    "cta": "WhatsApp'tan Yaz"
-  },
   "instagram": {
-    "title": "Tezgahtan kareler.",
-    "handle": "@denizetfethiye",
-    "cta": "Instagram'da Takip Et"
+    "handle": "@denizetfethiye"
   },
   "contact": {
-    "eyebrow": "Konum & İletişim",
+    "eyebrow": "İletişim",
     "title": "Tezgah burada, kapı her zaman açık.",
     "address": "Cumhuriyet Mahallesi, 97. Sokak No: 42, Fethiye / Muğla",
     "phone": "0537 410 8842",
     "hours": "Çalışma saatleri için arayın",
     "ctaDirections": "Yol Tarifi",
-    "ctaCall": "Hemen Ara"
+    "ctaCall": "Hemen Ara",
+    "statement": "Tezgaha gel.",
+    "statementSub": "Sipariş, soru, mangallık et — bir mesaj uzaktayız.",
+    "ctaWhatsapp": "WhatsApp'tan Yaz"
   },
   "blog": {
     "eyebrow": "Tezgah Notları",
@@ -127,7 +109,6 @@
     "links": [
       { "label": "Hikâye", "href": "#hikaye" },
       { "label": "Ürünler", "href": "#urunler" },
-      { "label": "Mangal", "href": "#mangal" },
       { "label": "İletişim", "href": "#iletisim" }
     ],
     "rights": "© 2026 Deniz Et · Kasap Orhan. Tüm hakları saklıdır."

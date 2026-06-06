@@ -1,15 +1,7 @@
 import {setRequestLocale} from 'next-intl/server';
 import {hasLocale} from 'next-intl';
 import {routing} from '@/i18n/routing';
-import {
-  Hero,
-  Story,
-  Products,
-  Grill,
-  OrderSteps,
-  Instagram,
-  Contact,
-} from '@/components/sections';
+import {Hero, Story, Products, Contact} from '@/components/sections';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -28,12 +20,6 @@ export default async function Page({params}: Props) {
       <Story />
       <hr className="hairline" />
       <Products />
-      <hr className="hairline" />
-      <Grill />
-      <hr className="hairline" />
-      <OrderSteps />
-      <hr className="hairline" />
-      <Instagram />
       <hr className="hairline" />
       <Contact />
     </>

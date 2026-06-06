@@ -12,7 +12,6 @@ import {LangSwitch} from './LangSwitch';
 const NAV = [
   {key: 'story', href: '#hikaye', anchor: true},
   {key: 'products', href: '#urunler', anchor: true},
-  {key: 'grill', href: '#mangal', anchor: true},
   {key: 'blog', href: '/blog', anchor: false},
   {key: 'contact', href: '#iletisim', anchor: true},
 ] as const;
@@ -94,7 +93,7 @@ export function Header() {
             <LangSwitch className="text-bone" />
             <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
               <WhatsAppIcon size={18} />
-              {t('nav.order')}
+              {t('hero.ctaPrimary')}
             </a>
           </div>
 

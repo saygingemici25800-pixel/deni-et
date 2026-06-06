@@ -1,7 +1,7 @@
 import {useTranslations} from 'next-intl';
-import {Phone, ArrowRight, MapPin} from 'lucide-react';
+import {Phone, MapPin} from 'lucide-react';
 import {waLink, telLink, mapsLink} from '@/lib/contact';
-import {WhatsAppIcon} from './ui';
+import {WhatsAppIcon, Wordmark, InstagramIcon} from './ui';
 import {StoryCarousel} from './StoryCarousel';
 import {Explorer} from './Explorer';
 
@@ -182,263 +182,138 @@ export function Products() {
   );
 }
 
-/* ---------------- 4 · MANGAL & DAVET (krem · asimetrik editoryal) ----------------
-   Ürünler (kömür) sonrası krem'e döner → kontrast ritmi (üst hairline page.tsx'te).
-   Sol: bilgilendirici metin (eyebrow → ince↔kalın başlık → nefesli gövde → CTA).
-   Sağ: foto YOK → ince hatlı köz/mangal SVG illüstrasyonu (currentColor kömür +
-   pirinç köz + hafif gren). Hareket SAF CSS (mevcut ember keyframe'leri). */
+/* ---------------- 4 · KONUM & İLETİŞİM — 3 parçalı bant (krem · üst hairline) ----------------
+   Ürünler (kömür) sonrası krem'e döner → kontrast ritmi.
+   SOL: kömür/bordo dolu marka bloğu — Wordmark (krem) + soyut bıçak/köz SVG (krem/brass).
+   ORTA: iletişim — adres→Google Maps, telefon→tel:, Instagram link, çalışma saatleri.
+   SAĞ: dev statement CTA (ince↔kalın) + WhatsApp + ikincil telefon. FORM/INPUT YOK. */
 
-// Niyetli görsel alanı — gerçek foto gelene kadar boş kutu yerine zanaat çizimi.
-// currentColor = surface-cream üstünde ink (kömür); köz/şiş pirinç aksan.
-function GrillSketch() {
+// Soyut bıçak + köz motifi — krem hat (currentColor) + brass köz. Hareket SAF CSS.
+function ContactMark() {
   return (
     <svg
-      viewBox="0 0 360 380"
+      viewBox="0 0 200 160"
       aria-hidden="true"
       fill="none"
       className="h-auto w-full"
-      style={{maxHeight: 440}}
+      style={{maxWidth: 220}}
     >
       <defs>
-        <filter id="grill-grain">
-          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" />
-          <feColorMatrix type="saturate" values="0" />
-        </filter>
-        <radialGradient id="grill-ember-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#F4C257" stopOpacity="0.55" />
-          <stop offset="60%" stopColor="#C8951C" stopOpacity="0.16" />
+        <radialGradient id="contact-ember" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#F4C257" stopOpacity="0.5" />
           <stop offset="100%" stopColor="#C8951C" stopOpacity="0" />
         </radialGradient>
       </defs>
-
       {/* Köz hâlesi — yumuşak sıcak parıltı (SAF CSS pulse) */}
       <ellipse
-        cx="180"
-        cy="214"
-        rx="118"
-        ry="44"
-        fill="url(#grill-ember-glow)"
+        cx="100"
+        cy="120"
+        rx="72"
+        ry="20"
+        fill="url(#contact-ember)"
         style={{animation: 'ember-pulse 4.5s ease-in-out infinite', transformBox: 'fill-box', transformOrigin: 'center'}}
       />
-
-      {/* Duman — ince yükselen çizgiler */}
-      <g stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" opacity="0.3">
-        <path d="M164 198 C 150 168, 178 150, 158 118 C 146 98, 166 84, 156 64" />
-        <path d="M210 200 C 226 172, 200 154, 224 124 C 236 106, 218 92, 232 72" />
+      {/* Bıçak — ince krem hatlı soyut form */}
+      <g stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" strokeLinecap="round">
+        <path d="M38 66 L150 40 C161 37 168 45 159 53 L70 96 L46 92 Z" />
+        <line x1="46" y1="92" x2="40" y2="68" opacity="0.5" />
+        <path d="M70 96 L60 116" />
+        <path d="M60 116 L54 132 L72 132 L66 116 Z" />
       </g>
-
-      {/* Şiş + et küpleri — pirinç aksan (kompozisyona zanaat) */}
-      <line x1="92" y1="184" x2="288" y2="150" stroke="#C8951C" strokeWidth="1.6" strokeLinecap="round" />
-      <g stroke="currentColor" strokeWidth="1.4" fill="none">
-        {([[134, 178], [180, 170], [226, 162]] as const).map(([x, y], i) => (
-          <rect key={i} x={x - 9} y={y - 9} width="18" height="18" rx="2" transform={`rotate(-9 ${x} ${y})`} />
-        ))}
-      </g>
-
-      {/* Mangal haznesi — perspektif trapez + bacaklar (çift hatlı rim) */}
-      <g stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round">
-        <path d="M80 206 L280 206 L260 252 L100 252 Z" />
-        <line x1="88" y1="214" x2="272" y2="214" opacity="0.45" />
-        <path d="M104 252 L82 332" />
-        <path d="M134 252 L126 332" />
-        <path d="M226 252 L234 332" />
-        <path d="M256 252 L278 332" />
-        <line x1="102" y1="300" x2="258" y2="300" opacity="0.5" />
-      </g>
-
       {/* Közler — pirinç daireler (yumuşak flicker, SAF CSS) */}
       <g fill="#C8951C">
-        {([[138, 214, 7], [166, 210, 9], [196, 214, 7], [224, 211, 8]] as const).map(([cx, cy, r], i) => (
+        {([[80, 122, 5], [100, 118, 6], [120, 122, 5]] as const).map(([cx, cy, r], i) => (
           <circle key={i} cx={cx} cy={cy} r={r} style={{animation: `ember-flicker ${2.1 + i * 0.4}s ease-in-out infinite`}} />
         ))}
       </g>
-
-      {/* Hafif gren — yüzeye doku (foto gelene dek nefes) */}
-      <rect width="360" height="380" filter="url(#grill-grain)" opacity="0.05" />
     </svg>
   );
 }
 
-export function Grill() {
-  const t = useTranslations();
-  const wa = waLink(t('grill.prefill'));
-  const [gThin, gBold] = splitZitlik(t('grill.title'));
-  return (
-    <section id="mangal" className="surface-cream scroll-mt-24 md:scroll-mt-28">
-      <div className={`${wrap} ${pad}`}>
-        <div className="grid items-center gap-12 md:grid-cols-12 md:gap-16">
-          {/* Sol — bilgilendirici metin (asimetrik: geniş okuma kolonu) */}
-          <div className="md:col-span-7">
-            <p className="type-eyebrow reveal">{t('grill.eyebrow')}</p>
-            <h2 className="type-heading reveal reveal-2 mt-6 max-w-[18ch]">
-              <span className="font-thin">
-                {gThin}
-                {gBold ? ' ' : ''}
-              </span>
-              {gBold && <span className="font-bold">{gBold}</span>}
-            </h2>
-            <p className="type-body type-body-light reveal reveal-3 mt-8 max-w-[60ch] text-ink-soft">
-              {t('grill.body')}
-            </p>
-            <a
-              href={wa}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary reveal reveal-3 mt-10"
-            >
-              <WhatsAppIcon size={18} />
-              {t('grill.cta')}
-            </a>
-          </div>
-
-          {/* Sağ — niyetli görsel alanı (foto yer tutucu). */}
-          {/* TODO: gerçek mangal fotoğrafı */}
-          <div className="reveal reveal-4 md:col-span-5 md:self-stretch">
-            <GrillSketch />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- 6 · NASIL SİPARİŞ (krem · 3 adım) ---------------- */
-export function OrderSteps() {
-  const t = useTranslations();
-  const wa = waLink(t('whatsapp.prefill'));
-  const steps = t.raw('order.steps') as {n: string; title: string; text: string}[];
-  return (
-    <section id="siparis" className="surface-cream scroll-mt-24 md:scroll-mt-28">
-      <div className={`${wrap} ${pad}`}>
-        <p className="type-eyebrow">{t('order.eyebrow')}</p>
-        <h2 className="type-heading mt-6 max-w-[18ch]">{t('order.title')}</h2>
-
-        <ol className="mt-14 grid gap-12 md:grid-cols-3">
-          {steps.map((s) => (
-            <li key={s.n}>
-              <p
-                className="font-thin leading-none text-et"
-                style={{fontSize: 'clamp(3rem, 2rem + 4vw, 5rem)'}}
-              >
-                {s.n}
-              </p>
-              <h3 className="type-heading-sm mt-5">{s.title}</h3>
-              <p className="type-body mt-2 max-w-[34ch] text-ink-soft">{s.text}</p>
-            </li>
-          ))}
-        </ol>
-
-        <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-12">
-          <WhatsAppIcon size={18} />
-          {t('order.cta')}
-        </a>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- 7 · SOSYAL KANIT / INSTAGRAM (kömür) ---------------- */
-export function Instagram() {
-  const t = useTranslations();
-  const handle = t('instagram.handle');
-  const igUrl = `https://instagram.com/${handle.replace('@', '')}`;
-  return (
-    <section id="instagram" className="surface-charcoal scroll-mt-24 md:scroll-mt-28">
-      <div className={`${wrap} ${pad}`}>
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <p className="type-eyebrow">{handle}</p>
-            <h2 className="type-heading mt-3 max-w-[16ch]">{t('instagram.title')}</h2>
-          </div>
-          <a
-            href={igUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-outline-cream"
-          >
-            {t('instagram.cta')}
-            <ArrowRight size={16} strokeWidth={1.75} />
-          </a>
-        </div>
-
-        {/* Görsel yer tutucuları — gerçek reel/fotoğraflar sonraki fazda. */}
-        <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-4">
-          {Array.from({length: 8}).map((_, i) => (
-            <div
-              key={i}
-              aria-hidden="true"
-              className="aspect-square border border-[color:var(--line)]"
-              style={{backgroundColor: i % 2 ? 'var(--color-espresso-2)' : 'rgba(110,26,26,0.18)'}}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- 8 · KONUM & İLETİŞİM (krem · harita) ---------------- */
 export function Contact() {
   const t = useTranslations();
+  const wa = waLink(t('contact.ctaWhatsapp'));
   const address = t('contact.address');
+  const igHandle = t('instagram.handle');
+  const igUrl = `https://instagram.com/${igHandle.replace('@', '')}`;
+  const [stThin, stBold] = splitZitlik(t('contact.statement'));
+
   return (
     <section id="iletisim" className="surface-cream scroll-mt-24 md:scroll-mt-28">
+      <hr className="hairline" />
       <div className={`${wrap} ${pad}`}>
-        <p className="type-eyebrow">{t('contact.eyebrow')}</p>
-        <h2 className="type-heading mt-6 max-w-[18ch]">{t('contact.title')}</h2>
+        <h2 className="sr-only">{t('contact.eyebrow')}</h2>
 
-        <div className="mt-12 grid gap-12 md:grid-cols-2">
-          {/* Sol — bilgi + aksiyon */}
-          <div className="flex flex-col gap-8">
-            <p className="type-body max-w-[34ch]" style={{fontSize: 'clamp(1.2rem, 1rem + 1vw, 1.5rem)'}}>
-              {address}
-            </p>
-            <div>
-              <hr className="hairline" />
-              <p className="type-body mt-4 text-ink-soft">{t('contact.hours')}</p>
-              <a
-                href={telLink()}
-                className="type-heading-sm mt-2 inline-flex items-center gap-2 text-et transition-colors hover:text-et-deep"
-              >
-                <Phone size={18} strokeWidth={1.75} />
-                {t('contact.phone')}
-              </a>
+        {/* 3 panel — masaüstü yan yana, mobil alt alta. İnce hairline ızgara. */}
+        <div className="grid overflow-hidden border border-[color:var(--line)] md:grid-cols-12">
+          {/* SOL — kömür/bordo dolu marka bloğu */}
+          <div className="surface-charcoal relative flex flex-col justify-between gap-12 overflow-hidden p-8 md:col-span-3 md:p-10">
+            <span className="relative z-10 text-bone">
+              <Wordmark />
+            </span>
+            <div className="relative z-10 text-cream-soft">
+              <ContactMark />
             </div>
+          </div>
+
+          {/* ORTA — iletişim bilgisi (gerçek <a> linkleri, dokunma hedefi ≥44px) */}
+          <div className="surface-cream flex flex-col gap-6 border-t border-[color:var(--line)] p-8 md:col-span-4 md:border-l md:border-t-0 md:p-10">
+            <div>
+              <p className="type-eyebrow">{t('contact.eyebrow')}</p>
+              <hr className="hairline mt-3 w-12" />
+            </div>
+            <a
+              href={mapsLink(address)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex min-h-[44px] items-start gap-3 text-ink transition-colors hover:text-et"
+            >
+              <MapPin size={20} strokeWidth={1.75} aria-hidden="true" className="mt-0.5 shrink-0 text-et" />
+              <span className="type-body max-w-[28ch]">{address}</span>
+            </a>
+            <a
+              href={telLink()}
+              className="flex min-h-[44px] items-center gap-3 text-ink transition-colors hover:text-et"
+            >
+              <Phone size={20} strokeWidth={1.75} aria-hidden="true" className="shrink-0 text-et" />
+              <span className="type-body">{t('contact.phone')}</span>
+            </a>
+            <a
+              href={igUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Instagram ${igHandle}`}
+              className="flex min-h-[44px] items-center gap-3 text-ink transition-colors hover:text-et"
+            >
+              <InstagramIcon size={20} className="shrink-0 text-et" />
+              <span className="type-body">{igHandle}</span>
+            </a>
+            <p className="type-body text-ink-soft">{t('contact.hours')}</p>
+          </div>
+
+          {/* SAĞ — dev statement CTA bloğu (FORM YOK) */}
+          <div className="surface-cream flex flex-col justify-center gap-7 border-t border-[color:var(--line)] p-8 md:col-span-5 md:border-l md:border-t-0 md:p-12">
+            <p className="type-statement max-w-[14ch]">
+              <span className="thin">
+                {stThin}
+                {stBold ? ' ' : ''}
+              </span>
+              {stBold && <span className="bold text-et">{stBold}</span>}
+            </p>
+            <p className="type-body type-body-light max-w-[42ch] text-ink-soft">
+              {t('contact.statementSub')}
+            </p>
             <div className="flex flex-wrap gap-3">
-              <a
-                href={mapsLink(address)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-outline"
-              >
-                {t('contact.ctaDirections')}
-                <ArrowRight size={16} strokeWidth={1.75} />
+              <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                <WhatsAppIcon size={18} />
+                {t('contact.ctaWhatsapp')}
               </a>
-              <a href={telLink()} className="btn btn-primary">
-                <Phone size={18} strokeWidth={1.75} />
+              <a href={telLink()} className="btn btn-outline">
+                <Phone size={18} strokeWidth={1.75} aria-hidden="true" />
                 {t('contact.ctaCall')}
               </a>
             </div>
           </div>
-
-          {/* Sağ — harita yer tutucu kartı (derin link; canlı embed sonraki fazda) */}
-          <a
-            href={mapsLink(address)}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t('contact.ctaDirections')}
-            className="group flex aspect-[4/3] flex-col justify-between border border-[color:var(--line)] bg-bone-2 p-7 transition-colors hover:bg-bone"
-          >
-            <MapPin size={28} strokeWidth={1.5} className="text-et" />
-            <div>
-              <p className="type-eyebrow text-ink-soft">{t('contact.eyebrow')}</p>
-              <p className="type-heading-sm mt-2 max-w-[24ch]">{address}</p>
-              <span className="type-eyebrow mt-4 inline-flex items-center gap-1.5 text-et">
-                {t('contact.ctaDirections')}
-                <ArrowRight size={14} strokeWidth={2} className="transition-transform group-hover:translate-x-1" />
-              </span>
-            </div>
-          </a>
         </div>
       </div>
     </section>
