@@ -87,7 +87,8 @@
     "eyebrow": "Mangal & Davet",
     "title": "Kalabalık mı geliyor? Sen sofrayı düşün.",
     "body": "Misafir sayısını söyle; eti porsiyonlar, marine eder, mangala hazır teslim ederiz. Bayram, ev daveti, yazlık akşamı — tezgah senin için çalışır.",
-    "cta": "Mangalını Hazırlatalım"
+    "cta": "Mangalını Hazırlatalım",
+    "prefill": "Merhaba, mangal hazırlığı istiyorum."
   },
   "order": {
     "eyebrow": "Nasıl sipariş",

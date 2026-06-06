@@ -5,7 +5,6 @@ import {
   Hero,
   Story,
   Products,
-  Signature,
   Grill,
   OrderSteps,
   Instagram,
@@ -29,8 +28,6 @@ export default async function Page({params}: Props) {
       <Story />
       <hr className="hairline" />
       <Products />
-      <hr className="hairline" />
-      <Signature />
       <hr className="hairline" />
       <Grill />
       <hr className="hairline" />

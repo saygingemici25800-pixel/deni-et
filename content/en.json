@@ -87,7 +87,8 @@
     "eyebrow": "Grill & Gatherings",
     "title": "A crowd coming? You handle the table.",
     "body": "Tell us how many guests; we portion, marinate and hand it over grill-ready. Holidays, home dinners, summer evenings — the counter works for you.",
-    "cta": "Get Your Grill Ready"
+    "cta": "Get Your Grill Ready",
+    "prefill": "Hello, I'd like to arrange a grill."
   },
   "order": {
     "eyebrow": "How to order",

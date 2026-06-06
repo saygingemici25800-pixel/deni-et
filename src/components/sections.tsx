@@ -27,16 +27,6 @@ function splitZitlik(s: string): [string, string] {
   return [s.slice(0, idx + len - 1), s.slice(idx + len)];
 }
 
-function Statement({text, className}: {text: string; className?: string}) {
-  const [thin, bold] = splitZitlik(text);
-  return (
-    <h2 className={`type-statement ${className ?? ''}`}>
-      <span className="thin">{thin}{bold ? ' ' : ''}</span>
-      {bold && <span className="bold">{bold}</span>}
-    </h2>
-  );
-}
-
 const wrap = 'mx-auto max-w-[1200px] px-5 md:px-12';
 const pad = 'py-24 md:py-32';
 
@@ -192,54 +182,121 @@ export function Products() {
   );
 }
 
-/* ---------------- 4 · İMZA LEZZETLER (krem · iki blok) ---------------- */
-export function Signature() {
-  const t = useTranslations();
-  const items = t.raw('signature.items') as {name: string; text: string}[];
-  return (
-    <section id="imza" className="surface-cream scroll-mt-24 md:scroll-mt-28">
-      <div className={`${wrap} ${pad}`}>
-        <p className="type-eyebrow">{t('signature.eyebrow')}</p>
-        <h2 className="type-heading mt-6 max-w-[18ch]">{t('signature.title')}</h2>
+/* ---------------- 4 · MANGAL & DAVET (krem · asimetrik editoryal) ----------------
+   Ürünler (kömür) sonrası krem'e döner → kontrast ritmi (üst hairline page.tsx'te).
+   Sol: bilgilendirici metin (eyebrow → ince↔kalın başlık → nefesli gövde → CTA).
+   Sağ: foto YOK → ince hatlı köz/mangal SVG illüstrasyonu (currentColor kömür +
+   pirinç köz + hafif gren). Hareket SAF CSS (mevcut ember keyframe'leri). */
 
-        <div className="mt-14 grid gap-12 md:grid-cols-2 md:gap-0">
-          {items.map((it, i) => (
-            <article
-              key={it.name}
-              className={i > 0 ? 'md:border-l md:border-[color:var(--line)] md:pl-12' : 'md:pr-12'}
-            >
-              <p className="type-eyebrow text-ink-soft">0{i + 1}</p>
-              <h3
-                className="mt-3 font-light leading-tight"
-                style={{fontSize: 'clamp(1.8rem, 1.3rem + 2vw, 2.8rem)', letterSpacing: '-0.015em'}}
-              >
-                {it.name}
-              </h3>
-              <p className="type-body mt-4 max-w-[42ch] text-ink-soft">{it.text}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
+// Niyetli görsel alanı — gerçek foto gelene kadar boş kutu yerine zanaat çizimi.
+// currentColor = surface-cream üstünde ink (kömür); köz/şiş pirinç aksan.
+function GrillSketch() {
+  return (
+    <svg
+      viewBox="0 0 360 380"
+      aria-hidden="true"
+      fill="none"
+      className="h-auto w-full"
+      style={{maxHeight: 440}}
+    >
+      <defs>
+        <filter id="grill-grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <radialGradient id="grill-ember-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#F4C257" stopOpacity="0.55" />
+          <stop offset="60%" stopColor="#C8951C" stopOpacity="0.16" />
+          <stop offset="100%" stopColor="#C8951C" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      {/* Köz hâlesi — yumuşak sıcak parıltı (SAF CSS pulse) */}
+      <ellipse
+        cx="180"
+        cy="214"
+        rx="118"
+        ry="44"
+        fill="url(#grill-ember-glow)"
+        style={{animation: 'ember-pulse 4.5s ease-in-out infinite', transformBox: 'fill-box', transformOrigin: 'center'}}
+      />
+
+      {/* Duman — ince yükselen çizgiler */}
+      <g stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" opacity="0.3">
+        <path d="M164 198 C 150 168, 178 150, 158 118 C 146 98, 166 84, 156 64" />
+        <path d="M210 200 C 226 172, 200 154, 224 124 C 236 106, 218 92, 232 72" />
+      </g>
+
+      {/* Şiş + et küpleri — pirinç aksan (kompozisyona zanaat) */}
+      <line x1="92" y1="184" x2="288" y2="150" stroke="#C8951C" strokeWidth="1.6" strokeLinecap="round" />
+      <g stroke="currentColor" strokeWidth="1.4" fill="none">
+        {([[134, 178], [180, 170], [226, 162]] as const).map(([x, y], i) => (
+          <rect key={i} x={x - 9} y={y - 9} width="18" height="18" rx="2" transform={`rotate(-9 ${x} ${y})`} />
+        ))}
+      </g>
+
+      {/* Mangal haznesi — perspektif trapez + bacaklar (çift hatlı rim) */}
+      <g stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round">
+        <path d="M80 206 L280 206 L260 252 L100 252 Z" />
+        <line x1="88" y1="214" x2="272" y2="214" opacity="0.45" />
+        <path d="M104 252 L82 332" />
+        <path d="M134 252 L126 332" />
+        <path d="M226 252 L234 332" />
+        <path d="M256 252 L278 332" />
+        <line x1="102" y1="300" x2="258" y2="300" opacity="0.5" />
+      </g>
+
+      {/* Közler — pirinç daireler (yumuşak flicker, SAF CSS) */}
+      <g fill="#C8951C">
+        {([[138, 214, 7], [166, 210, 9], [196, 214, 7], [224, 211, 8]] as const).map(([cx, cy, r], i) => (
+          <circle key={i} cx={cx} cy={cy} r={r} style={{animation: `ember-flicker ${2.1 + i * 0.4}s ease-in-out infinite`}} />
+        ))}
+      </g>
+
+      {/* Hafif gren — yüzeye doku (foto gelene dek nefes) */}
+      <rect width="360" height="380" filter="url(#grill-grain)" opacity="0.05" />
+    </svg>
   );
 }
 
-/* ---------------- 5 · MANGAL & DAVET (kömür) ---------------- */
 export function Grill() {
   const t = useTranslations();
-  const wa = waLink(t('whatsapp.prefill'));
+  const wa = waLink(t('grill.prefill'));
+  const [gThin, gBold] = splitZitlik(t('grill.title'));
   return (
-    <section id="mangal" className="surface-charcoal scroll-mt-24 md:scroll-mt-28">
+    <section id="mangal" className="surface-cream scroll-mt-24 md:scroll-mt-28">
       <div className={`${wrap} ${pad}`}>
-        <p className="type-eyebrow">{t('grill.eyebrow')}</p>
-        <Statement text={t('grill.title')} className="mt-6 max-w-[18ch]" />
-        <p className="type-body type-body-light mt-8 max-w-[56ch] text-cream-soft">
-          {t('grill.body')}
-        </p>
-        <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-10">
-          <WhatsAppIcon size={18} />
-          {t('grill.cta')}
-        </a>
+        <div className="grid items-center gap-12 md:grid-cols-12 md:gap-16">
+          {/* Sol — bilgilendirici metin (asimetrik: geniş okuma kolonu) */}
+          <div className="md:col-span-7">
+            <p className="type-eyebrow reveal">{t('grill.eyebrow')}</p>
+            <h2 className="type-heading reveal reveal-2 mt-6 max-w-[18ch]">
+              <span className="font-thin">
+                {gThin}
+                {gBold ? ' ' : ''}
+              </span>
+              {gBold && <span className="font-bold">{gBold}</span>}
+            </h2>
+            <p className="type-body type-body-light reveal reveal-3 mt-8 max-w-[60ch] text-ink-soft">
+              {t('grill.body')}
+            </p>
+            <a
+              href={wa}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary reveal reveal-3 mt-10"
+            >
+              <WhatsAppIcon size={18} />
+              {t('grill.cta')}
+            </a>
+          </div>
+
+          {/* Sağ — niyetli görsel alanı (foto yer tutucu). */}
+          {/* TODO: gerçek mangal fotoğrafı */}
+          <div className="reveal reveal-4 md:col-span-5 md:self-stretch">
+            <GrillSketch />
+          </div>
+        </div>
       </div>
     </section>
   );
