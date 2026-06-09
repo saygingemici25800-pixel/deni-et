@@ -1,5 +1,6 @@
 import {useTranslations} from 'next-intl';
 import {Phone} from 'lucide-react';
+import {Link} from '@/i18n/navigation';
 import {waLink, telLink} from '@/lib/contact';
 import {Wordmark, WhatsAppIcon, InstagramIcon} from './ui';
 
@@ -40,6 +41,13 @@ export function Footer() {
                 {l.label}
               </a>
             ))}
+            {/* Blog — locale-farkında rota (anchor değil). */}
+            <Link
+              href="/blog"
+              className="type-eyebrow text-cream-soft transition-colors hover:text-brass"
+            >
+              {t('nav.blog')}
+            </Link>
           </nav>
 
           {/* İletişim aksiyonları */}
