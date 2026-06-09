@@ -3,17 +3,19 @@
 import {useEffect, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {Menu, X, Phone} from 'lucide-react';
-import {Link} from '@/i18n/navigation';
+import {Link, usePathname} from '@/i18n/navigation';
 import {waLink, telLink} from '@/lib/contact';
 import {Wordmark, WhatsAppIcon} from './ui';
+import {AnchorLink} from './AnchorLink';
 import {LangSwitch} from './LangSwitch';
 
-// Nav modeli — etiketler content.nav'dan, hedefler SITEMAP §2/§5 anchor'ları.
+// Nav modeli — etiketler content.nav'dan. anchor=true → locale-aware kök+anchor (/#id);
+// anchor=false → ayrı rota (/blog). Hedefler SITEMAP §2/§5.
 const NAV = [
-  {key: 'story', href: '#hikaye', anchor: true},
-  {key: 'products', href: '#urunler', anchor: true},
+  {key: 'story', hash: 'hikaye', anchor: true},
+  {key: 'products', hash: 'urunler', anchor: true},
   {key: 'blog', href: '/blog', anchor: false},
-  {key: 'contact', href: '#iletisim', anchor: true},
+  {key: 'contact', hash: 'iletisim', anchor: true},
 ] as const;
 
 export function Header() {
@@ -21,6 +23,18 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const wa = waLink(t('whatsapp.prefill'));
+  const pathname = usePathname(); // locale'siz yol: '/' ana sayfa
+  const isHome = pathname === '/';
+
+  // Logo → ana sayfa. Ana sayfadayken tam reload yerine en üste smooth kayar.
+  const handleBrand = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isHome) {
+      e.preventDefault();
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({top: 0, behavior: reduce ? 'auto' : 'smooth'});
+      history.replaceState(null, '', window.location.pathname);
+    }
+  };
 
   // Scroll-condense — saf scroll-listener (rAF ile), Motion yok.
   useEffect(() => {
@@ -56,26 +70,27 @@ export function Header() {
     <header className="site-header" data-scrolled={scrolled}>
       <div className="site-header__inner mx-auto max-w-[1200px] px-5 md:px-12">
         <div className="flex items-center justify-between gap-4">
-          {/* Sol — logo (geçici wordmark) */}
-          <a
-            href="#hero"
+          {/* Sol — logo (geçici wordmark) → locale-aware ana sayfa */}
+          <Link
+            href="/"
+            onClick={handleBrand}
             aria-label={t('a11y.homeAria')}
             className="site-header__brand text-bone"
           >
             <Wordmark />
-          </a>
+          </Link>
 
           {/* Orta — masaüstü nav */}
           <nav aria-label={t('meta.siteName')} className="hidden items-center gap-8 md:flex">
             {NAV.map((item) =>
               item.anchor ? (
-                <a
+                <AnchorLink
                   key={item.key}
-                  href={item.href}
+                  hash={item.hash}
                   className="type-eyebrow text-bone transition-colors hover:text-brass"
                 >
                   {navLabel(item.key)}
-                </a>
+                </AnchorLink>
               ) : (
                 <Link
                   key={item.key}
@@ -133,7 +148,17 @@ export function Header() {
         aria-label={t('meta.siteName')}
       >
         <div className="flex items-center justify-between px-5 py-6">
-          <Wordmark className="text-bone" />
+          <Link
+            href="/"
+            onClick={(e) => {
+              setOpen(false);
+              handleBrand(e);
+            }}
+            aria-label={t('a11y.homeAria')}
+            className="text-bone"
+          >
+            <Wordmark className="text-bone" />
+          </Link>
           <button
             type="button"
             onClick={() => setOpen(false)}
@@ -150,15 +175,15 @@ export function Header() {
         >
           {NAV.map((item) =>
             item.anchor ? (
-              <a
+              <AnchorLink
                 key={item.key}
-                href={item.href}
-                onClick={() => setOpen(false)}
+                hash={item.hash}
+                onNavigate={() => setOpen(false)}
                 className="py-2 font-light text-bone transition-colors hover:text-brass"
                 style={{fontSize: 'clamp(2rem, 1.2rem + 3vw, 2.75rem)', lineHeight: 1.1}}
               >
                 {navLabel(item.key)}
-              </a>
+              </AnchorLink>
             ) : (
               <Link
                 key={item.key}

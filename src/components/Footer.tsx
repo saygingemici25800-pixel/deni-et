@@ -3,6 +3,7 @@ import {Phone} from 'lucide-react';
 import {Link} from '@/i18n/navigation';
 import {waLink, telLink} from '@/lib/contact';
 import {Wordmark, WhatsAppIcon, InstagramIcon} from './ui';
+import {AnchorLink} from './AnchorLink';
 
 // Footer (surface-charcoal) — koyu kapanış; üstündeki açık bölümle ZITLIK.
 export function Footer() {
@@ -32,15 +33,25 @@ export function Footer() {
 
           {/* Hızlı linkler */}
           <nav aria-label={t('footer.slogan')} className="flex flex-col gap-3">
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="type-eyebrow text-cream-soft transition-colors hover:text-brass"
-              >
-                {l.label}
-              </a>
-            ))}
+            {links.map((l) =>
+              l.href.startsWith('#') ? (
+                <AnchorLink
+                  key={l.href}
+                  hash={l.href.slice(1)}
+                  className="type-eyebrow text-cream-soft transition-colors hover:text-brass"
+                >
+                  {l.label}
+                </AnchorLink>
+              ) : (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  className="type-eyebrow text-cream-soft transition-colors hover:text-brass"
+                >
+                  {l.label}
+                </a>
+              ),
+            )}
             {/* Blog — locale-farkında rota (anchor değil). */}
             <Link
               href="/blog"
