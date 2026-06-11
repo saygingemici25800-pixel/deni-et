@@ -1,7 +1,7 @@
 // İletişim — TEK KAYNAK. Numara/format değişince yalnız burası güncellenir (BUILD-TASKS placeholder politikası).
 
-// Placeholder: gerçek numara gelince değiştir. wa.me biçimi: ülke kodu + numara, '+' ve boşluk yok.
-export const WHATSAPP = '+90XXXXXXXXXX';
+// wa.me biçimi: ülke kodu + numara, '+' ve boşluk yok.
+export const WHATSAPP = '+905374108842';
 export const PHONE = '0537 410 8842';
 
 /** wa.me linki + önceden yazılmış mesaj (content.whatsapp.prefill'den gelir). */
