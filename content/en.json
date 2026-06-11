@@ -107,9 +107,7 @@
   "footer": {
     "slogan": "The master's hand, your table.",
     "links": [
-      { "label": "Story", "href": "#hikaye" },
-      { "label": "Cuts", "href": "#urunler" },
-      { "label": "Contact", "href": "#iletisim" }
+      { "label": "Story", "href": "#hikaye" }
     ],
     "rights": "© 2026 Deniz Et · Kasap Orhan. All rights reserved."
   },

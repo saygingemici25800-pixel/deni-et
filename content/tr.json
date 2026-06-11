@@ -107,9 +107,7 @@
   "footer": {
     "slogan": "Ustanın eli, senin sofran.",
     "links": [
-      { "label": "Hikâye", "href": "#hikaye" },
-      { "label": "Ürünler", "href": "#urunler" },
-      { "label": "İletişim", "href": "#iletisim" }
+      { "label": "Hikâye", "href": "#hikaye" }
     ],
     "rights": "© 2026 Deniz Et · Kasap Orhan. Tüm hakları saklıdır."
   },

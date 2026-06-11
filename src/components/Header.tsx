@@ -13,7 +13,6 @@ import {LangSwitch} from './LangSwitch';
 // anchor=false → ayrı rota (/blog). Hedefler SITEMAP §2/§5.
 const NAV = [
   {key: 'story', hash: 'hikaye', anchor: true},
-  {key: 'products', hash: 'urunler', anchor: true},
   {key: 'blog', href: '/blog', anchor: false},
   {key: 'contact', hash: 'iletisim', anchor: true},
 ] as const;

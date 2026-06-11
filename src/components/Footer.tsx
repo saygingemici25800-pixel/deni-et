@@ -1,7 +1,7 @@
 import {useTranslations} from 'next-intl';
-import {Phone} from 'lucide-react';
+import {Phone, MapPin} from 'lucide-react';
 import {Link} from '@/i18n/navigation';
-import {waLink, telLink} from '@/lib/contact';
+import {waLink, telLink, mapsLink} from '@/lib/contact';
 import {Wordmark, WhatsAppIcon, InstagramIcon} from './ui';
 import {AnchorLink} from './AnchorLink';
 
@@ -12,9 +12,10 @@ export function Footer() {
   const links = t.raw('footer.links') as {label: string; href: string}[];
   const igHandle = t('instagram.handle');
   const igUrl = `https://instagram.com/${igHandle.replace('@', '')}`;
+  const address = t('contact.address');
 
   return (
-    <footer className="surface-charcoal">
+    <footer id="iletisim" className="surface-charcoal scroll-mt-24 md:scroll-mt-28">
       <hr className="hairline" />
       <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-12 md:py-20">
         <div className="flex flex-col gap-12 md:flex-row md:items-start md:justify-between">
@@ -61,18 +62,23 @@ export function Footer() {
             </Link>
           </nav>
 
-          {/* İletişim aksiyonları */}
-          <div className="flex flex-col items-start gap-3">
-            <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-              <WhatsAppIcon size={18} />
-              {t('hero.ctaPrimary')}
+          {/* İletişim — adres, telefon, Instagram, çalışma saatleri (ana sayfa bölümünden taşındı) */}
+          <div className="flex max-w-xs flex-col items-start gap-3">
+            <a
+              href={mapsLink(address)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-start gap-2 text-cream-soft transition-colors hover:text-brass"
+            >
+              <MapPin size={18} strokeWidth={1.5} aria-hidden="true" className="mt-0.5 shrink-0" />
+              <span className="type-body max-w-[30ch]">{address}</span>
             </a>
             <a
               href={telLink()}
               aria-label={t('a11y.callAria')}
               className="inline-flex items-center gap-2 text-cream-soft transition-colors hover:text-brass"
             >
-              <Phone size={18} strokeWidth={1.5} />
+              <Phone size={18} strokeWidth={1.5} aria-hidden="true" />
               <span className="type-body">{t('contact.phone')}</span>
             </a>
             <a
@@ -84,6 +90,16 @@ export function Footer() {
             >
               <InstagramIcon size={18} />
               <span className="type-body">{igHandle}</span>
+            </a>
+            <p className="type-body text-cream-soft">{t('contact.hours')}</p>
+            <a
+              href={wa}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary mt-2"
+            >
+              <WhatsAppIcon size={18} />
+              {t('hero.ctaPrimary')}
             </a>
           </div>
         </div>
