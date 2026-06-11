@@ -207,9 +207,7 @@ export function Contact() {
             <span className="relative z-10 text-bone">
               <Wordmark />
             </span>
-            <div className="relative z-10 text-cream-soft">
-              <ContactMark />
-            </div>
+           
           </div>
 
           {/* ORTA — iletişim bilgisi (gerçek <a> linkleri, dokunma hedefi ≥44px) */}
