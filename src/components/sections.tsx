@@ -3,12 +3,11 @@ import {Phone, MapPin} from 'lucide-react';
 import {waLink, telLink, mapsLink} from '@/lib/contact';
 import {WhatsAppIcon, Wordmark, InstagramIcon} from './ui';
 import {StoryCarousel} from './StoryCarousel';
-import {Explorer} from './Explorer';
 
 /* =================================================================
    FAZ 2 — Bölümler. Tüm metin content/<locale>.json'dan.
    Editoryal/zanaat; kömür↔krem ZITLIK; 60/30/10; bol boşluk.
-   Story karuseli + Products kâşifi = 2D (3D versiyonu Faz 3).
+   Hero (3D dana) → Hikâye (Story karuseli) → İletişim.
    ================================================================= */
 
 // ZITLIK böl: son cümle/clause kalın (Bold), gerisi ince (Thin).
@@ -134,49 +133,6 @@ export function Story() {
         <div className="mt-16 md:mt-20">
           <StoryCarousel cards={carousel} labels={labels} />
         </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- 3 · ÜRÜNLER (kömür · interaktif Et Kâşifi 2D) ---------------- */
-type CutData = {id: string; name: string; dishes: string; cooking: string};
-export function Products() {
-  const t = useTranslations();
-  const beef = t.raw('explorer.beef') as CutData[];
-  const lamb = t.raw('explorer.lamb') as CutData[];
-  // Başlık — type-heading'de ince↔kalın (son kelime kalın).
-  const pt = t('products.title');
-  const ls = pt.lastIndexOf(' ');
-  const pThin = ls > 0 ? pt.slice(0, ls) : pt;
-  const pBold = ls > 0 ? pt.slice(ls + 1) : '';
-  const labels = {
-    title: t('explorer.title'),
-    intro: t('explorer.intro'),
-    toggleBeef: t('explorer.toggleBeef'),
-    toggleLamb: t('explorer.toggleLamb'),
-    dishLabel: t('explorer.panel.dishLabel'),
-    cookLabel: t('explorer.panel.cookLabel'),
-    cta: t('explorer.panel.cta'),
-    // t.raw: {cut} ICU placeholder olarak yorumlanmasın (FORMATTING_ERROR'ı önler).
-    waPrefill: t.raw('explorer.panel.waPrefill') as string,
-  };
-  return (
-    <section id="urunler" className="surface-charcoal scroll-mt-24 md:scroll-mt-28">
-      <div className={`${wrap} ${pad}`}>
-        <p className="type-eyebrow">{t('products.eyebrow')}</p>
-        <h2 className="type-heading mt-6 max-w-[16ch]">
-          <span className="font-thin">
-            {pThin}
-            {pBold ? ' ' : ''}
-          </span>
-          {pBold && <span className="font-bold">{pBold}</span>}
-        </h2>
-        <p className="type-body type-body-light mt-6 max-w-[60ch] text-cream-soft">
-          {t('products.intro')}
-        </p>
-
-        <Explorer beef={beef} lamb={lamb} labels={labels} />
       </div>
     </section>
   );

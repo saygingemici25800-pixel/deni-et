@@ -62,20 +62,20 @@ export function Hero3D() {
       <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1400px] items-center gap-8 px-12">
         {/* SOL — sessiz mikro-içerik + üstünde bilgi kartı */}
         <div className="relative w-[340px] shrink-0">
-          {/* Mikro-içerik (sahne nefes alsın; dev tipografi yok) */}
-          <div className="max-w-[320px]">
+          {/* Mikro-içerik — sahne nefes alsın ama yazılar belirgin okunsun */}
+          <div className="max-w-[330px]">
             <p className="type-eyebrow">{t('hero.eyebrow')}</p>
             <p className="hero-heritage">{t('hero.heritage')}</p>
-            <p className="type-body type-body-light mt-5 max-w-[30ch] text-ink-soft">
+            <p className="type-heading-sm mt-5 max-w-[24ch] font-light text-ink">
               {t('hero.title')}
             </p>
             <a
               href={defaultWa}
               target="_blank"
               rel="noopener noreferrer"
-              className="type-eyebrow mt-6 inline-flex items-center gap-2 text-et transition-colors hover:text-et-deep"
+              className="btn btn-primary mt-7"
             >
-              <WhatsAppIcon size={16} />
+              <WhatsAppIcon size={18} />
               {t('hero.ctaPrimary')}
             </a>
           </div>

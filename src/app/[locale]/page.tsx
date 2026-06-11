@@ -1,7 +1,7 @@
 import {setRequestLocale} from 'next-intl/server';
 import {hasLocale} from 'next-intl';
 import {routing} from '@/i18n/routing';
-import {Hero, Story, Products, Contact} from '@/components/sections';
+import {Hero, Story, Contact} from '@/components/sections';
 import {HashScroll} from '@/components/HashScroll';
 import {HeroMount} from '@/components/hero3d/HeroMount';
 
@@ -21,8 +21,6 @@ export default async function Page({params}: Props) {
       <HeroMount fallback={<Hero />} />
       <hr className="hairline" />
       <Story />
-      <hr className="hairline" />
-      <Products />
       <hr className="hairline" />
       <Contact />
     </>
