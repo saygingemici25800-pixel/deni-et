@@ -8,19 +8,12 @@ import {ContactShadows} from '@react-three/drei';
 import {waLink} from '@/lib/contact';
 import {WhatsAppIcon} from '../ui';
 import {CowModel} from './CowModel';
-import {CameraRig} from './CameraRig';
-import {CUTS} from './cuts';
+import {REGIONS} from './cuts';
 
 type CutData = {id: string; name: string; dishes: string; cooking: string};
 
-// Sahne içi sabit-stil hotspot + kart geçişi. globals'a dokunmamak için yerel <style>.
+// Bilgi kartı geçişi. globals'a dokunmamak için yerel <style>. (Hotspot noktaları kaldırıldı.)
 const SCENE_CSS = `
-.denizet-hs{width:18px;height:18px;border-radius:9999px;border:2px solid #9A2424;background:rgba(154,36,36,.14);cursor:pointer;position:relative;display:block;padding:0;}
-.denizet-hs::after{content:'';position:absolute;inset:-3px;border-radius:9999px;border:2px solid #9A2424;animation:denizet-hs-pulse 2.4s ease-in-out infinite;}
-.denizet-hs:hover,.denizet-hs[data-on="true"]{background:#9A2424;}
-.denizet-hs[data-on="true"]::after{border-color:#C8951C;}
-@keyframes denizet-hs-pulse{0%,100%{transform:scale(1);opacity:.85;}50%{transform:scale(1.45);opacity:.25;}}
-@media (prefers-reduced-motion: reduce){.denizet-hs::after{animation:none;}}
 .denizet-card{opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .45s ease,transform .45s cubic-bezier(.2,.6,.2,1);}
 .denizet-card[data-open="true"]{opacity:1;transform:translateY(0);pointer-events:auto;}
 `;
@@ -34,7 +27,7 @@ export function Hero3D() {
   const waPrefill = t.raw('explorer.panel.waPrefill') as string;
   const defaultWa = waLink(t('whatsapp.prefill'));
 
-  const cut = selected != null ? byId(CUTS[selected].id) : undefined;
+  const cut = selected != null ? byId(REGIONS[selected].id) : undefined;
   const cardWa = cut ? waLink(waPrefill.replace('{cut}', cut.name)) : defaultWa;
 
   const mark = (t('meta.siteName').split('·')[0] ?? '').trim().toLocaleUpperCase('tr');
@@ -126,14 +119,14 @@ export function Hero3D() {
 
         {/* SAĞ — 3D sahne (krem zemin + temas gölgesi + çayır iması) */}
         <div className="relative h-[100svh] flex-1">
-          {/* Çok soluk çayır iması — zeytin/adaçayı, bulanık bokeh (palet içi). */}
+          {/* Çayır iması — zeytin/adaçayı, geniş & bulanık bokeh (palet içi, krem'le kaynaşır). */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[64%] h-[26vh] w-[64%] -translate-x-1/2 -translate-y-1/2"
+            className="pointer-events-none absolute left-1/2 top-[68%] h-[30vh] w-[70%] -translate-x-1/2 -translate-y-1/2"
             style={{
               background:
-                'radial-gradient(50% 50% at 50% 50%, rgba(124,128,86,0.24) 0%, rgba(124,128,86,0.10) 45%, rgba(124,128,86,0) 74%)',
-              filter: 'blur(30px)',
+                'radial-gradient(50% 50% at 50% 50%, rgba(122,128,82,0.30) 0%, rgba(122,128,82,0.14) 42%, rgba(122,128,82,0) 72%)',
+              filter: 'blur(34px)',
             }}
           />
           <div aria-hidden="true" className="absolute inset-0">
@@ -142,6 +135,7 @@ export function Hero3D() {
               shadows
               camera={{position: [5, 1.15, 0], fov: 30}}
               gl={{alpha: true, antialias: true}}
+              onCreated={({camera}) => camera.lookAt(0, 0.85, 0)}
             >
               <ambientLight intensity={0.7} color="#FFF3E0" />
               <hemisphereLight args={['#FFF3E0', '#E8DECF', 0.5]} />
@@ -166,18 +160,17 @@ export function Hero3D() {
                   color="#2A1D12"
                 />
               </Suspense>
-              <CameraRig selected={selected} />
             </Canvas>
           </div>
         </div>
       </div>
 
-      {/* Klavye erişimi — görünmez hotspot listesi (3D katmanı aria-hidden). */}
+      {/* Klavye erişimi — görünmez bölge listesi (3D katmanı aria-hidden). */}
       <ul className="sr-only">
-        {CUTS.map((c, i) => (
-          <li key={c.id}>
+        {REGIONS.map((r, i) => (
+          <li key={r.id}>
             <button type="button" onClick={() => setSelected(i)}>
-              {byId(c.id)?.name}
+              {byId(r.id)?.name}
             </button>
           </li>
         ))}
