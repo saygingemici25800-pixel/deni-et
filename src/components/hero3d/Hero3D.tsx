@@ -1,8 +1,8 @@
 'use client';
 
-import {Suspense, useState} from 'react';
+import {Suspense, useRef, useState} from 'react';
 import {useTranslations} from 'next-intl';
-import {X} from 'lucide-react';
+import {X, UtensilsCrossed, Flame} from 'lucide-react';
 import {Canvas} from '@react-three/fiber';
 import {ContactShadows} from '@react-three/drei';
 import {waLink} from '@/lib/contact';
@@ -12,15 +12,25 @@ import {REGIONS} from './cuts';
 
 type CutData = {id: string; name: string; dishes: string; cooking: string};
 
-// Bilgi kartı geçişi. globals'a dokunmamak için yerel <style>. (Hotspot noktaları kaldırıldı.)
+// Kart/tooltip/pill geçişleri. globals'a dokunmamak için yerel <style>.
 const SCENE_CSS = `
-.denizet-card{opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .45s ease,transform .45s cubic-bezier(.2,.6,.2,1);}
-.denizet-card[data-open="true"]{opacity:1;transform:translateY(0);pointer-events:auto;}
+.denizet-card{opacity:0;transform:translateX(-12px);pointer-events:none;transition:opacity .4s ease,transform .4s cubic-bezier(.2,.6,.2,1);}
+.denizet-card[data-open="true"]{opacity:1;transform:translateX(0);pointer-events:auto;}
+.denizet-tip{opacity:0;transition:opacity .15s ease;}
+.denizet-tip[data-show="true"]{opacity:1;}
+.denizet-pill{transition:opacity .5s ease,transform .5s ease;animation:denizet-pill-pulse 2.4s ease-in-out infinite;}
+.denizet-pill[data-hide="true"]{opacity:0;transform:translateY(8px);pointer-events:none;}
+@keyframes denizet-pill-pulse{0%,100%{box-shadow:0 0 0 0 rgba(154,36,36,0);}50%{box-shadow:0 0 0 5px rgba(154,36,36,0.10);}}
+@media (prefers-reduced-motion: reduce){.denizet-card,.denizet-pill,.denizet-tip{transition:none;}.denizet-pill{animation:none;}}
 `;
 
 export function Hero3D() {
   const t = useTranslations();
   const [selected, setSelected] = useState<number | null>(null);
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+  const [explored, setExplored] = useState(false);
+  const areaRef = useRef<HTMLDivElement>(null);
+  const tipRef = useRef<HTMLDivElement>(null);
 
   const beef = t.raw('explorer.beef') as CutData[];
   const byId = (id: string) => beef.find((b) => b.id === id);
@@ -29,8 +39,27 @@ export function Hero3D() {
 
   const cut = selected != null ? byId(REGIONS[selected].id) : undefined;
   const cardWa = cut ? waLink(waPrefill.replace('{cut}', cut.name)) : defaultWa;
-
+  const num = selected != null ? String(selected + 1).padStart(2, '0') : '';
+  const hoverName = hoverIdx != null ? (byId(REGIONS[hoverIdx].id)?.name ?? '') : '';
   const mark = (t('meta.siteName').split('·')[0] ?? '').trim().toLocaleUpperCase('tr');
+
+  const handleHover = (i: number | null) => {
+    setHoverIdx(i);
+    if (i != null) setExplored(true);
+  };
+  const handleSelect = (i: number) => {
+    setSelected(i);
+    setExplored(true);
+  };
+
+  // Tooltip'i imlece yapıştır (React state'i değil, doğrudan transform).
+  const onAreaMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = areaRef.current;
+    const tip = tipRef.current;
+    if (!el || !tip) return;
+    const r = el.getBoundingClientRect();
+    tip.style.transform = `translate(${e.clientX - r.left}px, ${e.clientY - r.top}px)`;
+  };
 
   return (
     <section
@@ -43,7 +72,7 @@ export function Hero3D() {
     >
       <style>{SCENE_CSS}</style>
 
-      {/* Çok soluk büyük arka wordmark (opsiyonel, palet içi). */}
+      {/* Çok soluk büyük arka wordmark. */}
       <p
         aria-hidden="true"
         className="pointer-events-none absolute right-[4%] top-1/2 hidden -translate-y-1/2 select-none font-bold leading-none text-ink lg:block"
@@ -55,7 +84,6 @@ export function Hero3D() {
       <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1400px] items-center gap-8 px-12">
         {/* SOL — sessiz mikro-içerik + üstünde bilgi kartı */}
         <div className="relative w-[340px] shrink-0">
-          {/* Mikro-içerik — sahne nefes alsın ama yazılar belirgin okunsun */}
           <div className="max-w-[330px]">
             <p className="type-eyebrow">{t('hero.eyebrow')}</p>
             <p className="hero-heritage">{t('hero.heritage')}</p>
@@ -73,9 +101,9 @@ export function Hero3D() {
             </a>
           </div>
 
-          {/* Bilgi kartı — mikro-içeriğin ÜSTÜNDE overlay; yumuşak belirir */}
+          {/* Bilgi kartı — yeni tasarım: krem + sol bordo aksan + brass numara + ikonlu satırlar */}
           <div
-            className="denizet-card absolute inset-x-0 top-0 border border-[color:var(--line)] bg-bone-2/95 p-6 backdrop-blur-sm"
+            className="denizet-card absolute inset-x-0 top-0 overflow-hidden border border-[color:var(--line)] border-l-2 border-l-[color:var(--color-et)] bg-bone p-6 shadow-[0_14px_44px_-16px_rgba(26,20,17,0.35)]"
             data-open={selected != null}
             aria-hidden={selected == null}
             role="dialog"
@@ -83,26 +111,51 @@ export function Hero3D() {
           >
             {cut && (
               <>
-                <button
-                  type="button"
-                  onClick={() => setSelected(null)}
-                  aria-label={t('a11y.closeMenu')}
-                  className="absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center text-ink-soft transition-colors hover:text-et"
-                >
-                  <X size={20} strokeWidth={1.75} />
-                </button>
-                <p className="type-eyebrow text-et">{t('explorer.title')}</p>
-                <h2 className="type-heading-sm mt-2 max-w-[16ch] text-ink">{cut.name}</h2>
+                <div className="flex items-start justify-between">
+                  <p className="type-eyebrow text-et">{t('explorer.title')}</p>
+                  <button
+                    type="button"
+                    onClick={() => setSelected(null)}
+                    aria-label={t('a11y.closeMenu')}
+                    className="-mr-1 -mt-1 inline-flex h-9 w-9 items-center justify-center text-ink-soft transition-colors hover:text-et"
+                  >
+                    <X size={20} strokeWidth={1.75} />
+                  </button>
+                </div>
+
+                {/* Dev soluk brass numara + parça adı */}
+                <div className="relative mt-2">
+                  <span
+                    aria-hidden="true"
+                    className="absolute -top-3 right-0 font-thin leading-none text-brass"
+                    style={{fontSize: '3.6rem', opacity: 0.16, letterSpacing: '-0.04em'}}
+                  >
+                    {num}
+                  </span>
+                  <h2 className="type-heading relative max-w-[12ch] text-ink" style={{fontWeight: 500}}>
+                    {cut.name}
+                  </h2>
+                </div>
+
+                <hr className="hairline mt-4" />
+
                 <dl className="mt-4 space-y-3">
-                  <div>
-                    <dt className="type-eyebrow text-ink-soft">{t('explorer.panel.dishLabel')}</dt>
-                    <dd className="type-body mt-0.5 text-ink">{cut.dishes}</dd>
+                  <div className="flex items-start gap-3">
+                    <UtensilsCrossed size={18} strokeWidth={1.75} aria-hidden="true" className="mt-1 shrink-0 text-et" />
+                    <div>
+                      <dt className="type-eyebrow text-ink-soft">{t('explorer.panel.dishLabel')}</dt>
+                      <dd className="type-body mt-0.5 text-ink">{cut.dishes}</dd>
+                    </div>
                   </div>
-                  <div>
-                    <dt className="type-eyebrow text-ink-soft">{t('explorer.panel.cookLabel')}</dt>
-                    <dd className="type-body mt-0.5 text-ink">{cut.cooking}</dd>
+                  <div className="flex items-start gap-3">
+                    <Flame size={18} strokeWidth={1.75} aria-hidden="true" className="mt-1 shrink-0 text-et" />
+                    <div>
+                      <dt className="type-eyebrow text-ink-soft">{t('explorer.panel.cookLabel')}</dt>
+                      <dd className="type-body mt-0.5 text-ink">{cut.cooking}</dd>
+                    </div>
                   </div>
                 </dl>
+
                 <a
                   href={cardWa}
                   target="_blank"
@@ -117,9 +170,9 @@ export function Hero3D() {
           </div>
         </div>
 
-        {/* SAĞ — 3D sahne (krem zemin + temas gölgesi + çayır iması) */}
-        <div className="relative h-[100svh] flex-1">
-          {/* Çayır iması — zeytin/adaçayı, geniş & bulanık bokeh (palet içi, krem'le kaynaşır). */}
+        {/* SAĞ — 3D sahne */}
+        <div ref={areaRef} onPointerMove={onAreaMove} className="relative h-[100svh] flex-1">
+          {/* Çayır iması — zeytin/adaçayı, geniş & bulanık bokeh. */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute left-1/2 top-[68%] h-[30vh] w-[70%] -translate-x-1/2 -translate-y-1/2"
@@ -136,6 +189,7 @@ export function Hero3D() {
               camera={{position: [5, 1.15, 0], fov: 30}}
               gl={{alpha: true, antialias: true}}
               onCreated={({camera}) => camera.lookAt(0, 0.85, 0)}
+              onPointerMissed={() => setSelected(null)}
             >
               <ambientLight intensity={0.7} color="#FFF3E0" />
               <hemisphereLight args={['#FFF3E0', '#E8DECF', 0.5]} />
@@ -149,7 +203,7 @@ export function Hero3D() {
               />
               <directionalLight position={[-4, 2, -4]} intensity={0.5} color="#C8951C" />
               <Suspense fallback={null}>
-                <CowModel selected={selected} onSelect={setSelected} />
+                <CowModel selected={selected} onSelect={handleSelect} onHover={handleHover} />
                 <ContactShadows
                   position={[0, 0.01, 0]}
                   opacity={0.35}
@@ -162,10 +216,31 @@ export function Hero3D() {
               </Suspense>
             </Canvas>
           </div>
+
+          {/* Hover tooltip — bölge adı, imlece yakın (Bonny eyebrow). */}
+          <div ref={tipRef} aria-hidden="true" className="denizet-tip pointer-events-none absolute left-0 top-0 z-20" data-show={hoverIdx != null}>
+            <span
+              className="type-eyebrow block whitespace-nowrap rounded-sm bg-[color:var(--color-espresso)] px-2.5 py-1 text-bone"
+              style={{transform: 'translate(-50%, calc(-100% - 12px))'}}
+            >
+              {hoverName}
+            </span>
+          </div>
+
+          {/* Keşfet affordance — ilk etkileşimde kaybolur. */}
+          <button
+            type="button"
+            onClick={() => setExplored(true)}
+            data-hide={explored}
+            className="denizet-pill absolute bottom-[9%] left-1/2 z-20 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-[color:var(--color-et)] bg-bone/85 px-4 py-2 text-et backdrop-blur-sm"
+          >
+            <span aria-hidden="true">🖐</span>
+            <span className="type-eyebrow">{t('explorer.exploreHint')}</span>
+          </button>
         </div>
       </div>
 
-      {/* Klavye erişimi — görünmez bölge listesi (3D katmanı aria-hidden). */}
+      {/* Klavye erişimi — görünmez bölge listesi. */}
       <ul className="sr-only">
         {REGIONS.map((r, i) => (
           <li key={r.id}>

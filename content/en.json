@@ -40,6 +40,7 @@
   "explorer": {
     "title": "Know your cut.",
     "intro": "Tap a part of the animal to see which dish it suits and how to cook it.",
+    "exploreHint": "Explore the cuts — tap a region",
     "toggleBeef": "Beef",
     "toggleLamb": "Lamb",
     "panel": {

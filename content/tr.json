@@ -40,6 +40,7 @@
   "explorer": {
     "title": "Etini tanı.",
     "intro": "Hayvanın üstündeki parçaya dokun; hangi yemeğe yakıştığını ve nasıl pişeceğini gör.",
+    "exploreHint": "Parçaları keşfet — bölgeye dokun",
     "toggleBeef": "Dana",
     "toggleLamb": "Kuzu",
     "panel": {
