@@ -14,8 +14,8 @@ type CutData = {id: string; name: string; dishes: string; cooking: string};
 
 // Kart/tooltip/pill geçişleri. globals'a dokunmamak için yerel <style>.
 const SCENE_CSS = `
-.denizet-card{opacity:0;transform:translateX(-12px);pointer-events:none;transition:opacity .4s ease,transform .4s cubic-bezier(.2,.6,.2,1);}
-.denizet-card[data-open="true"]{opacity:1;transform:translateX(0);pointer-events:auto;}
+.denizet-card{opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .35s ease,transform .35s cubic-bezier(.2,.6,.2,1);}
+.denizet-card[data-open="true"]{opacity:1;transform:translateY(0);pointer-events:auto;}
 .denizet-tip{opacity:0;transition:opacity .15s ease;}
 .denizet-tip[data-show="true"]{opacity:1;}
 .denizet-pill{transition:opacity .5s ease,transform .5s ease;animation:denizet-pill-pulse 2.4s ease-in-out infinite;}
@@ -26,6 +26,10 @@ const SCENE_CSS = `
 
 export function Hero3D() {
   const t = useTranslations();
+  // Hero3D yalnız client'ta mount olur (ssr:false) → window güvenli.
+  const [isMobile] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches,
+  );
   const [selected, setSelected] = useState<number | null>(null);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
   const [explored, setExplored] = useState(false);
@@ -43,16 +47,14 @@ export function Hero3D() {
   const hoverName = hoverIdx != null ? (byId(REGIONS[hoverIdx].id)?.name ?? '') : '';
   const mark = (t('meta.siteName').split('·')[0] ?? '').trim().toLocaleUpperCase('tr');
 
-  const handleHover = (i: number | null) => {
-    setHoverIdx(i);
-  };
-  // Keşfet pill'i YALNIZ ilk bölge seçiminde kaybolur (hover/zaman değil; state-only → refresh'te döner).
+  const handleHover = (i: number | null) => setHoverIdx(i);
+  // Keşfet pill'i YALNIZ ilk bölge seçiminde kaybolur (state-only → refresh'te döner).
   const handleSelect = (i: number) => {
     setSelected(i);
     setExplored(true);
   };
 
-  // Tooltip'i imlece yapıştır (React state'i değil, doğrudan transform).
+  // Tooltip'i imlece yapıştır (yalnız masaüstü hover).
   const onAreaMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const el = areaRef.current;
     const tip = tipRef.current;
@@ -72,7 +74,7 @@ export function Hero3D() {
     >
       <style>{SCENE_CSS}</style>
 
-      {/* Çok soluk büyük arka wordmark. */}
+      {/* Çok soluk büyük arka wordmark (yalnız geniş ekran). */}
       <p
         aria-hidden="true"
         className="pointer-events-none absolute right-[4%] top-1/2 hidden -translate-y-1/2 select-none font-bold leading-none text-ink lg:block"
@@ -81,15 +83,14 @@ export function Hero3D() {
         {mark.split(' ').pop()}
       </p>
 
-      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1400px] items-center gap-8 px-12">
-        {/* SOL — sessiz mikro-içerik + üstünde bilgi kartı */}
-        <div className="relative w-[340px] shrink-0">
+      {/* Mobil: dikey yığın (canvas üstte) · Masaüstü: yan yana (içerik solda). */}
+      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1400px] flex-col md:flex-row md:items-center md:gap-8 md:px-12">
+        {/* İÇERİK — mobilde canvas'ın altında, masaüstünde solda */}
+        <div className="relative order-2 w-full px-5 pb-12 md:order-1 md:w-[340px] md:shrink-0 md:px-0 md:pb-0">
           <div className="max-w-[330px]">
             <p className="type-eyebrow">{t('hero.eyebrow')}</p>
             <p className="hero-heritage">{t('hero.heritage')}</p>
-            <p className="type-heading-sm mt-5 max-w-[24ch] font-light text-ink">
-              {t('hero.title')}
-            </p>
+            <p className="type-heading-sm mt-5 max-w-[24ch] font-light text-ink">{t('hero.title')}</p>
             <a
               href={defaultWa}
               target="_blank"
@@ -101,9 +102,30 @@ export function Hero3D() {
             </a>
           </div>
 
-          {/* Bilgi kartı — yeni tasarım: krem + sol bordo aksan + brass numara + ikonlu satırlar */}
+          {/* MOBİL parça çipleri — yatay kaydırılır; dokun → bölge seçilir/vurgulanır + kart açılır */}
+          <div className="mt-7 md:hidden">
+            <p className="type-eyebrow text-ink-soft">{t('explorer.exploreHint')}</p>
+            <div className="-mx-5 mt-3 flex gap-2 overflow-x-auto px-5 pb-1">
+              {REGIONS.map((r, i) => (
+                <button
+                  key={r.id}
+                  type="button"
+                  onClick={() => handleSelect(i)}
+                  className={`shrink-0 rounded-full border px-3 py-1.5 transition-colors ${
+                    selected === i
+                      ? 'border-[color:var(--color-et)] bg-[color:var(--color-et)] text-bone'
+                      : 'border-[color:var(--line)] text-et'
+                  }`}
+                >
+                  <span className="type-eyebrow">{byId(r.id)?.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Bilgi kartı — masaüstü: sol overlay · mobil: alttan sheet (tam genişlik) */}
           <div
-            className="denizet-card absolute inset-x-0 top-0 overflow-hidden border border-[color:var(--line)] border-l-2 border-l-[color:var(--color-et)] bg-bone p-6 shadow-[0_14px_44px_-16px_rgba(26,20,17,0.35)]"
+            className="denizet-card fixed inset-x-3 bottom-3 z-40 max-h-[78svh] overflow-y-auto rounded-lg border border-[color:var(--line)] border-l-2 border-l-[color:var(--color-et)] bg-bone p-6 shadow-[0_14px_44px_-16px_rgba(26,20,17,0.45)] md:absolute md:inset-x-0 md:bottom-auto md:top-0 md:z-auto md:max-h-none md:overflow-visible md:rounded-none"
             data-open={selected != null}
             aria-hidden={selected == null}
             role="dialog"
@@ -123,7 +145,6 @@ export function Hero3D() {
                   </button>
                 </div>
 
-                {/* Dev soluk brass numara + parça adı */}
                 <div className="relative mt-2">
                   <span
                     aria-hidden="true"
@@ -170,12 +191,15 @@ export function Hero3D() {
           </div>
         </div>
 
-        {/* SAĞ — 3D sahne */}
-        <div ref={areaRef} onPointerMove={onAreaMove} className="relative h-[100svh] flex-1">
-          {/* Çayır iması — zeytin/adaçayı, geniş & bulanık bokeh. */}
+        {/* CANVAS — mobilde üstte tam genişlik (h ~62svh), masaüstünde sağda tam yükseklik */}
+        <div
+          ref={areaRef}
+          onPointerMove={onAreaMove}
+          className="relative order-1 h-[62svh] w-full md:order-2 md:h-[100svh] md:flex-1"
+        >
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[68%] h-[30vh] w-[70%] -translate-x-1/2 -translate-y-1/2"
+            className="pointer-events-none absolute left-1/2 top-[70%] h-[26vh] w-[78%] -translate-x-1/2 -translate-y-1/2"
             style={{
               background:
                 'radial-gradient(50% 50% at 50% 50%, rgba(122,128,82,0.30) 0%, rgba(122,128,82,0.14) 42%, rgba(122,128,82,0) 72%)',
@@ -184,9 +208,9 @@ export function Hero3D() {
           />
           <div aria-hidden="true" className="absolute inset-0">
             <Canvas
-              dpr={[1, 2]}
+              dpr={isMobile ? [1, 1.5] : [1, 2]}
               shadows
-              camera={{position: [5, 1.15, 0], fov: 30}}
+              camera={{position: isMobile ? [7.2, 1.25, 0] : [5, 1.15, 0], fov: 30}}
               gl={{alpha: true, antialias: true}}
               onCreated={({camera}) => camera.lookAt(0, 0.85, 0)}
               onPointerMissed={() => setSelected(null)}
@@ -203,7 +227,7 @@ export function Hero3D() {
               />
               <directionalLight position={[-4, 2, -4]} intensity={0.5} color="#C8951C" />
               <Suspense fallback={null}>
-                <CowModel selected={selected} onSelect={handleSelect} onHover={handleHover} />
+                <CowModel selected={selected} onSelect={handleSelect} onHover={handleHover} touch={isMobile} />
                 <ContactShadows
                   position={[0, 0.01, 0]}
                   opacity={0.35}
@@ -217,8 +241,13 @@ export function Hero3D() {
             </Canvas>
           </div>
 
-          {/* Hover tooltip — bölge adı, imlece yakın (Bonny eyebrow). */}
-          <div ref={tipRef} aria-hidden="true" className="denizet-tip pointer-events-none absolute left-0 top-0 z-20" data-show={hoverIdx != null}>
+          {/* Hover tooltip — yalnız masaüstü (touch'ta gizli). */}
+          <div
+            ref={tipRef}
+            aria-hidden="true"
+            className="denizet-tip pointer-events-none absolute left-0 top-0 z-20 hidden md:block"
+            data-show={hoverIdx != null}
+          >
             <span
               className="type-eyebrow block whitespace-nowrap rounded-sm bg-[color:var(--color-espresso)] px-2.5 py-1 text-bone"
               style={{transform: 'translate(-50%, calc(-100% - 12px))'}}
@@ -231,10 +260,10 @@ export function Hero3D() {
           <div
             aria-hidden="true"
             data-hide={explored}
-            className="denizet-pill pointer-events-none absolute bottom-[9%] left-1/2 z-20 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-[color:var(--color-et)] bg-bone/85 px-4 py-2 text-et backdrop-blur-sm"
+            className="denizet-pill pointer-events-none absolute bottom-[7%] left-1/2 z-20 inline-flex max-w-[90%] -translate-x-1/2 items-center gap-2 rounded-full border border-[color:var(--color-et)] bg-bone/85 px-4 py-2 text-et backdrop-blur-sm"
           >
             <span aria-hidden="true">🖐</span>
-            <span className="type-eyebrow">{t('explorer.exploreHint')}</span>
+            <span className="type-eyebrow whitespace-nowrap">{t('explorer.exploreHint')}</span>
           </div>
         </div>
       </div>

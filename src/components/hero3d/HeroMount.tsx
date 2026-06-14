@@ -8,17 +8,16 @@ const Hero3D = dynamic(() => import('./Hero3D').then((m) => m.Hero3D), {ssr: fal
 
 /**
  * Statik hero (fallback) ↔ 3D hero geçiş kapısı.
- * 3D YALNIZCA: ≥768px + WebGL var + reduced-motion yok + görünür olunca (lazy) yüklenir.
- * Aksi halde sunucudan gelen statik hero olduğu gibi kalır (mobil/erişilebilirlik değişmez).
+ * 3D YÜKLENİR: WebGL var + reduced-motion yok + görünür olunca (lazy) — MASAÜSTÜ VE MOBİL.
+ * WebGL yok / reduced-motion → sunucudan gelen statik hero (poster) olduğu gibi kalır.
  */
 export function HeroMount({fallback}: {fallback: ReactNode}) {
   const ref = useRef<HTMLDivElement>(null);
   const [mount3d, setMount3d] = useState(false);
 
   useEffect(() => {
-    const desktop = window.matchMedia('(min-width: 768px)').matches;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!desktop || reduce) return;
+    if (reduce) return;
 
     // WebGL desteği
     let gl: WebGLRenderingContext | null = null;
