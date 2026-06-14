@@ -45,8 +45,8 @@ export function Hero3D() {
 
   const handleHover = (i: number | null) => {
     setHoverIdx(i);
-    if (i != null) setExplored(true);
   };
+  // Keşfet pill'i YALNIZ ilk bölge seçiminde kaybolur (hover/zaman değil; state-only → refresh'te döner).
   const handleSelect = (i: number) => {
     setSelected(i);
     setExplored(true);
@@ -227,16 +227,15 @@ export function Hero3D() {
             </span>
           </div>
 
-          {/* Keşfet affordance — ilk etkileşimde kaybolur. */}
-          <button
-            type="button"
-            onClick={() => setExplored(true)}
+          {/* Keşfet affordance — ilk bölge SEÇİMİNE kadar kalıcı; tıkları engellemez. */}
+          <div
+            aria-hidden="true"
             data-hide={explored}
-            className="denizet-pill absolute bottom-[9%] left-1/2 z-20 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-[color:var(--color-et)] bg-bone/85 px-4 py-2 text-et backdrop-blur-sm"
+            className="denizet-pill pointer-events-none absolute bottom-[9%] left-1/2 z-20 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-[color:var(--color-et)] bg-bone/85 px-4 py-2 text-et backdrop-blur-sm"
           >
             <span aria-hidden="true">🖐</span>
             <span className="type-eyebrow">{t('explorer.exploreHint')}</span>
-          </button>
+          </div>
         </div>
       </div>
 

@@ -4,23 +4,25 @@ import {useMemo, useRef} from 'react';
 import {useGLTF} from '@react-three/drei';
 import {useFrame, useThree, type ThreeEvent} from '@react-three/fiber';
 import * as THREE from 'three';
-import {MODEL_SCALE, REGIONS, regionOf} from './cuts';
+import {MODEL_SCALE, BOXES, regionOf} from './cuts';
 
 useGLTF.preload('/models/cow.glb');
 
-// Bölge sınırlarını uniform'a hazırla (z min/max, y min/max).
-const REG_Z = REGIONS.map((r) => new THREE.Vector2(r.z[0], r.z[1]));
-const REG_Y = REGIONS.map((r) => new THREE.Vector2(r.y[0], r.y[1]));
+const NBOX = BOXES.length;
+const BOX_Z = BOXES.map((b) => new THREE.Vector2(b.z[0], b.z[1]));
+const BOX_Y = BOXES.map((b) => new THREE.Vector2(b.y[0], b.y[1]));
+const BOX_R = BOXES.map((b) => b.r);
 
-// Material'a kasap-şeması shader'ı enjekte et: kalıcı bölge çizgileri (her zaman) +
-// hafif hover/seçim tonu (multiply hissi) + kutu sınırı edge-detect (vücut kıvrımını izler).
+// Material'a kasap-şeması shader'ı: KALICI net kesim çizgileri (kalın, koyu bordo, dashed,
+// her zaman görünür) + hafif hover/seçim tonu. regionAt = kutu sınıflandırması (uniform).
 function injectRegionShader(mat: THREE.Material, sink: THREE.WebGLProgramParametersWithUniforms[]) {
   mat.onBeforeCompile = (shader) => {
-    shader.uniforms.uRegZ = {value: REG_Z};
-    shader.uniforms.uRegY = {value: REG_Y};
+    shader.uniforms.uBoxZ = {value: BOX_Z};
+    shader.uniforms.uBoxY = {value: BOX_Y};
+    shader.uniforms.uBoxR = {value: BOX_R};
     shader.uniforms.uHoverRegion = {value: -100};
     shader.uniforms.uSelectedRegion = {value: -100};
-    shader.uniforms.uLineColor = {value: new THREE.Color('#5E1414')};
+    shader.uniforms.uLineColor = {value: new THREE.Color('#3A1010')}; // espresso/bordo
     shader.uniforms.uIntro = {value: 1};
 
     shader.vertexShader = shader.vertexShader
@@ -31,16 +33,19 @@ function injectRegionShader(mat: THREE.Material, sink: THREE.WebGLProgramParamet
       .replace(
         '#include <common>',
         `#include <common>
+        #define NBOX ${NBOX}
         varying vec3 vLocalPos;
-        uniform vec2 uRegZ[10];
-        uniform vec2 uRegY[10];
+        uniform vec2 uBoxZ[NBOX];
+        uniform vec2 uBoxY[NBOX];
+        uniform float uBoxR[NBOX];
         uniform float uHoverRegion;
         uniform float uSelectedRegion;
         uniform vec3 uLineColor;
         uniform float uIntro;
         int regionAt(float z, float y) {
-          for (int i = 0; i < 10; i++) {
-            if (z >= uRegZ[i].x && z <= uRegZ[i].y && y >= uRegY[i].x && y <= uRegY[i].y) return i;
+          for (int i = 0; i < NBOX; i++) {
+            if (z >= uBoxZ[i].x && z <= uBoxZ[i].y && y >= uBoxY[i].x && y <= uBoxY[i].y)
+              return int(uBoxR[i] + 0.5);
           }
           return -1;
         }`,
@@ -54,20 +59,22 @@ function injectRegionShader(mat: THREE.Material, sink: THREE.WebGLProgramParamet
         float regf = float(reg);
         float hov = (reg >= 0 && abs(regf - uHoverRegion) < 0.5) ? 1.0 : 0.0;
         float sel = (reg >= 0 && abs(regf - uSelectedRegion) < 0.5) ? 1.0 : 0.0;
-        // İnce sıcak ton (opak leke değil): hover ~0.12, seçim ~0.22.
+        // İnce sıcak ton (opak değil): hover ~0.12, seçim ~0.22 + gerisi hafif desatüre.
         vec3 etCol = vec3(0.604, 0.141, 0.141);
         gl_FragColor.rgb = mix(gl_FragColor.rgb, etCol, hov * 0.12 + sel * 0.22);
         if (uSelectedRegion > -0.5) {
           float lum = dot(gl_FragColor.rgb, vec3(0.299, 0.587, 0.114));
           gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(lum), (1.0 - sel) * 0.20);
         }
-        // Kalıcı bölge çizgileri — kutu sınırı edge-detect (ekran-uzayı kalınlık ~1.5px).
-        vec2 d = fwidth(vec2(fz, fy)) * 1.5;
+        // KALICI kesim çizgileri — kutu sınırı edge-detect, kalın + koyu + dashed.
+        vec2 d = fwidth(vec2(fz, fy)) * 2.2;
         bool edge =
           regionAt(fz + d.x, fy) != reg || regionAt(fz - d.x, fy) != reg ||
           regionAt(fz, fy + d.y) != reg || regionAt(fz, fy - d.y) != reg;
-        if (edge) {
-          float lineA = 0.35 + sel * 0.30 + uIntro * 0.4;
+        if (reg >= 0 && edge) {
+          float dash = fract((fy * 1.0 + fz * 0.5 + vLocalPos.x * 0.5) * 42.0);
+          float dashMask = step(0.4, dash); // ~%60 dolu → kesik çizgi
+          float lineA = (0.6 + sel * 0.2 + uIntro * 0.25) * dashMask;
           gl_FragColor.rgb = mix(gl_FragColor.rgb, uLineColor, clamp(lineA, 0.0, 0.85));
         }`,
       );
@@ -98,7 +105,6 @@ export function CowModel({
     [],
   );
 
-  // Klon + gölge + material klonla + shader enjekte.
   const cow = useMemo(() => {
     const s = scene.clone(true);
     shadersRef.current = [];
@@ -113,7 +119,6 @@ export function CowModel({
     return s;
   }, [scene]);
 
-  // Tabana otur + X/Z ortala.
   const fit = useMemo(() => {
     const box = new THREE.Box3().setFromObject(cow);
     const c = box.getCenter(new THREE.Vector3());
