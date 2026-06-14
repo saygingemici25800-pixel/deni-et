@@ -8,6 +8,7 @@ import {ContactShadows} from '@react-three/drei';
 import {waLink} from '@/lib/contact';
 import {WhatsAppIcon} from '../ui';
 import {CowModel} from './CowModel';
+import {CameraFit} from './CameraFit';
 import {REGIONS} from './cuts';
 
 type CutData = {id: string; name: string; dishes: string; cooking: string};
@@ -111,7 +112,7 @@ export function Hero3D() {
                   key={r.id}
                   type="button"
                   onClick={() => handleSelect(i)}
-                  className={`shrink-0 rounded-full border px-3 py-1.5 transition-colors ${
+                  className={`inline-flex min-h-[44px] shrink-0 items-center rounded-full border px-4 transition-colors ${
                     selected === i
                       ? 'border-[color:var(--color-et)] bg-[color:var(--color-et)] text-bone'
                       : 'border-[color:var(--line)] text-et'
@@ -195,7 +196,7 @@ export function Hero3D() {
         <div
           ref={areaRef}
           onPointerMove={onAreaMove}
-          className="relative order-1 h-[62svh] w-full md:order-2 md:h-[100svh] md:flex-1"
+          className="relative order-1 h-[70svh] w-full md:order-2 md:h-[100svh] md:flex-1"
         >
           <div
             aria-hidden="true"
@@ -210,11 +211,11 @@ export function Hero3D() {
             <Canvas
               dpr={isMobile ? [1, 1.5] : [1, 2]}
               shadows
-              camera={{position: isMobile ? [7.2, 1.25, 0] : [5, 1.15, 0], fov: 30}}
+              camera={{position: [6, 1, 0], fov: isMobile ? 38 : 30}}
               gl={{alpha: true, antialias: true}}
-              onCreated={({camera}) => camera.lookAt(0, 0.85, 0)}
               onPointerMissed={() => setSelected(null)}
             >
+              <CameraFit mobile={isMobile} />
               <ambientLight intensity={0.7} color="#FFF3E0" />
               <hemisphereLight args={['#FFF3E0', '#E8DECF', 0.5]} />
               <directionalLight
