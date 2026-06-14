@@ -1,0 +1,15 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="64" rx="13" fill="#1A1411"/>
+  <!-- crossed cleavers (sade satır) -->
+  <g stroke="#F4EEE4" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- cleaver 1 (\) blade + handle -->
+    <path d="M20 17 L36 33" />
+    <path d="M16.5 20.5 L23.5 13.5 L30 20 L23 27 Z" fill="#F4EEE4" stroke="none"/>
+    <!-- cleaver 2 (/) blade + handle -->
+    <path d="M44 17 L28 33" />
+    <path d="M47.5 20.5 L40.5 13.5 L34 20 L41 27 Z" fill="#F4EEE4" stroke="none"/>
+  </g>
+  <!-- DE monogram baseline mark -->
+  <path d="M18 44 H46" stroke="#C8951C" stroke-width="2.4" stroke-linecap="round"/>
+  <text x="32" y="56.5" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" letter-spacing="1.5" fill="#F4EEE4" text-anchor="middle">DE</text>
+</svg>
