@@ -123,7 +123,7 @@ export function Hero3D() {
           <div
             ref={cardRef}
             className={`denizet-card relative w-full overflow-hidden rounded-lg border border-[color:var(--line)] border-l-2 border-l-[color:var(--color-et)] bg-bone shadow-[0_14px_44px_-16px_rgba(26,20,17,0.45)] md:absolute md:inset-x-0 md:top-0 md:mt-0 md:rounded-none md:p-6 ${
-              selected != null ? 'mt-4 p-6' : 'p-0'
+              selected != null ? 'mt-3 p-4' : 'p-0'
             }`}
             data-open={selected != null}
             aria-hidden={selected == null}
@@ -144,22 +144,25 @@ export function Hero3D() {
                   </button>
                 </div>
 
-                <div className="relative mt-2">
+                <div className="relative mt-2 max-md:mt-1">
                   <span
                     aria-hidden="true"
-                    className="absolute -top-3 right-0 font-thin leading-none text-brass"
+                    className="absolute -top-3 right-0 font-thin leading-none text-brass max-md:hidden"
                     style={{fontSize: '3.6rem', opacity: 0.16, letterSpacing: '-0.04em'}}
                   >
                     {num}
                   </span>
-                  <h2 className="type-heading relative max-w-[12ch] text-ink" style={{fontWeight: 500}}>
+                  <h2
+                    className="type-heading relative max-w-[12ch] text-ink max-md:max-w-none max-md:text-[1.6rem] max-md:leading-tight"
+                    style={{fontWeight: 500}}
+                  >
                     {cut.name}
                   </h2>
                 </div>
 
-                <hr className="hairline mt-4" />
+                <hr className="hairline mt-4 max-md:mt-3" />
 
-                <dl className="mt-4 space-y-3">
+                <dl className="mt-4 space-y-3 max-md:mt-3 max-md:space-y-2">
                   <div className="flex items-start gap-3">
                     <UtensilsCrossed size={18} strokeWidth={1.75} aria-hidden="true" className="mt-1 shrink-0 text-et" />
                     <div>
@@ -180,7 +183,7 @@ export function Hero3D() {
                   href={cardWa}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-primary mt-6 w-full"
+                  className="btn btn-primary mt-6 w-full max-md:mt-4"
                 >
                   <WhatsAppIcon size={18} />
                   {t('explorer.panel.cta')}
@@ -210,7 +213,7 @@ export function Hero3D() {
         <div
           ref={areaRef}
           onPointerMove={onAreaMove}
-          className="relative order-1 h-[70svh] w-full md:order-2 md:h-[100svh] md:flex-1"
+          className="relative order-1 h-[50svh] w-full md:order-2 md:h-[100svh] md:flex-1"
         >
           <div
             aria-hidden="true"

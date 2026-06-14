@@ -33,9 +33,12 @@ export function CameraFit({mobile, pad = 1.14}: {mobile: boolean; pad?: number})
     const distH = HH / (tanV * aspect); // yatay sığma (aspect dahil)
     const dist = Math.max(distV, distH) * pad;
 
+    // Mobilde bakış hedefini biraz yukarı al → dana karede aşağı oturur (altındaki boşluk azalır).
+    // Yatay fit bağlayıcı olduğundan dikeyde bolca pay var; taşma olmaz.
+    const aim = mobile ? new THREE.Vector3(0, HY + 0.34, 0) : CENTER;
     const dir = new THREE.Vector3(Math.cos(az), 0.16, Math.sin(az)).normalize();
-    camera.position.copy(CENTER).addScaledVector(dir, dist);
-    camera.lookAt(CENTER);
+    camera.position.copy(aim).addScaledVector(dir, dist);
+    camera.lookAt(aim);
     camera.updateProjectionMatrix();
   }, [camera, width, height, mobile, pad]);
 
