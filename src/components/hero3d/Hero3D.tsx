@@ -1,6 +1,6 @@
 'use client';
 
-import {Suspense, useRef, useState} from 'react';
+import {Suspense, useEffect, useRef, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {X, UtensilsCrossed, Flame} from 'lucide-react';
 import {Canvas} from '@react-three/fiber';
@@ -36,6 +36,16 @@ export function Hero3D() {
   const [explored, setExplored] = useState(false);
   const areaRef = useRef<HTMLDivElement>(null);
   const tipRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Mobilde seçim yapılınca kartı görünüme kaydır (dana + kart birlikte görünsün).
+  useEffect(() => {
+    if (!isMobile || selected == null) return;
+    const el = cardRef.current;
+    if (!el) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'center'});
+  }, [selected, isMobile]);
 
   const beef = t.raw('explorer.beef') as CutData[];
   const byId = (id: string) => beef.find((b) => b.id === id);
@@ -88,23 +98,8 @@ export function Hero3D() {
       <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1400px] flex-col md:flex-row md:items-center md:gap-8 md:px-12">
         {/* İÇERİK — mobilde canvas'ın altında, masaüstünde solda */}
         <div className="relative order-2 w-full px-5 pb-12 md:order-1 md:w-[340px] md:shrink-0 md:px-0 md:pb-0">
-          <div className="max-w-[330px]">
-            <p className="type-eyebrow">{t('hero.eyebrow')}</p>
-            <p className="hero-heritage">{t('hero.heritage')}</p>
-            <p className="type-heading-sm mt-5 max-w-[24ch] font-light text-ink">{t('hero.title')}</p>
-            <a
-              href={defaultWa}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary mt-7"
-            >
-              <WhatsAppIcon size={18} />
-              {t('hero.ctaPrimary')}
-            </a>
-          </div>
-
-          {/* MOBİL parça çipleri — yatay kaydırılır; dokun → bölge seçilir/vurgulanır + kart açılır */}
-          <div className="mt-7 md:hidden">
+          {/* MOBİL parça çipleri — sahnenin hemen altında; dokun → bölge seçilir + kart açılır */}
+          <div className="md:hidden">
             <p className="type-eyebrow text-ink-soft">{t('explorer.exploreHint')}</p>
             <div className="-mx-5 mt-3 flex gap-2 overflow-x-auto px-5 pb-1">
               {REGIONS.map((r, i) => (
@@ -124,9 +119,12 @@ export function Hero3D() {
             </div>
           </div>
 
-          {/* Bilgi kartı — masaüstü: sol overlay · mobil: alttan sheet (tam genişlik) */}
+          {/* Bilgi kartı — masaüstü: sol overlay (top) · mobil: canvas'ın hemen altında normal akış (kapalıyken collapse) */}
           <div
-            className="denizet-card fixed inset-x-3 bottom-3 z-40 max-h-[78svh] overflow-y-auto rounded-lg border border-[color:var(--line)] border-l-2 border-l-[color:var(--color-et)] bg-bone p-6 shadow-[0_14px_44px_-16px_rgba(26,20,17,0.45)] md:absolute md:inset-x-0 md:bottom-auto md:top-0 md:z-auto md:max-h-none md:overflow-visible md:rounded-none"
+            ref={cardRef}
+            className={`denizet-card relative w-full overflow-hidden rounded-lg border border-[color:var(--line)] border-l-2 border-l-[color:var(--color-et)] bg-bone shadow-[0_14px_44px_-16px_rgba(26,20,17,0.45)] md:absolute md:inset-x-0 md:top-0 md:mt-0 md:rounded-none md:p-6 ${
+              selected != null ? 'mt-4 p-6' : 'p-0'
+            }`}
             data-open={selected != null}
             aria-hidden={selected == null}
             role="dialog"
@@ -190,9 +188,25 @@ export function Hero3D() {
               </>
             )}
           </div>
+
+          {/* Mikro içerik (marka) — mobilde explorer'ın altında, masaüstünde kolonun üstünde */}
+          <div className="mt-10 max-w-[330px] md:mt-0">
+            <p className="type-eyebrow">{t('hero.eyebrow')}</p>
+            <p className="hero-heritage">{t('hero.heritage')}</p>
+            <p className="type-heading-sm mt-5 max-w-[24ch] font-light text-ink">{t('hero.title')}</p>
+            <a
+              href={defaultWa}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary mt-7"
+            >
+              <WhatsAppIcon size={18} />
+              {t('hero.ctaPrimary')}
+            </a>
+          </div>
         </div>
 
-        {/* CANVAS — mobilde üstte tam genişlik (h ~62svh), masaüstünde sağda tam yükseklik */}
+        {/* CANVAS — mobilde üstte tam genişlik (h ~70svh), masaüstünde sağda tam yükseklik */}
         <div
           ref={areaRef}
           onPointerMove={onAreaMove}
