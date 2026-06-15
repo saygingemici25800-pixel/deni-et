@@ -5,9 +5,10 @@ import {useGLTF} from '@react-three/drei';
 import {useFrame} from '@react-three/fiber';
 import * as THREE from 'three';
 import {YACHT_SCALE, YACHT_REFLECT_DEPTH} from './yacht-config';
+import {bindMeshopt} from '@/lib/meshopt';
 
-// drei useGLTF: meshopt varsayılan açık (model meshopt değil → no-op).
-useGLTF.preload('/models/yacht.glb');
+// EXT_meshopt_compression: decoder bağlı olmazsa mesh konfeti görünür (dana ile aynı decoder).
+useGLTF.preload('/models/yacht.glb', true, true, bindMeshopt);
 
 // Aynalanmış kopyaya soluk + dikey fade + hafif dalga distorsiyonu enjekte et (prosedürel yansıma).
 function injectReflection(mat: THREE.Material, sink: THREE.WebGLProgramParametersWithUniforms[]) {
@@ -36,7 +37,7 @@ function injectReflection(mat: THREE.Material, sink: THREE.WebGLProgramParameter
 export function YachtModel({reduced}: {reduced: boolean}) {
   const group = useRef<THREE.Group>(null);
   const reflShaders = useRef<THREE.WebGLProgramParametersWithUniforms[]>([]);
-  const {scene} = useGLTF('/models/yacht.glb');
+  const {scene} = useGLTF('/models/yacht.glb', true, true, bindMeshopt);
 
   const {boat, mirror, fit} = useMemo(() => {
     reflShaders.current = [];
