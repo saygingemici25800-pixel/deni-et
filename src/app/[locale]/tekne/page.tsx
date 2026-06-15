@@ -3,9 +3,9 @@ import {hasLocale} from 'next-intl';
 import {setRequestLocale, getTranslations} from 'next-intl/server';
 import {routing} from '@/i18n/routing';
 import {waLink} from '@/lib/contact';
-import {splitLastWord} from '@/lib/text';
 import {WhatsAppIcon} from '@/components/ui';
 import {BoatGallery} from '@/components/BoatGallery';
+import {BoatHero} from '@/components/boat3d/BoatHero';
 
 type Locale = (typeof routing.locales)[number];
 type Props = {params: Promise<{locale: string}>};
@@ -35,30 +35,15 @@ export default async function TeknePage({params}: Props) {
   setRequestLocale(locale);
   const t = await getTranslations({locale});
   const wa = waLink(t('boat.prefillList'));
-  const [tThin, tBold] = splitLastWord(t('boat.pageTitle'));
   const delivery = t.raw('boat.delivery') as string[];
 
   return (
     <>
-      {/* ÜST — kömür hero band (sonraki adım: arka plana 3D tekne/deniz) */}
-      <section className="surface-charcoal scroll-mt-24">
-        <div className={`${wrap} pb-16 pt-36 md:pb-20 md:pt-44`}>
-          <p className="type-eyebrow">{t('boat.eyebrow')}</p>
-          <h1 className="type-statement mt-5 max-w-[16ch] text-bone">
-            <span className="thin">
-              {tThin}
-              {tBold ? ' ' : ''}
-            </span>
-            {tBold && <span className="bold text-brass">{tBold}</span>}
-          </h1>
-          <p className="type-body type-body-light mt-6 max-w-[52ch] text-cream-soft">{t('boat.lead')}</p>
-          <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-8">
-            <WhatsAppIcon size={18} />
-            {t('boat.ctaList')}
-          </a>
-        </div>
+      {/* ÜST — sinematik 3D yat bandı (client; WebGL/reduced-motion fallback içeride) */}
+      <BoatHero />
 
-        {/* TESLİMAT ŞERİDİ — ince hairline satır */}
+      {/* TESLİMAT ŞERİDİ — ince hairline satır (kömür) */}
+      <section className="surface-charcoal">
         <hr className="hairline" />
         <div className={`${wrap} py-5`}>
           <ul className="flex flex-wrap items-center gap-x-3 gap-y-2 type-eyebrow text-cream-soft">
