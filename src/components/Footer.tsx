@@ -53,7 +53,13 @@ export function Footer() {
                 </a>
               ),
             )}
-            {/* Blog — locale-farkında rota (anchor değil). */}
+            {/* Kumanya + Blog — locale-farkında rotalar (anchor değil). */}
+            <Link
+              href="/tekne"
+              className="type-eyebrow text-cream-soft transition-colors hover:text-brass"
+            >
+              {t('nav.boat')}
+            </Link>
             <Link
               href="/blog"
               className="type-eyebrow text-cream-soft transition-colors hover:text-brass"

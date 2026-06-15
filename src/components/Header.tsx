@@ -12,6 +12,7 @@ import {LangSwitch} from './LangSwitch';
 // Nav modeli — etiketler content.nav'dan. anchor=true → locale-aware kök+anchor (/#id);
 // anchor=false → ayrı rota (/blog). Hedefler SITEMAP §2/§5.
 const NAV = [
+  {key: 'boat', href: '/tekne', anchor: false},
   {key: 'story', hash: 'hikaye-timeline', anchor: true},
   {key: 'blog', href: '/blog', anchor: false},
   {key: 'contact', hash: 'iletisim', anchor: true},

@@ -202,7 +202,7 @@ export function Showcase() {
 // Düğüm — krem daire + kömür çapraz satır (bıçak) motifi (makas DEĞİL).
 function CleaverNode() {
   return (
-    <span className="relative z-10 grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[color:var(--line)] bg-bone text-ink">
+    <span className="relative z-10 grid h-7 w-7 shrink-0 place-items-center rounded-full border border-[color:var(--line)] bg-bone text-ink">
       <svg
         viewBox="0 0 24 24"
         aria-hidden="true"
@@ -211,7 +211,7 @@ function CleaverNode() {
         strokeWidth="1.5"
         strokeLinejoin="round"
         strokeLinecap="round"
-        className="h-4 w-4"
+        className="h-3.5 w-3.5"
       >
         <path d="M5 13 L13 5 L18 10 L10 18 Z" />
         <path d="M13.5 14.5 L20 21" />
@@ -228,11 +228,11 @@ export function Timeline() {
 
   return (
     <section id="hikaye-timeline" className="surface-charcoal scroll-mt-24 md:scroll-mt-28">
-      <div className={`${wrap} py-20 md:py-24`}>
+      <div className={`${wrap} py-10 md:py-12`}>
         {/* Üst başlık — ortalı */}
         <div className="text-center">
           <p className="type-eyebrow">{t('timeline.eyebrow')}</p>
-          <h2 className="type-statement mt-4 text-bone" style={{fontSize: 'clamp(2rem, 1.4rem + 3vw, 3.6rem)'}}>
+          <h2 className="type-statement mt-3 text-bone" style={{fontSize: 'clamp(1.6rem, 1.2rem + 2vw, 2.6rem)'}}>
             <span className="thin">
               {tThin}
               {tBold ? ' ' : ''}
@@ -242,11 +242,11 @@ export function Timeline() {
         </div>
 
         {/* Dikey timeline */}
-        <ol className="relative mt-14 md:mt-20">
+        <ol className="relative mt-8 md:mt-10">
           {/* Dashed dikey çizgi — mobil solda, masaüstü ortada */}
           <span
             aria-hidden="true"
-            className="absolute bottom-0 left-[18px] top-0 border-l border-dashed md:left-1/2 md:-translate-x-1/2"
+            className="absolute bottom-0 left-[14px] top-0 border-l border-dashed md:left-1/2 md:-translate-x-1/2"
             style={{borderColor: 'rgba(200,149,28,0.5)'}}
           />
           {milestones.map((m, i) => {
@@ -255,21 +255,21 @@ export function Timeline() {
               ? 'border-l-2 border-l-[color:var(--color-brass)]'
               : 'border-l-2 border-l-[color:var(--color-brass)] md:border-l md:border-l-[color:var(--line)] md:border-r-2 md:border-r-[color:var(--color-brass)]';
             return (
-              <li key={m.year} className="reveal relative flex gap-5 pb-12 last:pb-0 md:gap-0">
+              <li key={m.year} className="reveal relative flex gap-4 pb-6 last:pb-0 md:gap-0">
                 {/* Düğüm — mobil: solda akışta · masaüstü: çizgi üzerinde absolute ortada */}
                 <div className="relative z-10 shrink-0 md:absolute md:left-1/2 md:top-1 md:-translate-x-1/2">
                   <CleaverNode />
                 </div>
                 {/* Kart — mobil sağ tam genişlik · masaüstü yarım, indexe göre sağ/sol */}
                 <div
-                  className={`min-w-0 flex-1 md:w-[calc(50%-2.5rem)] md:flex-none ${
-                    right ? 'md:ml-auto md:pl-10' : 'md:mr-auto md:pr-10 md:text-right'
+                  className={`min-w-0 flex-1 md:w-[calc(50%-1.75rem)] md:flex-none ${
+                    right ? 'md:ml-auto md:pl-7' : 'md:mr-auto md:pr-7 md:text-right'
                   }`}
                 >
-                  <div className={`border border-[color:var(--line)] bg-[color:var(--color-espresso-2)] p-5 md:p-6 ${accent}`}>
+                  <div className={`border border-[color:var(--line)] bg-[color:var(--color-espresso-2)] p-4 md:p-5 ${accent}`}>
                     <p
                       className="font-thin leading-none text-brass"
-                      style={{fontSize: 'clamp(1.9rem, 1.5rem + 1.4vw, 2.6rem)', letterSpacing: '-0.02em'}}
+                      style={{fontSize: 'clamp(1.4rem, 1.1rem + 1vw, 1.9rem)', letterSpacing: '-0.02em'}}
                     >
                       {m.year}
                     </p>
