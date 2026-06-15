@@ -67,6 +67,10 @@
       { "year": "2024", "title": "Üçüncü nesil", "text": "Kırk yılı aşan emek, aynı sözle devam ediyor." }
     ]
   },
+  "trustBadge": {
+    "text": "Muğla & Kuşadası'na teslimat",
+    "sub": "Günlük taze · soğuk zincir"
+  },
   "story": {
     "eyebrow": "Hikâye",
     "title": "Bir tezgah, kırk yıl, tek söz.",

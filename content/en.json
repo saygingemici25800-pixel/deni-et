@@ -67,6 +67,10 @@
       { "year": "2024", "title": "Third generation", "text": "Over forty years of work, continuing with the same word." }
     ]
   },
+  "trustBadge": {
+    "text": "Delivery across Muğla & Kuşadası",
+    "sub": "Daily fresh · cold chain"
+  },
   "story": {
     "eyebrow": "Story",
     "title": "One counter, forty years, one word.",
