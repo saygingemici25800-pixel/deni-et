@@ -5,6 +5,7 @@ import {routing} from '@/i18n/routing';
 import {waLink} from '@/lib/contact';
 import {splitLastWord} from '@/lib/text';
 import {WhatsAppIcon} from '@/components/ui';
+import {BoatGallery} from '@/components/BoatGallery';
 
 type Locale = (typeof routing.locales)[number];
 type Props = {params: Promise<{locale: string}>};
@@ -23,7 +24,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
   const t = await getTranslations({locale});
   return {
     title: `${t('boat.pageTitle')} · ${t('meta.siteName')}`,
-    description: t('boat.text'),
+    description: t('boat.lead'),
   };
 }
 
@@ -33,39 +34,70 @@ export default async function TeknePage({params}: Props) {
   const locale = narrow((await params).locale);
   setRequestLocale(locale);
   const t = await getTranslations({locale});
-  const wa = waLink(t('whatsapp.prefill'));
+  const wa = waLink(t('boat.prefillList'));
   const [tThin, tBold] = splitLastWord(t('boat.pageTitle'));
+  const delivery = t.raw('boat.delivery') as string[];
 
   return (
-    <section className="surface-cream scroll-mt-24">
-      <div className={`${wrap} pb-24 pt-36 md:pb-32 md:pt-44`}>
-        <header className="max-w-[60ch]">
-          <p className="type-eyebrow text-ink-soft">{t('boat.eyebrow')}</p>
-          <h1 className="type-statement mt-5">
+    <>
+      {/* ÜST — kömür hero band (sonraki adım: arka plana 3D tekne/deniz) */}
+      <section className="surface-charcoal scroll-mt-24">
+        <div className={`${wrap} pb-16 pt-36 md:pb-20 md:pt-44`}>
+          <p className="type-eyebrow">{t('boat.eyebrow')}</p>
+          <h1 className="type-statement mt-5 max-w-[16ch] text-bone">
             <span className="thin">
               {tThin}
               {tBold ? ' ' : ''}
             </span>
-            {tBold && <span className="bold text-et">{tBold}</span>}
+            {tBold && <span className="bold text-brass">{tBold}</span>}
           </h1>
-          <p className="type-body type-body-light mt-7 text-ink-soft">{t('boat.text')}</p>
-        </header>
+          <p className="type-body type-body-light mt-6 max-w-[52ch] text-cream-soft">{t('boat.lead')}</p>
+          <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-8">
+            <WhatsAppIcon size={18} />
+            {t('boat.ctaList')}
+          </a>
+        </div>
 
-        {/* Placeholder — dolu ürün galerisi sonraki adımda. */}
-        <div className="mt-12 border border-[color:var(--line)] border-l-2 border-l-[color:var(--color-et)] bg-bone-2 p-8 md:mt-16 md:p-10">
-          <p className="type-eyebrow text-et">{t('boat.eyebrow')}</p>
-          <p className="type-body mt-3 max-w-[52ch] text-ink">{t('boat.note')}</p>
+        {/* TESLİMAT ŞERİDİ — ince hairline satır */}
+        <hr className="hairline" />
+        <div className={`${wrap} py-5`}>
+          <ul className="flex flex-wrap items-center gap-x-3 gap-y-2 type-eyebrow text-cream-soft">
+            {delivery.map((d, i) => (
+              <li key={d} className="flex items-center gap-x-3">
+                {i > 0 && <span aria-hidden="true" className="h-1 w-1 rounded-full bg-brass" />}
+                {d}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* GALERİ — krem (kategori filtresi + ürün grid) */}
+      <section className="surface-cream">
+        <div className={`${wrap} py-20 md:py-28`}>
+          <BoatGallery />
+        </div>
+      </section>
+
+      {/* ALT CTA — tam genişlik bordo bant */}
+      <section className="text-bone" style={{backgroundColor: 'var(--color-et)'}}>
+        <div
+          className={`${wrap} flex flex-col items-start justify-between gap-6 py-14 md:flex-row md:items-center md:py-16`}
+        >
+          <p className="type-statement max-w-[18ch]" style={{fontSize: 'clamp(1.6rem, 1.2rem + 2vw, 2.6rem)'}}>
+            {t('boat.bandTitle')}
+          </p>
           <a
             href={wa}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-primary mt-7"
+            className="btn shrink-0 bg-[color:var(--color-bone)] text-[color:var(--color-et)] hover:bg-[color:var(--color-bone-2)]"
           >
             <WhatsAppIcon size={18} />
-            {t('boat.cta')}
+            {t('boat.bandCta')}
           </a>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

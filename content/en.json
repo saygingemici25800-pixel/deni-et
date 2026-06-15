@@ -26,7 +26,21 @@
     "cta": "Order Provisions",
     "ctaSecondary": "Message on WhatsApp",
     "pageTitle": "Boat Provisions",
-    "note": "The product list is on the way — for now, send your list on WhatsApp and we'll portion and pack it."
+    "note": "The product list is on the way — for now, send your list on WhatsApp and we'll portion and pack it.",
+    "lead": "Boat trip, summer house or a big gathering — send your list; we portion it and deliver cold-chain to the marina or your door.",
+    "ctaList": "Send My List on WhatsApp",
+    "prefillList": "Hello, I'd like to place a boat provisions order.",
+    "prefillItem": "Hello, I'd like {product} (boat provisions).",
+    "ask": "Ask",
+    "all": "All",
+    "delivery": [
+      "From Fethiye to all Muğla & Kuşadası",
+      "Delivery to marina or your door",
+      "Cold chain",
+      "Daily cuts"
+    ],
+    "bandTitle": "Prepare your list, leave the rest to us.",
+    "bandCta": "Order on WhatsApp"
   },
   "story": {
     "eyebrow": "Story",

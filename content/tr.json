@@ -26,7 +26,21 @@
     "cta": "Kumanya Siparişi Ver",
     "ctaSecondary": "WhatsApp'tan Yaz",
     "pageTitle": "Tekne Kumanya",
-    "note": "Ürün listesi hazırlanıyor — şimdilik WhatsApp'tan listeni ilet, biz porsiyonlayıp paketleyelim."
+    "note": "Ürün listesi hazırlanıyor — şimdilik WhatsApp'tan listeni ilet, biz porsiyonlayıp paketleyelim.",
+    "lead": "Tekne turu, yazlık ya da kalabalık davet — listeni ilet, biz porsiyonlayıp soğuk zincirle iskeleye ya da kapına getirelim.",
+    "ctaList": "Listemi WhatsApp'tan İlet",
+    "prefillList": "Merhaba, tekne kumanya siparişi vermek istiyorum.",
+    "prefillItem": "Merhaba, {product} istiyorum (tekne kumanya).",
+    "ask": "İste",
+    "all": "Tümü",
+    "delivery": [
+      "Fethiye'den tüm Muğla & Kuşadası'na",
+      "İskeleye ya da kapına teslim",
+      "Soğuk zincir",
+      "Günlük kesim"
+    ],
+    "bandTitle": "Listeni hazırla, gerisini bize bırak.",
+    "bandCta": "WhatsApp'tan Sipariş"
   },
   "story": {
     "eyebrow": "Hikâye",
