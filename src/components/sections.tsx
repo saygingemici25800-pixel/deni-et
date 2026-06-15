@@ -1,5 +1,6 @@
 import {useTranslations} from 'next-intl';
 import {waLink} from '@/lib/contact';
+import {Link} from '@/i18n/navigation';
 import {WhatsAppIcon} from './ui';
 import {StoryCarousel} from './StoryCarousel';
 
@@ -35,7 +36,7 @@ const pad = 'py-24 md:py-32';
 export function Hero() {
   const t = useTranslations();
   const wa = waLink(t('whatsapp.prefill'));
-  const [thin, bold] = splitZitlik(t('hero.title'));
+  const [thin, bold] = splitZitlik(t('boat.title'));
   const mark = (t('meta.siteName').split('·')[0] ?? '').trim(); // "Deniz Et"
   const [w1, w2 = ''] = mark.split(' ');
   const deniz = w1.toLocaleUpperCase('tr'); // "DENİZ"
@@ -45,33 +46,31 @@ export function Hero() {
     <section id="hero" className="grid scroll-mt-24 md:grid-cols-2">
       {/* Sol yarım — krem (açık). DENİZ = ince + koyu knockout. */}
       <div className="surface-cream flex min-h-[64svh] flex-col justify-center gap-7 px-5 pb-14 pt-32 md:min-h-[100svh] md:px-12 md:pb-16 md:pt-36">
-        {/* eyebrow → heritage (sessiz katman) → DENİZ lockup → tagline → CTA */}
-        <div>
-          <p className="type-eyebrow">{t('hero.eyebrow')}</p>
-          <p className="hero-heritage">{t('hero.heritage')}</p>
-        </div>
+        {/* eyebrow → DENİZ lockup → tekne/kumanya SATIŞ mesajı (boat.*) → CTA */}
+        <p className="type-eyebrow text-ink-soft">{t('boat.eyebrow')}</p>
         <p
           aria-hidden="true"
           className="font-thin leading-[0.85] text-ink"
-          style={{fontSize: 'clamp(3.5rem, 2.4rem + 9vw, 9.5rem)', letterSpacing: '-0.03em'}}
+          style={{fontSize: 'clamp(3rem, 2.2rem + 8vw, 8rem)', letterSpacing: '-0.03em'}}
         >
           {deniz}
         </p>
-        <div className="max-w-[40ch]">
-          <h1 className="type-heading-sm font-light text-ink-soft" style={{fontWeight: 300}}>
+        <div className="max-w-[46ch]">
+          <h1 className="type-heading text-ink">
             <span className="font-thin">
               {thin}
               {bold ? ' ' : ''}
             </span>
-            {bold && <span className="font-bold text-ink">{bold}</span>}
+            {bold && <span className="font-bold text-et">{bold}</span>}
           </h1>
+          <p className="type-body type-body-light mt-5 max-w-[46ch] text-ink-soft">{t('boat.text')}</p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-              <WhatsAppIcon size={18} />
-              {t('hero.ctaPrimary')}
-            </a>
+            <Link href="/tekne" className="btn btn-primary">
+              {t('boat.cta')}
+            </Link>
             <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
-              {t('hero.ctaSecondary')}
+              <WhatsAppIcon size={18} />
+              {t('boat.ctaSecondary')}
             </a>
           </div>
         </div>

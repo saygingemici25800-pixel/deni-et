@@ -6,6 +6,8 @@ import {X, UtensilsCrossed, Flame} from 'lucide-react';
 import {Canvas} from '@react-three/fiber';
 import {ContactShadows} from '@react-three/drei';
 import {waLink} from '@/lib/contact';
+import {Link} from '@/i18n/navigation';
+import {splitZitlik} from '@/lib/text';
 import {WhatsAppIcon} from '../ui';
 import {CowModel} from './CowModel';
 import {CameraFit} from './CameraFit';
@@ -57,6 +59,7 @@ export function Hero3D() {
   const num = selected != null ? String(selected + 1).padStart(2, '0') : '';
   const hoverName = hoverIdx != null ? (byId(REGIONS[hoverIdx].id)?.name ?? '') : '';
   const mark = (t('meta.siteName').split('·')[0] ?? '').trim().toLocaleUpperCase('tr');
+  const [bThin, bBold] = splitZitlik(t('boat.title'));
 
   const handleHover = (i: number | null) => setHoverIdx(i);
   // Keşfet pill'i YALNIZ ilk bölge seçiminde kaybolur (state-only → refresh'te döner).
@@ -97,7 +100,7 @@ export function Hero3D() {
       {/* Mobil: dikey yığın (canvas üstte) · Masaüstü: yan yana (içerik solda). */}
       <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1400px] flex-col md:flex-row md:items-center md:gap-8 md:px-12">
         {/* İÇERİK — mobilde canvas'ın altında, masaüstünde solda */}
-        <div className="relative order-2 w-full px-5 pb-12 md:order-1 md:w-[340px] md:shrink-0 md:px-0 md:pb-0">
+        <div className="relative order-2 w-full px-5 pb-12 md:order-1 md:w-[380px] md:shrink-0 md:px-0 md:pb-0">
           {/* MOBİL parça çipleri — sahnenin hemen altında; dokun → bölge seçilir + kart açılır */}
           <div className="md:hidden">
             <p className="type-eyebrow text-ink-soft">{t('explorer.exploreHint')}</p>
@@ -192,20 +195,34 @@ export function Hero3D() {
             )}
           </div>
 
-          {/* Mikro içerik (marka) — mobilde explorer'ın altında, masaüstünde kolonun üstünde */}
-          <div className="mt-10 max-w-[330px] md:mt-0">
-            <p className="type-eyebrow">{t('hero.eyebrow')}</p>
-            <p className="hero-heritage">{t('hero.heritage')}</p>
-            <p className="type-heading-sm mt-5 max-w-[24ch] font-light text-ink">{t('hero.title')}</p>
-            <a
-              href={defaultWa}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary mt-7"
+          {/* Hero ana mesajı — tekne/kumanya SATIŞ bloğu (boat.*). Mobilde explorer'ın altında. */}
+          <div className="mt-10 max-w-[400px] md:mt-0">
+            <p className="type-eyebrow text-ink-soft">{t('boat.eyebrow')}</p>
+            <p
+              className="type-statement mt-4 text-ink"
+              style={{fontSize: 'clamp(2rem, 1.4rem + 3vw, 3.6rem)'}}
             >
-              <WhatsAppIcon size={18} />
-              {t('hero.ctaPrimary')}
-            </a>
+              <span className="thin">
+                {bThin}
+                {bBold ? ' ' : ''}
+              </span>
+              {bBold && <span className="bold text-et">{bBold}</span>}
+            </p>
+            <p className="type-body type-body-light mt-5 max-w-[46ch] text-ink-soft">{t('boat.text')}</p>
+            <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <Link href="/tekne" className="btn btn-primary">
+                {t('boat.cta')}
+              </Link>
+              <a
+                href={defaultWa}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="type-eyebrow inline-flex items-center gap-2 text-et transition-colors hover:text-et-deep"
+              >
+                <WhatsAppIcon size={16} />
+                {t('boat.ctaSecondary')}
+              </a>
+            </div>
           </div>
         </div>
 

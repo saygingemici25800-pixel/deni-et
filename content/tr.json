@@ -19,6 +19,15 @@
     "ctaPrimary": "WhatsApp'tan Sipariş Ver",
     "ctaSecondary": "Ustaya Yaz"
   },
+  "boat": {
+    "eyebrow": "FETHİYE'DEN TÜM MUĞLA & KUŞADASI'NA",
+    "title": "Teknene kumanya, sofrana taze et.",
+    "text": "Tekne turu, yazlık, davet — listeni ilet; eti porsiyonlar, paketler, iskeleye ya da kapına teslim ederiz. Günlük kesim, soğuk zincir, tek mesajla.",
+    "cta": "Kumanya Siparişi Ver",
+    "ctaSecondary": "WhatsApp'tan Yaz",
+    "pageTitle": "Tekne Kumanya",
+    "note": "Ürün listesi hazırlanıyor — şimdilik WhatsApp'tan listeni ilet, biz porsiyonlayıp paketleyelim."
+  },
   "story": {
     "eyebrow": "Hikâye",
     "title": "Bir tezgah, kırk yıl, tek söz.",

@@ -19,6 +19,15 @@
     "ctaPrimary": "Order on WhatsApp",
     "ctaSecondary": "Message the Butcher"
   },
+  "boat": {
+    "eyebrow": "FROM FETHİYE TO ALL MUĞLA & KUŞADASI",
+    "title": "Provisions for your boat, fresh meat for your table.",
+    "text": "Boat trips, summer houses, gatherings — send your list; we portion, pack and deliver to the marina or your door. Daily cuts, cold chain, one message away.",
+    "cta": "Order Provisions",
+    "ctaSecondary": "Message on WhatsApp",
+    "pageTitle": "Boat Provisions",
+    "note": "The product list is on the way — for now, send your list on WhatsApp and we'll portion and pack it."
+  },
   "story": {
     "eyebrow": "Story",
     "title": "One counter, forty years, one word.",
