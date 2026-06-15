@@ -42,6 +42,19 @@
     "bandTitle": "Listeni hazırla, gerisini bize bırak.",
     "bandCta": "WhatsApp'tan Sipariş"
   },
+  "showcase": {
+    "eyebrow": "TEZGAHTAN",
+    "title": "Her sabah seçilen, ustanın elinden geçen et.",
+    "text": "Dana, kuzu, ev yapımı sucuk, marine mangallık — hepsi günlük kesim, soğuk zincir. Ne aldığını bilirsin; kim kestiğini de.",
+    "items": [
+      { "name": "Dana Antrikot", "note": "Mermerli, ızgaralık." },
+      { "name": "Kuzu Pirzola", "note": "İnce kemik, mangal kıvamı." },
+      { "name": "Ev Yapımı Sucuk", "note": "Baharatı bizden, dinlenmesi sabırdan." },
+      { "name": "Dana Kıyma", "note": "Günlük çekim, köftelik." }
+    ],
+    "cta": "Tüm Ürünler & Kumanya",
+    "ctaProducts": "Ürünleri Gör"
+  },
   "story": {
     "eyebrow": "Hikâye",
     "title": "Bir tezgah, kırk yıl, tek söz.",

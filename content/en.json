@@ -42,6 +42,19 @@
     "bandTitle": "Prepare your list, leave the rest to us.",
     "bandCta": "Order on WhatsApp"
   },
+  "showcase": {
+    "eyebrow": "Counter Cuts",
+    "title": "Meat chosen each morning, by the master's hand.",
+    "text": "Beef, lamb, homemade sucuk, marinated grill cuts — all daily-cut, cold chain. You know what you're buying, and who cut it.",
+    "items": [
+      { "name": "Beef Ribeye", "note": "Marbled, made for the grill." },
+      { "name": "Lamb Chops", "note": "Fine bone, perfect on coals." },
+      { "name": "Homemade Sucuk", "note": "Our spice, rested with patience." },
+      { "name": "Beef Mince", "note": "Freshly ground, for köfte." }
+    ],
+    "cta": "All Products & Provisions",
+    "ctaProducts": "See Products"
+  },
   "story": {
     "eyebrow": "Story",
     "title": "One counter, forty years, one word.",

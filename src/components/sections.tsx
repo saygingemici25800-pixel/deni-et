@@ -1,8 +1,8 @@
 import {useTranslations} from 'next-intl';
+import {ArrowRight} from 'lucide-react';
 import {waLink} from '@/lib/contact';
 import {Link} from '@/i18n/navigation';
 import {WhatsAppIcon} from './ui';
-import {StoryCarousel} from './StoryCarousel';
 
 /* =================================================================
    FAZ 2 — Bölümler. Tüm metin content/<locale>.json'dan.
@@ -92,44 +92,102 @@ export function Hero() {
   );
 }
 
-/* ---------------- 2 · HİKÂYE (krem · CSS 3D coverflow karusel) ---------------- */
-export function Story() {
+/* Zarif ürün görsel placeholder — /tekne deseniyle tutarlı (krem gradyan + ince bıçak/köz + ad filigranı). */
+function ShowcaseArt({label, idx}: {label: string; idx: number}) {
+  const gid = `sc-ember-${idx}`;
+  return (
+    <div
+      className="relative aspect-[4/3] overflow-hidden text-ink"
+      style={{background: 'linear-gradient(135deg, #F6F1E8 0%, #E8DECF 100%)'}}
+    >
+      <svg viewBox="0 0 200 150" aria-hidden="true" fill="none" className="absolute inset-0 h-full w-full">
+        <defs>
+          <radialGradient id={gid} cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#F4C257" stopOpacity="0.45" />
+            <stop offset="100%" stopColor="#C8951C" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+        <ellipse cx="100" cy="98" rx="62" ry="15" fill={`url(#${gid})`} />
+        <g stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" strokeLinecap="round" opacity="0.5">
+          <path d="M44 70 L150 48 C160 46 167 53 159 60 L74 96 L52 92 Z" />
+          <line x1="52" y1="92" x2="46" y2="72" opacity="0.5" />
+          <path d="M74 96 L64 116" />
+          <path d="M64 116 L58 130 L76 130 L70 116 Z" />
+        </g>
+        <g fill="#C8951C" opacity="0.8">
+          <circle cx="86" cy="98" r="4" />
+          <circle cx="104" cy="94" r="5" />
+          <circle cx="122" cy="98" r="4" />
+        </g>
+      </svg>
+      <span
+        aria-hidden="true"
+        className="absolute bottom-2 right-3 max-w-[85%] text-right font-bold leading-none text-ink"
+        style={{fontSize: 'clamp(1rem, 0.8rem + 1.4vw, 1.5rem)', opacity: 0.09, letterSpacing: '-0.02em'}}
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
+
+/* ---------------- 2 · TEZGAHTAN (krem · editoryal ürün vitrini) ----------------
+   Hero sonrası krem'e döner → kontrast ritmi (üst hairline page.tsx'te).
+   SOL: eyebrow → ince↔kalın başlık → metin → /tekne CTA'ları.
+   SAĞ: 4 ürün kartı (zarif placeholder + ad + not), hafif asimetrik dizilim. */
+type ShowItem = {name: string; note: string};
+export function Showcase() {
   const t = useTranslations();
-  const wa = waLink(t('whatsapp.prefill'));
-  const carousel = t.raw('story.carousel') as {title: string; text: string}[];
-  const [sThin, sBold] = splitZitlik(t('story.title'));
-  const labels = {
-    carousel: t('a11y.carousel'),
-    prev: t('a11y.prevSlide'),
-    next: t('a11y.nextSlide'),
-    slide: t('a11y.slide'),
-  };
+  const items = t.raw('showcase.items') as ShowItem[];
+  const [sThin, sBold] = splitZitlik(t('showcase.title'));
   return (
     <section id="hikaye" className="surface-cream scroll-mt-24 md:scroll-mt-28">
       <div className={`${wrap} ${pad}`}>
-        <p className="type-eyebrow reveal">{t('story.eyebrow')}</p>
-        <div className="mt-6 grid gap-10 md:grid-cols-12">
-          {/* Başlık — type-heading ölçeğinde ince↔kalın gerilim */}
-          <h2 className="type-heading reveal reveal-2 max-w-[16ch] md:col-span-7">
-            <span className="font-thin">
-              {sThin}
-              {sBold ? ' ' : ''}
-            </span>
-            {sBold && <span className="font-bold">{sBold}</span>}
-          </h2>
-          {/* Gövde — dar okuma ölçüsü (~60ch), nefesli */}
-          <div className="reveal reveal-3 md:col-span-5 md:self-end">
-            <p className="type-body type-body-light max-w-[60ch] text-ink-soft">{t('story.body')}</p>
-            <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-outline mt-8">
-              {t('story.cta')}
-            </a>
+        <div className="grid gap-12 md:grid-cols-12 md:gap-16">
+          {/* SOL — içerik */}
+          <div className="md:col-span-5 md:self-center">
+            <p className="type-eyebrow">{t('showcase.eyebrow')}</p>
+            <h2 className="type-heading mt-6 max-w-[16ch]">
+              <span className="font-thin">
+                {sThin}
+                {sBold ? ' ' : ''}
+              </span>
+              {sBold && <span className="font-bold">{sBold}</span>}
+            </h2>
+            <p className="type-body type-body-light mt-6 max-w-[46ch] text-ink-soft">{t('showcase.text')}</p>
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <Link href="/tekne" className="btn btn-primary">
+                {t('showcase.cta')}
+              </Link>
+              <Link
+                href="/tekne"
+                className="type-eyebrow inline-flex items-center gap-1.5 text-et transition-colors hover:text-et-deep"
+              >
+                {t('showcase.ctaProducts')}
+                <ArrowRight size={14} strokeWidth={2} aria-hidden="true" />
+              </Link>
+            </div>
           </div>
-        </div>
 
-        {/* CSS 3D coverflow — izole bileşen (Faz 3'te WebGL'e yükseltilebilir).
-            Not: interaktif bileşen scroll-scrub opacity'ye sarılmaz (soluk görünmesin). */}
-        <div className="mt-16 md:mt-20">
-          <StoryCarousel cards={carousel} labels={labels} />
+          {/* SAĞ — ürün görsel ızgarası (hafif asimetrik: 2. sütun offset) */}
+          <div className="md:col-span-7">
+            <div className="grid grid-cols-2 gap-4 md:gap-6">
+              {items.map((it, i) => (
+                <article
+                  key={it.name}
+                  className={`overflow-hidden border border-[color:var(--line)] bg-bone ${
+                    i % 2 === 1 ? 'md:mt-10' : ''
+                  }`}
+                >
+                  <ShowcaseArt label={it.name} idx={i} />
+                  <div className="border-t border-[color:var(--line)] p-4 md:p-5">
+                    <h3 className="type-heading-sm text-ink">{it.name}</h3>
+                    <p className="type-body mt-1 text-ink-soft">{it.note}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
