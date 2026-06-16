@@ -5,10 +5,9 @@ import {useGLTF} from '@react-three/drei';
 import {useFrame, useThree, type ThreeEvent} from '@react-three/fiber';
 import * as THREE from 'three';
 import {MODEL_SCALE, regionOf} from './cuts';
-import {bindMeshopt} from '@/lib/meshopt';
 
-// EXT_meshopt_compression: decoder bağlı olmazsa mesh konfeti görünür.
-useGLTF.preload('/models/cow.glb', true, true, bindMeshopt);
+// Model Draco sıkıştırmalı: drei useGLTF useDraco=true varsayılanıyla DRACOLoader'ı CDN'den otomatik bağlar.
+useGLTF.preload('/models/cow.glb');
 
 // Bölge indeksi → baştan kuyruğa dalga sırası (ölçülen centroid z'ye göre). 0=baş, 9=kuyruk.
 const WAVE_ORDER = [0, 1, 3, 5, 6, 4, 2, 9, 7, 8];
@@ -89,7 +88,7 @@ export function CowModel({
   const introStartRef = useRef(-1);
   const introDoneRef = useRef(false);
   const {gl} = useThree();
-  const {scene} = useGLTF('/models/cow.glb', true, true, bindMeshopt);
+  const {scene} = useGLTF('/models/cow.glb');
 
   const reduced = useMemo(
     () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
