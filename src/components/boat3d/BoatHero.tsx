@@ -87,11 +87,8 @@ export function BoatHero() {
             {bBold && <span className="bold text-brass">{bBold}</span>}
           </h1>
           <p className="type-body type-body-light mt-5 max-w-[46ch] text-cream-soft">{t('boat.text')}</p>
-        </div>
-
-        {/* CTA — yatın hemen altında, suya-yansımış (alttaki mirror kopya) */}
-        <div className="mt-auto flex flex-col items-center pt-12">
-          <div className="flex flex-wrap items-center justify-center gap-4">
+          {/* CTA — yatın yanında net buton grubu (suya-yansımış mirror efekti kaldırıldı) */}
+          <div className="mt-7 flex flex-wrap items-center gap-4">
             <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
               <WhatsAppIcon size={18} />
               {t('boat.cta')}
@@ -100,27 +97,11 @@ export function BoatHero() {
               {t('boat.ctaSecondary')}
             </a>
           </div>
-          {/* Yansıma kopyası (CSS mirror) — tıklanamaz, fade'li */}
-          <div
-            aria-hidden="true"
-            className="mt-1 flex select-none flex-wrap items-center justify-center gap-4"
-            style={{
-              transform: 'scaleY(-1)',
-              opacity: 0.16,
-              filter: 'blur(1px)',
-              maskImage: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent 78%)',
-              WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent 78%)',
-            }}
-          >
-            <span className="btn btn-primary pointer-events-none">
-              <WhatsAppIcon size={18} />
-              {t('boat.cta')}
-            </span>
-            <span className="btn btn-outline-cream pointer-events-none">{t('boat.ctaSecondary')}</span>
-          </div>
+        </div>
 
-          {/* Aşağı scroll cue */}
-          <ChevronDown aria-hidden="true" size={22} className="mt-6 text-cream-soft" style={{opacity: 0.6}} />
+        {/* Aşağı scroll cue */}
+        <div className="mt-auto flex justify-center pt-12">
+          <ChevronDown aria-hidden="true" size={22} className="text-cream-soft" style={{opacity: 0.6}} />
         </div>
       </div>
     </section>

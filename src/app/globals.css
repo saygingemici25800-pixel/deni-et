@@ -667,3 +667,95 @@
     transform: none;
   }
 }
+
+/* ===== Alt SABİT tam genişlik premium tekne şeridi =====
+   position:fixed alt bant (scroll'dan etkilenmez). Espresso zemin + üst brass hairline.
+   TEK tekne (önde/sağda) + "Kumanya Sipariş Alanı" (arkada/solda) tek grup; en soldan
+   girip yavaşça sağa geçer, çıkınca kısa duraklamayla baştan girer (tek yön, tek grup).
+   z-index FAB/sticky-cta'nın ALTINDA → onlar şeridin üstünde kalır. Uçlarda fade mask.
+   prefers-reduced-motion → animasyon yok, tekne+yazı solda sabit görünür. */
+.boat-marquee {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 35;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--color-espresso); /* espresso bant */
+  border-top: 1px solid rgba(200, 149, 28, 0.5); /* ince brass üst hairline */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  transition: filter 0.2s;
+}
+.boat-marquee:hover {
+  filter: brightness(1.12); /* hover'da ince parlaklık — boyut değişmez */
+}
+.boat-marquee-group {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 1.6rem;
+  padding-left: 5vw; /* reduced-motion'da sol kenardan ferah dursun */
+  white-space: nowrap;
+  will-change: transform;
+}
+.boat-marquee-word {
+  font-family: var(--font-sans); /* Bonny */
+  font-weight: 500; /* Medium */
+  color: var(--color-brass); /* brass — espresso üstünde sıcak altın */
+  font-size: 3.2rem; /* ~ şerit yüksekliğinin ~%50'si, iri okunaklı */
+  line-height: 1;
+  letter-spacing: 0.04em; /* ferah harf aralığı */
+  white-space: nowrap;
+}
+.boat-marquee-boat {
+  display: block;
+  flex: none;
+  width: 232px;
+  height: 88px; /* ~ şerit yüksekliğinin ~%80'i, büyük/net */
+  /* PNG eksikse arka plan boş kalır — kırık görsel ikonu çıkmaz, yazı yine kayar. */
+  background: url("/yacht-marquee.png") center / contain no-repeat;
+}
+@media (max-width: 767px) {
+  .boat-marquee {
+    height: 64px;
+    bottom: calc(64px + env(safe-area-inset-bottom)); /* mobil: sticky-cta'nın üstünde */
+  }
+  .boat-marquee-word {
+    font-size: 1.7rem;
+    letter-spacing: 0.03em;
+  }
+  .boat-marquee-boat {
+    width: 132px;
+    height: 50px;
+  }
+}
+/* Fixed şerit, en alttaki footer içeriğini kapamasın diye body alt nefes payı
+   (yalnız BoatMarquee mount olunca — has-boat-marquee sınıfı). */
+body.has-boat-marquee {
+  padding-bottom: 110px; /* masaüstü: şerit yüksekliği */
+}
+@media (max-width: 767px) {
+  body.has-boat-marquee {
+    padding-bottom: 128px; /* mobil: sticky-cta (64) + şerit (64) */
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .boat-marquee-group {
+    animation: boat-marquee-travel 18s linear infinite;
+  }
+}
+@keyframes boat-marquee-travel {
+  0% {
+    transform: translateX(-100%); /* tamamen sol dışında */
+  }
+  82% {
+    transform: translateX(100vw); /* tamamen sağ dışında */
+  }
+  100% {
+    transform: translateX(100vw); /* kısa duraklama, sonra baştan */
+  }
+}

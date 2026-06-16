@@ -6,6 +6,7 @@ import {waLink} from '@/lib/contact';
 import {WhatsAppIcon} from '@/components/ui';
 import {BoatGallery} from '@/components/BoatGallery';
 import {BoatHero} from '@/components/boat3d/BoatHero';
+import {BoatMarquee} from '@/components/BoatMarquee';
 
 type Locale = (typeof routing.locales)[number];
 type Props = {params: Promise<{locale: string}>};
@@ -83,6 +84,9 @@ export default async function TeknePage({params}: Props) {
           </a>
         </div>
       </section>
+
+      {/* Sayfa altı tam genişlik kayan tekne şeridi — footer'dan hemen önce */}
+      <BoatMarquee />
     </>
   );
 }
