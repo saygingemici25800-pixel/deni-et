@@ -4,7 +4,6 @@ import {routing} from '@/i18n/routing';
 import {Hero, Showcase, Timeline} from '@/components/sections';
 import {HashScroll} from '@/components/HashScroll';
 import {HeroMount} from '@/components/hero3d/HeroMount';
-import {BoatMarquee} from '@/components/BoatMarquee';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -24,8 +23,6 @@ export default async function Page({params}: Props) {
       <Showcase />
       <hr className="hairline" />
       <Timeline />
-      {/* Sayfa altı tam genişlik kayan tekne şeridi — footer'dan hemen önce */}
-      <BoatMarquee />
     </>
   );
 }

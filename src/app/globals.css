@@ -78,6 +78,12 @@
       transition-duration: 0.001ms !important;
       scroll-behavior: auto !important;
     }
+    /* İSTİSNA: alt tekne şeridi dekoratif, yavaş, yanıp-sönmez → reduced-motion'da DA aksın.
+       (Aynı katman + daha yüksek specificity → global reset'i ezer.) */
+    .boat-marquee-group {
+      animation-duration: 18s !important;
+      animation-iteration-count: infinite !important;
+    }
   }
 }
 
@@ -743,19 +749,16 @@ body.has-boat-marquee {
     padding-bottom: 128px; /* mobil: sticky-cta (64) + şerit (64) */
   }
 }
-@media (prefers-reduced-motion: no-preference) {
-  .boat-marquee-group {
-    animation: boat-marquee-travel 18s linear infinite;
-  }
+/* Dekoratif, yavaş, yanıp-sönmeyen tek-yön hareket — HER DURUMDA açık (reduced-motion
+   media query'si YOK; bu güvenli bir dekoratif hareket). transform → performanslı. */
+.boat-marquee-group {
+  animation: boat-marquee-travel 18s linear infinite;
 }
 @keyframes boat-marquee-travel {
-  0% {
-    transform: translateX(-100%); /* tamamen sol dışında */
+  from {
+    transform: translateX(-100%); /* grup kendi genişliği kadar solda, ekran dışında */
   }
-  82% {
-    transform: translateX(100vw); /* tamamen sağ dışında */
-  }
-  100% {
-    transform: translateX(100vw); /* kısa duraklama, sonra baştan */
+  to {
+    transform: translateX(100vw); /* tamamen sağdan çıkar → sonra baştan girer */
   }
 }
