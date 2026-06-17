@@ -64,11 +64,12 @@ export function Hero() {
             {bold && <span className="font-bold text-et">{bold}</span>}
           </h1>
           <p className="type-body type-body-light mt-5 max-w-[46ch] text-ink-soft">{t('boat.text')}</p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link href="/tekne" className="btn btn-primary">
+          <div className="mt-7 flex flex-wrap gap-3 max-md:mt-8">
+            <Link href="/tekne" className="btn btn-primary max-md:w-full max-md:min-h-[48px]">
               {t('boat.cta')}
             </Link>
-            <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+            {/* İkincil WhatsApp — yalnız masaüstü (mobilde sağ-alt FAB var, tekrar gerekmez) */}
+            <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-outline max-md:hidden">
               <WhatsAppIcon size={18} />
               {t('boat.ctaSecondary')}
             </a>

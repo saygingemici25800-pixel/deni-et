@@ -209,15 +209,16 @@ export function Hero3D() {
               {bBold && <span className="bold text-et">{bBold}</span>}
             </p>
             <p className="type-body type-body-light mt-5 max-w-[46ch] text-ink-soft">{t('boat.text')}</p>
-            <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
-              <Link href="/tekne" className="btn btn-primary">
+            <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 max-md:mt-8">
+              <Link href="/tekne" className="btn btn-primary max-md:w-full max-md:min-h-[48px]">
                 {t('boat.cta')}
               </Link>
+              {/* İkincil WhatsApp — yalnız masaüstü (mobilde sağ-alt FAB var, tekrar gerekmez) */}
               <a
                 href={defaultWa}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="type-eyebrow inline-flex items-center gap-2 text-et transition-colors hover:text-et-deep"
+                className="type-eyebrow inline-flex items-center gap-2 text-et transition-colors hover:text-et-deep max-md:hidden"
               >
                 <WhatsAppIcon size={16} />
                 {t('boat.ctaSecondary')}
