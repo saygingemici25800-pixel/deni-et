@@ -726,17 +726,19 @@
   background: url("/yacht-marquee.png") center / contain no-repeat;
 }
 @media (max-width: 767px) {
+  /* Mobilde DİKEYDE daha ince: şerit + tekne yüksekliği ~%30 küçük. YATAY (genişlik,
+     hız, keyframes) DEĞİŞMEZ — tekne soldan sağa masaüstüyle aynı şekilde akar. */
   .boat-marquee {
-    height: 64px;
+    height: 48px;
     bottom: calc(64px + env(safe-area-inset-bottom)); /* mobil: sticky-cta'nın üstünde */
   }
   .boat-marquee-word {
-    font-size: 1.7rem;
+    font-size: 1.2rem; /* orantılı */
     letter-spacing: 0.03em;
   }
   .boat-marquee-boat {
-    width: 132px;
-    height: 50px;
+    width: 132px; /* yatay genişlik AYNI */
+    height: 35px; /* dikeyde ~%30 küçük (50 → 35) */
   }
 }
 /* Fixed şerit, en alttaki footer içeriğini kapamasın diye body alt nefes payı
@@ -746,7 +748,7 @@ body.has-boat-marquee {
 }
 @media (max-width: 767px) {
   body.has-boat-marquee {
-    padding-bottom: 128px; /* mobil: sticky-cta (64) + şerit (64) */
+    padding-bottom: 112px; /* mobil: sticky-cta (64) + ince şerit (48) */
   }
 }
 /* Dekoratif, yavaş, yanıp-sönmeyen tek-yön hareket — HER DURUMDA açık (reduced-motion

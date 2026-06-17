@@ -8,7 +8,6 @@ import {Header} from '@/components/Header';
 import {Footer} from '@/components/Footer';
 import {WhatsAppFab} from '@/components/WhatsAppFab';
 import {StickyCTA} from '@/components/StickyCTA';
-import {BoatMarquee} from '@/components/BoatMarquee';
 import '../globals.css';
 
 type Props = {
@@ -63,7 +62,6 @@ export default async function LocaleLayout({children, params}: Props) {
           <Footer />
           <WhatsAppFab />
           <StickyCTA />
-          <BoatMarquee />
         </NextIntlClientProvider>
       </body>
     </html>
