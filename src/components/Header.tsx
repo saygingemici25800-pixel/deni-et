@@ -4,8 +4,8 @@ import {useEffect, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {Menu, X, Phone} from 'lucide-react';
 import {Link, usePathname} from '@/i18n/navigation';
-import {waLink, telLink} from '@/lib/contact';
-import {Wordmark, WhatsAppIcon} from './ui';
+import {telLink} from '@/lib/contact';
+import {Wordmark} from './ui';
 import {AnchorLink} from './AnchorLink';
 import {LangSwitch} from './LangSwitch';
 
@@ -22,7 +22,6 @@ export function Header() {
   const t = useTranslations();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const wa = waLink(t('whatsapp.prefill'));
   const pathname = usePathname(); // locale'siz yol: '/' ana sayfa
   const isHome = pathname === '/';
 
@@ -103,25 +102,23 @@ export function Header() {
             )}
           </nav>
 
-          {/* Sağ — masaüstü: dil + birincil WhatsApp */}
+          {/* Sağ — masaüstü: dil + birincil Hemen Ara (tel) */}
           <div className="hidden items-center gap-3 md:flex">
             <LangSwitch className="text-bone" />
-            <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-              <WhatsAppIcon size={18} />
-              {t('hero.ctaPrimary')}
+            <a href={telLink()} className="btn btn-primary">
+              <Phone size={18} strokeWidth={1.75} />
+              {t('nav.call')}
             </a>
           </div>
 
-          {/* Sağ — mobil: her zaman görünür WhatsApp + hamburger */}
+          {/* Sağ — mobil: her zaman görünür Hemen Ara (tel) + hamburger */}
           <div className="flex items-center gap-1 md:hidden">
             <a
-              href={wa}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={t('a11y.whatsappAria')}
+              href={telLink()}
+              aria-label={t('a11y.callAria')}
               className="inline-flex h-11 w-11 items-center justify-center text-bone"
             >
-              <WhatsAppIcon size={22} />
+              <Phone size={22} strokeWidth={1.5} />
             </a>
             <button
               type="button"
@@ -212,14 +209,12 @@ export function Header() {
             </a>
           </div>
           <a
-            href={wa}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={telLink()}
             onClick={() => setOpen(false)}
             className="btn btn-primary w-full"
           >
-            <WhatsAppIcon size={20} />
-            {t('hero.ctaPrimary')}
+            <Phone size={20} strokeWidth={1.75} />
+            {t('nav.call')}
           </a>
         </div>
       </div>
