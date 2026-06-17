@@ -45,6 +45,32 @@
     "bandTitle": "Listeni hazırla, gerisini bize bırak.",
     "bandCta": "WhatsApp'tan Sipariş"
   },
+  "cart": {
+    "open": "Sepetim",
+    "title": "Sepetim",
+    "empty": "Sepetiniz boş.",
+    "emptyHint": "Ürünlere göz atıp “Sepete Ekle” deyin.",
+    "add": "Sepete Ekle",
+    "added": "Eklendi ✓",
+    "remove": "Çıkar",
+    "clear": "Sepeti boşalt",
+    "close": "Kapat",
+    "checkout": "Siparişi Tamamla",
+    "count": "{n} ürün",
+    "waIntro": "Merhaba, Deniz Et kumanya siparişi vermek istiyorum.",
+    "waOrder": "Sipariş:",
+    "confirm": "Siparişiniz WhatsApp'ta açıldı. Mesajı gönderdiğinizde size döneceğiz."
+  },
+  "form": {
+    "name": "Ad Soyad",
+    "phone": "Telefon",
+    "boat": "Tekne / Yat Adı",
+    "location": "Teslimat yeri / marina",
+    "note": "Not",
+    "optional": "opsiyonel",
+    "required": "Ad Soyad ve telefon zorunlu.",
+    "submit": "WhatsApp'ta Siparişi Bitir"
+  },
   "showcase": {
     "eyebrow": "TEZGAHTAN",
     "title": "Her sabah seçilen, ustanın elinden geçen et.",

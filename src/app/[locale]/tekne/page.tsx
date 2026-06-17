@@ -4,7 +4,7 @@ import {setRequestLocale, getTranslations} from 'next-intl/server';
 import {routing} from '@/i18n/routing';
 import {waLink} from '@/lib/contact';
 import {WhatsAppIcon} from '@/components/ui';
-import {BoatGallery} from '@/components/BoatGallery';
+import {TekneShop} from '@/components/cart/TekneShop';
 import {BoatHero} from '@/components/boat3d/BoatHero';
 
 type Locale = (typeof routing.locales)[number];
@@ -60,7 +60,7 @@ export default async function TeknePage({params}: Props) {
       {/* GALERİ — krem (kategori filtresi + ürün grid) */}
       <section className="surface-cream">
         <div className={`${wrap} py-20 md:py-28`}>
-          <BoatGallery />
+          <TekneShop />
         </div>
       </section>
 

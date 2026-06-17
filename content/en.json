@@ -45,6 +45,32 @@
     "bandTitle": "Prepare your list, leave the rest to us.",
     "bandCta": "Order on WhatsApp"
   },
+  "cart": {
+    "open": "My Cart",
+    "title": "My Cart",
+    "empty": "Your cart is empty.",
+    "emptyHint": "Browse the products and tap “Add to Cart”.",
+    "add": "Add to Cart",
+    "added": "Added ✓",
+    "remove": "Remove",
+    "clear": "Clear cart",
+    "close": "Close",
+    "checkout": "Complete Order",
+    "count": "{n} items",
+    "waIntro": "Hello, I'd like to place a Deniz Et provisions order.",
+    "waOrder": "Order:",
+    "confirm": "Your order opened in WhatsApp. We'll get back to you once you send the message."
+  },
+  "form": {
+    "name": "Full Name",
+    "phone": "Phone",
+    "boat": "Boat / Yacht Name",
+    "location": "Delivery location / marina",
+    "note": "Note",
+    "optional": "optional",
+    "required": "Full name and phone are required.",
+    "submit": "Finish Order on WhatsApp"
+  },
   "showcase": {
     "eyebrow": "Counter Cuts",
     "title": "Meat chosen each morning, by the master's hand.",
