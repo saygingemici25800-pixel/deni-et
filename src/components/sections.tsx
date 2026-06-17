@@ -3,6 +3,7 @@ import {ArrowRight} from 'lucide-react';
 import {waLink} from '@/lib/contact';
 import {Link} from '@/i18n/navigation';
 import {WhatsAppIcon} from './ui';
+import {StoryTimeline} from './StoryTimeline';
 
 /* =================================================================
    FAZ 2 — Bölümler. Tüm metin content/<locale>.json'dan.
@@ -195,96 +196,11 @@ export function Showcase() {
   );
 }
 
-/* ---------------- 3 · HİKÂYE TIMELINE (kömür · dikey kilometre taşları) ----------------
-   Showcase (krem) sonrası kömür'e döner → kontrast ritmi (üst hairline page.tsx'te).
-   Dikey dashed çizgi + ortada bıçak (çapraz satır) düğümleri + alternatif sağ/sol yıl kartları.
-   Hareket SAF CSS (.reveal — animation-timeline: view(); reduced-motion'da/desteksizde anında). */
-
-// Düğüm — krem daire + kömür çapraz satır (bıçak) motifi (makas DEĞİL).
-function CleaverNode() {
-  return (
-    <span className="relative z-10 grid h-7 w-7 shrink-0 place-items-center rounded-full border border-[color:var(--line)] bg-bone text-ink">
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-        strokeLinecap="round"
-        className="h-3.5 w-3.5"
-      >
-        <path d="M5 13 L13 5 L18 10 L10 18 Z" />
-        <path d="M13.5 14.5 L20 21" />
-      </svg>
-    </span>
-  );
-}
-
-type Milestone = {year: string; title: string; text: string};
+/* ---------------- 3 · HİKÂYE TIMELINE — YATAY zaman şeridi (client) ----------------
+   Dikey timeline yerine yatay scroll carousel: masaüstü+hareket → sticky-progress yatay
+   akış; mobil/reduced-motion → basit overflow-x + snap. Tüm mantık StoryTimeline'da. */
 export function Timeline() {
-  const t = useTranslations();
-  const milestones = t.raw('timeline.milestones') as Milestone[];
-  const [tThin, tBold] = splitZitlik(t('timeline.title'));
-
-  return (
-    <section id="hikaye-timeline" className="surface-charcoal scroll-mt-24 md:scroll-mt-28">
-      <div className={`${wrap} py-10 md:py-12`}>
-        {/* Üst başlık — ortalı */}
-        <div className="text-center">
-          <p className="type-eyebrow">{t('timeline.eyebrow')}</p>
-          <h2 className="type-statement mt-3 text-bone" style={{fontSize: 'clamp(1.6rem, 1.2rem + 2vw, 2.6rem)'}}>
-            <span className="thin">
-              {tThin}
-              {tBold ? ' ' : ''}
-            </span>
-            {tBold && <span className="bold text-brass">{tBold}</span>}
-          </h2>
-        </div>
-
-        {/* Dikey timeline */}
-        <ol className="relative mt-8 md:mt-10">
-          {/* Dashed dikey çizgi — mobil solda, masaüstü ortada */}
-          <span
-            aria-hidden="true"
-            className="absolute bottom-0 left-[14px] top-0 border-l border-dashed md:left-1/2 md:-translate-x-1/2"
-            style={{borderColor: 'rgba(200,149,28,0.5)'}}
-          />
-          {milestones.map((m, i) => {
-            const right = i % 2 === 1; // tek index sağda, çift solda (masaüstü)
-            const accent = right
-              ? 'border-l-2 border-l-[color:var(--color-brass)]'
-              : 'border-l-2 border-l-[color:var(--color-brass)] md:border-l md:border-l-[color:var(--line)] md:border-r-2 md:border-r-[color:var(--color-brass)]';
-            return (
-              <li key={m.year} className="reveal relative flex gap-4 pb-6 last:pb-0 md:gap-0">
-                {/* Düğüm — mobil: solda akışta · masaüstü: çizgi üzerinde absolute ortada */}
-                <div className="relative z-10 shrink-0 md:absolute md:left-1/2 md:top-1 md:-translate-x-1/2">
-                  <CleaverNode />
-                </div>
-                {/* Kart — mobil sağ tam genişlik · masaüstü yarım, indexe göre sağ/sol */}
-                <div
-                  className={`min-w-0 flex-1 md:w-[calc(50%-1.75rem)] md:flex-none ${
-                    right ? 'md:ml-auto md:pl-7' : 'md:mr-auto md:pr-7 md:text-right'
-                  }`}
-                >
-                  <div className={`border border-[color:var(--line)] bg-[color:var(--color-espresso-2)] p-4 md:p-5 ${accent}`}>
-                    <p
-                      className="font-thin leading-none text-brass"
-                      style={{fontSize: 'clamp(1.4rem, 1.1rem + 1vw, 1.9rem)', letterSpacing: '-0.02em'}}
-                    >
-                      {m.year}
-                    </p>
-                    <h3 className="type-heading-sm mt-2 text-bone">{m.title}</h3>
-                    <p className="type-body type-body-light mt-2 text-cream-soft">{m.text}</p>
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ol>
-      </div>
-    </section>
-  );
+  return <StoryTimeline />;
 }
 
 /* İletişim bilgileri artık Footer'a taşındı (ana sayfa İletişim bölümü kaldırıldı). */
