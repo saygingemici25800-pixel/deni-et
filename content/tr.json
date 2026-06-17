@@ -176,7 +176,16 @@
     "ctaCall": "Hemen Ara",
     "statement": "Tezgaha gel.",
     "statementSub": "Sipariş, soru, mangallık et — bir mesaj uzaktayız.",
-    "ctaWhatsapp": "WhatsApp'tan Yaz"
+    "ctaWhatsapp": "WhatsApp'tan Yaz",
+    "pageTitle": "İletişim",
+    "lead": "Sipariş, kumanya, soru — ara ya da WhatsApp'tan yaz.",
+    "labelAddress": "Adres",
+    "labelPhone": "Telefon",
+    "labelWhatsapp": "WhatsApp",
+    "labelInstagram": "Instagram",
+    "labelHours": "Çalışma Saatleri",
+    "mapTitle": "Deniz Et · Kasap Orhan konumu",
+    "openMaps": "Google Maps'te Aç"
   },
   "blog": {
     "eyebrow": "Tezgah Notları",

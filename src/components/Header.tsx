@@ -15,7 +15,7 @@ const NAV = [
   {key: 'boat', href: '/tekne', anchor: false},
   {key: 'story', hash: 'hikaye-timeline', anchor: true},
   {key: 'blog', href: '/blog', anchor: false},
-  {key: 'contact', hash: 'iletisim', anchor: true},
+  {key: 'contact', href: '/iletisim', anchor: false},
 ] as const;
 
 export function Header() {

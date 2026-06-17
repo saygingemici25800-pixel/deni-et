@@ -66,6 +66,12 @@ export function Footer() {
             >
               {t('nav.blog')}
             </Link>
+            <Link
+              href="/iletisim"
+              className="type-eyebrow text-cream-soft transition-colors hover:text-brass"
+            >
+              {t('nav.contact')}
+            </Link>
           </nav>
 
           {/* İletişim — adres, telefon, Instagram, çalışma saatleri (ana sayfa bölümünden taşındı) */}

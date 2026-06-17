@@ -176,7 +176,16 @@
     "ctaCall": "Call Now",
     "statement": "Come to the counter.",
     "statementSub": "Orders, questions, grill cuts — we're one message away.",
-    "ctaWhatsapp": "Write on WhatsApp"
+    "ctaWhatsapp": "Write on WhatsApp",
+    "pageTitle": "Contact",
+    "lead": "Orders, provisions, questions — call us or message on WhatsApp.",
+    "labelAddress": "Address",
+    "labelPhone": "Phone",
+    "labelWhatsapp": "WhatsApp",
+    "labelInstagram": "Instagram",
+    "labelHours": "Opening Hours",
+    "mapTitle": "Deniz Et · Kasap Orhan location",
+    "openMaps": "Open in Google Maps"
   },
   "blog": {
     "eyebrow": "Notes from the Counter",
