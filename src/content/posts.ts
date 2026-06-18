@@ -6,6 +6,9 @@ export type Locale = 'tr' | 'en';
 // Gövde bloğu: düz paragraf ya da dev Bonny pull-quote (BLOG.md §3).
 export type PostBlock = {type: 'p'; text: string} | {type: 'quote'; text: string};
 
+// Placeholder kapak teması — ton (gradyan) + motif (SVG). Gerçek foto gelene dek.
+export type PostCoverSpec = {tone: 'char' | 'bordo' | 'cream'; motif: 'cleaver' | 'ember' | 'smoke'};
+
 export type Post = {
   slug: string;
   title: string;
@@ -13,6 +16,9 @@ export type Post = {
   statement: string; // çarpıcı üst alan başlığı (Bonny statement %10)
   date: string; // ISO "YYYY-MM-DD"
   readingMinutes: number;
+  hook?: string; // kısa çarpıcı soru/vaat — editoryal hook (öne çıkar)
+  category?: string; // etiket: "Tezgah Notları", "Pişirme", "Kumanya"...
+  cover?: PostCoverSpec; // placeholder kapak teması (yoksa META'dan türetilir)
   draft?: boolean; // taslak: kısa gövde, listede excerpt ile durur
   body: PostBlock[];
 };
@@ -301,13 +307,61 @@ const en: Post[] = [
 
 const POSTS: Record<Locale, Post[]> = {tr, en};
 
+// Editoryal placeholder meta — hook/kategori (iki dil) + kapak teması. Postta yoksa doldurulur.
+// {/* TODO: gerçek kapak fotoğrafları + içerik */}
+type Bi = {tr: string; en: string};
+const META: Record<string, {hook: Bi; category: Bi; cover: PostCoverSpec}> = {
+  'etini-tani-dananin-parcalari': {
+    hook: {tr: 'Hangi parça neye yakışır?', en: 'Which cut is for what?'},
+    category: {tr: 'Tezgah Notları', en: 'Counter Notes'},
+    cover: {tone: 'char', motif: 'cleaver'},
+  },
+  'mangalda-kusursuz-et': {
+    hook: {tr: 'Mangalda et neden sertleşir?', en: 'Why does grilled meat turn tough?'},
+    category: {tr: 'Pişirme', en: 'Cooking'},
+    cover: {tone: 'bordo', motif: 'ember'},
+  },
+  'ev-yapimi-sucuk': {
+    hook: {tr: 'Ev sucuğu neden bekler?', en: 'Why does homemade sucuk wait?'},
+    category: {tr: 'Şarküteri', en: 'Deli'},
+    cover: {tone: 'bordo', motif: 'smoke'},
+  },
+  'taze-et-nasil-anlasilir': {
+    hook: {tr: 'Taze eti nasıl anlarsın?', en: 'How do you spot fresh meat?'},
+    category: {tr: 'Tezgah Notları', en: 'Counter Notes'},
+    cover: {tone: 'cream', motif: 'cleaver'},
+  },
+  'kuzu-lokum': {
+    hook: {tr: 'Adı neden “lokum”?', en: 'Why is it called “delight”?'},
+    category: {tr: 'Kumanya', en: 'Provisions'},
+    cover: {tone: 'char', motif: 'ember'},
+  },
+  'eti-dinlendirmek': {
+    hook: {tr: 'Beş dakika neyi değiştirir?', en: 'What do five minutes change?'},
+    category: {tr: 'Pişirme', en: 'Cooking'},
+    cover: {tone: 'bordo', motif: 'smoke'},
+  },
+};
+
+function decorate(locale: Locale, p: Post): Post {
+  const m = META[p.slug];
+  if (!m) return p;
+  return {
+    ...p,
+    hook: p.hook ?? m.hook[locale],
+    category: p.category ?? m.category[locale],
+    cover: p.cover ?? m.cover,
+  };
+}
+
 // Tarihe göre yeni→eski. Taslaklar da listede durur (excerpt ile).
 export function getPosts(locale: Locale): Post[] {
-  return [...POSTS[locale]].sort((a, b) => (a.date < b.date ? 1 : -1));
+  return [...POSTS[locale]].sort((a, b) => (a.date < b.date ? 1 : -1)).map((p) => decorate(locale, p));
 }
 
 export function getPost(locale: Locale, slug: string): Post | undefined {
-  return POSTS[locale].find((p) => p.slug === slug);
+  const found = POSTS[locale].find((p) => p.slug === slug);
+  return found ? decorate(locale, found) : undefined;
 }
 
 // Tüm slug'lar (statik üretim için; iki dil aynı slug kümesini paylaşır).
