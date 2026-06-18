@@ -5,6 +5,7 @@ import {Hero, Showcase, Timeline} from '@/components/sections';
 import {HashScroll} from '@/components/HashScroll';
 import {HeroMount} from '@/components/hero3d/HeroMount';
 import {BoatMarquee} from '@/components/BoatMarquee';
+import {IntroCurtain} from '@/components/IntroCurtain';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -18,6 +19,8 @@ export default async function Page({params}: Props) {
 
   return (
     <>
+      {/* Açılış perdesi — yalnız ilk ziyaret (client; reduced-motion'da render edilmez) */}
+      <IntroCurtain />
       <HashScroll />
       <HeroMount fallback={<Hero />} />
       <hr className="hairline" />
