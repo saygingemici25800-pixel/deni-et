@@ -5,7 +5,7 @@ import {waLink, telLink, mapsLink} from '@/lib/contact';
 import {Wordmark, WhatsAppIcon, InstagramIcon} from './ui';
 import {AnchorLink} from './AnchorLink';
 
-// Footer (surface-charcoal) — koyu kapanış; üstündeki açık bölümle ZITLIK.
+// Footer (surface-cream) — açık/krem kapanış; koyu metin (ink) net okunur, üst bordo hairline ayraç.
 export function Footer() {
   const t = useTranslations();
   const wa = waLink(t('whatsapp.prefill'));
@@ -15,17 +15,17 @@ export function Footer() {
   const address = t('contact.address');
 
   return (
-    <footer id="iletisim" className="surface-charcoal scroll-mt-24 md:scroll-mt-28">
+    <footer id="iletisim" className="surface-cream scroll-mt-24 md:scroll-mt-28">
       <hr className="hairline" />
       <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-12 md:py-20">
         <div className="flex flex-col gap-12 md:flex-row md:items-start md:justify-between">
           {/* Marka + slogan */}
           <div className="max-w-sm">
-            <span className="text-bone">
+            <span className="text-ink">
               <Wordmark />
             </span>
             <p
-              className="type-statement mt-6 text-bone"
+              className="type-statement mt-6 text-ink"
               style={{fontSize: 'clamp(1.6rem, 1.2rem + 2vw, 2.5rem)'}}
             >
               {t('footer.slogan')}
@@ -39,7 +39,7 @@ export function Footer() {
                 <AnchorLink
                   key={l.href}
                   hash={l.href.slice(1)}
-                  className="type-eyebrow text-cream-soft transition-colors hover:text-brass"
+                  className="type-eyebrow text-ink transition-colors hover:text-et"
                 >
                   {l.label}
                 </AnchorLink>
@@ -47,7 +47,7 @@ export function Footer() {
                 <a
                   key={l.href}
                   href={l.href}
-                  className="type-eyebrow text-cream-soft transition-colors hover:text-brass"
+                  className="type-eyebrow text-ink transition-colors hover:text-et"
                 >
                   {l.label}
                 </a>
@@ -56,19 +56,19 @@ export function Footer() {
             {/* Kumanya + Blog — locale-farkında rotalar (anchor değil). */}
             <Link
               href="/tekne"
-              className="type-eyebrow text-cream-soft transition-colors hover:text-brass"
+              className="type-eyebrow text-ink transition-colors hover:text-et"
             >
               {t('nav.boat')}
             </Link>
             <Link
               href="/blog"
-              className="type-eyebrow text-cream-soft transition-colors hover:text-brass"
+              className="type-eyebrow text-ink transition-colors hover:text-et"
             >
               {t('nav.blog')}
             </Link>
             <Link
               href="/iletisim"
-              className="type-eyebrow text-cream-soft transition-colors hover:text-brass"
+              className="type-eyebrow text-ink transition-colors hover:text-et"
             >
               {t('nav.contact')}
             </Link>
@@ -80,7 +80,7 @@ export function Footer() {
               href={mapsLink(address)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-start gap-2 text-cream-soft transition-colors hover:text-brass"
+              className="inline-flex items-start gap-2 text-ink transition-colors hover:text-et"
             >
               <MapPin size={18} strokeWidth={1.5} aria-hidden="true" className="mt-0.5 shrink-0" />
               <span className="type-body max-w-[30ch]">{address}</span>
@@ -88,7 +88,7 @@ export function Footer() {
             <a
               href={telLink()}
               aria-label={t('a11y.callAria')}
-              className="inline-flex items-center gap-2 text-cream-soft transition-colors hover:text-brass"
+              className="inline-flex items-center gap-2 text-ink transition-colors hover:text-et"
             >
               <Phone size={18} strokeWidth={1.5} aria-hidden="true" />
               <span className="type-body">{t('contact.phone')}</span>
@@ -98,12 +98,12 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Instagram ${igHandle}`}
-              className="inline-flex items-center gap-2 text-cream-soft transition-colors hover:text-brass"
+              className="inline-flex items-center gap-2 text-ink transition-colors hover:text-et"
             >
               <InstagramIcon size={18} />
               <span className="type-body">{igHandle}</span>
             </a>
-            <p className="type-body text-cream-soft">{t('contact.hours')}</p>
+            <p className="type-body text-ink">{t('contact.hours')}</p>
             <a
               href={wa}
               target="_blank"
@@ -117,7 +117,7 @@ export function Footer() {
         </div>
 
         <hr className="hairline mt-14" />
-        <p className="type-eyebrow mt-6 text-cream-soft">{t('footer.rights')}</p>
+        <p className="type-eyebrow mt-6 text-ink-soft">{t('footer.rights')}</p>
       </div>
     </footer>
   );
