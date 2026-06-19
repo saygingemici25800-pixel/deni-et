@@ -45,7 +45,7 @@ export function CartDrawer() {
     L.push('---', t('cart.waOrder'));
     items.forEach((it) => {
       const p = byId.get(it.productId);
-      if (p) L.push(`• ${p.name[locale]} × ${it.qty} ${p.unit[locale]}`);
+      if (p) L.push(`• ${p.name[locale]} × ${it.qty}${p.unit ? ' ' + p.unit[locale] : ''}`);
     });
     if (note.trim()) L.push('', `${t('form.note')}: ${note.trim()}`);
     return L.join('\n');
@@ -120,7 +120,9 @@ export function CartDrawer() {
                     <li key={it.productId} className="flex items-center gap-3 py-3">
                       <div className="min-w-0 flex-1">
                         <p className="type-body text-bone">{p.name[locale]}</p>
-                        <p className="type-eyebrow mt-0.5 text-cream-soft">{p.unit[locale]}</p>
+                        {(p.note ?? p.unit) && (
+                          <p className="type-eyebrow mt-0.5 text-cream-soft">{(p.note ?? p.unit)![locale]}</p>
+                        )}
                       </div>
                       {/* Adet -/+ */}
                       <div className="flex items-center gap-1">

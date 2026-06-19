@@ -1,5 +1,5 @@
-// Tekne kumanya ürün verisi — iki dilli, PLACEHOLDER. Sipariş = WhatsApp (sepet/fiyat yok).
-// TODO: gerçek ürünler + fiyat + görseller (image alanı şimdilik undefined).
+// Kasap ürün verisi — iki dilli. Sipariş = WhatsApp (fiyat YOK). {/* TODO: gerçek foto + fiyat */}
+// note alanı = parantez içi varyant/açıklama. image şimdilik undefined → zarif placeholder.
 
 export type Locale = 'tr' | 'en';
 export type Bi = {tr: string; en: string};
@@ -9,70 +9,96 @@ export type BoatProduct = {
   id: string;
   name: Bi;
   category: string; // Category.id
-  unit: Bi;
-  note?: Bi;
+  note?: Bi; // varyant/açıklama (parantez içi)
+  unit?: Bi; // opsiyonel — çoğu kg; belirtilmezse gösterilmez
   image?: string; // varsa <Image>, yoksa zarif placeholder
+  dryAged?: boolean; // kuru dinlendirilmiş ürünler
 };
 
 export const CATEGORIES: Category[] = [
-  {id: 'kirmizi', label: {tr: 'Kırmızı Et', en: 'Red Meat'}},
-  {id: 'tavuk', label: {tr: 'Tavuk & Beyaz Et', en: 'Poultry & White'}},
+  {id: 'kuzu', label: {tr: 'Kuzu', en: 'Lamb'}},
+  {id: 'dana', label: {tr: 'Dana', en: 'Beef'}},
+  {id: 'tavuk', label: {tr: 'Tavuk', en: 'Chicken'}},
+  {id: 'mangal', label: {tr: 'Mangal & Kebap', en: 'Grill & Kebab'}},
   {id: 'sarkuteri', label: {tr: 'Şarküteri', en: 'Deli'}},
-  {id: 'mangal', label: {tr: 'Mangal & Hazır', en: 'Grill & Ready'}},
-  {id: 'kahvalti', label: {tr: 'Kahvaltılık', en: 'Breakfast'}},
-  {id: 'ekstra', label: {tr: 'Ekstra', en: 'Extras'}},
+  {id: 'dryage', label: {tr: 'Dry Age', en: 'Dry Aged'}},
+  {id: 'sakatat', label: {tr: 'Sakatat & Ekstra', en: 'Offal & Extras'}},
 ];
 
-const KG: Bi = {tr: 'kg', en: 'kg'};
-const ADET: Bi = {tr: 'adet', en: 'each'};
-const PAKET: Bi = {tr: 'paket', en: 'pack'};
-
 export const BOAT_PRODUCTS: BoatProduct[] = [
-  // ---- Kırmızı Et ----
-  {id: 'dana-antrikot', category: 'kirmizi', unit: KG, name: {tr: 'Dana Antrikot', en: 'Beef Ribeye'}, note: {tr: 'Mermerli, mangalın yıldızı.', en: 'Marbled, the grill star.'}},
-  {id: 'dana-kontrfile', category: 'kirmizi', unit: KG, name: {tr: 'Dana Kontrfile', en: 'Beef Striploin'}, note: {tr: 'Steak için ideal, dengeli.', en: 'Ideal for steak, balanced.'}},
-  {id: 'dana-bonfile', category: 'kirmizi', unit: KG, name: {tr: 'Dana Bonfile', en: 'Beef Tenderloin'}, note: {tr: 'En yağsız, en narin parça.', en: 'The leanest, most tender cut.'}},
-  {id: 'dana-kusbasi', category: 'kirmizi', unit: KG, name: {tr: 'Dana Kuşbaşı', en: 'Beef Cubes'}, note: {tr: 'Güveç, sote, şiş için.', en: 'For stews, sauté, skewers.'}},
-  {id: 'dana-kiyma', category: 'kirmizi', unit: KG, name: {tr: 'Dana Kıyma', en: 'Ground Beef'}, note: {tr: 'Günlük çekim, köfteye birebir.', en: 'Freshly ground, perfect for köfte.'}},
-  {id: 'dana-kaburga', category: 'kirmizi', unit: KG, name: {tr: 'Dana Kaburga', en: 'Beef Short Rib'}, note: {tr: 'Fırın ya da mangalda, sulu.', en: 'Oven or grill, juicy.'}},
-  {id: 'dana-biftek', category: 'kirmizi', unit: KG, name: {tr: 'Dana Biftek', en: 'Beef Steak'}, note: {tr: 'Kalın kesim, yüksek ateş.', en: 'Thick cut, high heat.'}},
-  {id: 'kuzu-pirzola', category: 'kirmizi', unit: KG, name: {tr: 'Kuzu Pirzola', en: 'Lamb Chops'}, note: {tr: 'Mangalın klasiği, kemikli.', en: 'A grill classic, on the bone.'}},
-  {id: 'kuzu-but', category: 'kirmizi', unit: KG, name: {tr: 'Kuzu But', en: 'Lamb Leg'}, note: {tr: 'Fırın but, çevirme.', en: 'Roast leg, spit-roast.'}},
-  {id: 'kuzu-kol', category: 'kirmizi', unit: KG, name: {tr: 'Kuzu Kol', en: 'Lamb Shoulder'}, note: {tr: 'Yavaş pişir, çatalla dağılır.', en: 'Slow-cook, falls apart.'}},
+  // ---- KUZU / Lamb ----
+  {id: 'kuzu-but', category: 'kuzu', name: {tr: 'Kuzu But', en: 'Lamb Leg'}},
+  {id: 'kuzu-kol', category: 'kuzu', name: {tr: 'Kuzu Kol', en: 'Lamb Shoulder'}},
+  {id: 'kuzu-gerdan', category: 'kuzu', name: {tr: 'Kuzu Gerdan', en: 'Lamb Neck'}},
+  {id: 'kuzu-pirzola', category: 'kuzu', name: {tr: 'Kuzu Pirzola', en: 'Lamb Chops'}, note: {tr: 'Kalem / İstanbul', en: 'Pencil / Istanbul'}},
+  {id: 'kuzu-kulbasti', category: 'kuzu', name: {tr: 'Kuzu Külbastı', en: 'Lamb Cutlet'}},
+  {id: 'kuzu-sis', category: 'kuzu', name: {tr: 'Kuzu Şiş', en: 'Lamb Skewer'}},
+  {id: 'kuzu-kaburga', category: 'kuzu', name: {tr: 'Kuzu Kaburga', en: 'Lamb Ribs'}, note: {tr: 'Kemikli / Kemiksiz (Çakır)', en: 'Bone-in / Boneless (Çakır)'}},
+  {id: 'kuzu-kusleme', category: 'kuzu', name: {tr: 'Küşleme (Bonfile)', en: 'Lamb Tenderloin (Küşleme)'}, note: {tr: 'Şiş / Bütün', en: 'Skewer / Whole'}},
+  {id: 'kuzu-beyti', category: 'kuzu', name: {tr: 'Kuzu Beyti', en: 'Lamb Beyti'}},
+  {id: 'kuzu-lokum', category: 'kuzu', name: {tr: 'Kuzu Lokum', en: 'Lamb Lokum'}, note: {tr: 'Şiş / Cızbız / Yağlıkara', en: 'Skewer / Cızbız / Yağlıkara'}},
+  {id: 'kuzu-incik', category: 'kuzu', name: {tr: 'Kuzu İncik', en: 'Lamb Shank'}},
+  {id: 'kuzu-kavurma', category: 'kuzu', name: {tr: 'Kuzu Kavurma', en: 'Lamb Kavurma'}},
+  {id: 'kuzu-kusbasi', category: 'kuzu', name: {tr: 'Kuzu Kuşbaşı', en: 'Lamb Cubes'}},
+  {id: 'kuzu-kelebek', category: 'kuzu', name: {tr: 'Kuzu Kelebek', en: 'Lamb Butterfly'}},
+  {id: 'kuzu-fajita', category: 'kuzu', name: {tr: 'Kuzu Fajita', en: 'Lamb Fajita'}},
+  {id: 'kuzu-saslik', category: 'kuzu', name: {tr: 'Kuzu Şaşlık', en: 'Lamb Shashlik'}},
+  {id: 'kuzu-biftek', category: 'kuzu', name: {tr: 'Kuzu Biftek', en: 'Lamb Steak'}},
+  {id: 'kokorec', category: 'kuzu', name: {tr: 'Kokoreç', en: 'Kokoreç'}},
+  {id: 'kuzu-ciger', category: 'kuzu', name: {tr: 'Kuzu Ciğer', en: 'Lamb Liver'}, note: {tr: 'Takım / Sade', en: 'Set / Plain'}},
 
-  // ---- Tavuk & Beyaz Et ----
-  {id: 'butun-tavuk', category: 'tavuk', unit: ADET, name: {tr: 'Bütün Tavuk', en: 'Whole Chicken'}, note: {tr: 'Fırın ya da çevirme.', en: 'Oven or rotisserie.'}},
-  {id: 'tavuk-gogus', category: 'tavuk', unit: KG, name: {tr: 'Tavuk Göğüs', en: 'Chicken Breast'}, note: {tr: 'Yağsız, ızgaraya uygun.', en: 'Lean, great grilled.'}},
-  {id: 'tavuk-but', category: 'tavuk', unit: KG, name: {tr: 'Tavuk But', en: 'Chicken Thigh'}, note: {tr: 'Sulu ve lezzetli.', en: 'Juicy and flavourful.'}},
-  {id: 'tavuk-kanat', category: 'tavuk', unit: KG, name: {tr: 'Tavuk Kanat', en: 'Chicken Wings'}, note: {tr: 'Mangalın gözdesi.', en: 'A barbecue favourite.'}},
-  {id: 'tavuk-baget', category: 'tavuk', unit: KG, name: {tr: 'Tavuk Baget', en: 'Chicken Drumstick'}, note: {tr: 'Çocukların favorisi.', en: 'Kids love these.'}},
-  {id: 'hindi-fume', category: 'tavuk', unit: PAKET, name: {tr: 'Hindi Füme', en: 'Smoked Turkey'}, note: {tr: 'Dilimli, hazır servis.', en: 'Sliced, ready to serve.'}},
+  // ---- DANA / Beef ----
+  {id: 'dana-kusbasi', category: 'dana', name: {tr: 'Dana Kuşbaşı', en: 'Beef Cubes'}},
+  {id: 'dana-antrikot', category: 'dana', name: {tr: 'Dana Antrikot', en: 'Beef Ribeye'}, note: {tr: 'Standart / Wet age / Dry age', en: 'Standard / Wet-aged / Dry-aged'}, dryAged: true},
+  {id: 'dana-bonfile', category: 'dana', name: {tr: 'Dana Bonfile', en: 'Beef Tenderloin'}, note: {tr: 'Standart / Jumbo / Lokum', en: 'Standard / Jumbo / Lokum'}},
+  {id: 'dana-tbone', category: 'dana', name: {tr: 'T-Bone', en: 'T-Bone'}},
+  {id: 'dana-rosto', category: 'dana', name: {tr: 'Dana Rosto', en: 'Beef Roast'}},
+  {id: 'dana-pirzola-dallas', category: 'dana', name: {tr: 'Dana Pirzola (Dallas)', en: 'Beef Chop (Dallas)'}, note: {tr: 'Wet age / Dry age', en: 'Wet-aged / Dry-aged'}, dryAged: true},
+  {id: 'dana-sis', category: 'dana', name: {tr: 'Dana Şiş', en: 'Beef Skewer'}, note: {tr: 'Biftekten', en: 'From steak'}},
+  {id: 'dana-kavurma', category: 'dana', name: {tr: 'Dana Kavurma', en: 'Beef Kavurma'}, note: {tr: 'Standart / Antrikot', en: 'Standard / Ribeye'}},
+  {id: 'dana-kiyma-koftelik', category: 'dana', name: {tr: 'Kıyma (Köftelik)', en: 'Ground Beef (for köfte)'}},
+  {id: 'dana-kiyma-yemeklik', category: 'dana', name: {tr: 'Kıyma (Yemeklik)', en: 'Ground Beef (for cooking)'}},
+  {id: 'dana-sucuk', category: 'dana', name: {tr: 'Dana Sucuk', en: 'Beef Sucuk'}},
+  {id: 'dana-marine-antrikot', category: 'dana', name: {tr: 'Marine Antrikot', en: 'Marinated Ribeye'}, note: {tr: 'Soğanlı / Sarımsaklı', en: 'Onion / Garlic'}},
+  {id: 'dana-saslik', category: 'dana', name: {tr: 'Dana Şaşlık', en: 'Beef Shashlik'}},
+  {id: 'dana-ossobucco', category: 'dana', name: {tr: 'Ossobucco', en: 'Ossobuco'}},
+  {id: 'dana-ciger', category: 'dana', name: {tr: 'Dana Ciğer', en: 'Beef Liver'}, note: {tr: 'Yaprak / Arnavut (Küp)', en: 'Sliced / Albanian (Diced)'}},
+  {id: 'dana-kofte', category: 'dana', name: {tr: 'Köfte', en: 'Köfte'}, note: {tr: 'Ev (Soğanlı Maydanozlu) / Kasap (Sade) / Izgara', en: 'Homestyle (Onion-Parsley) / Butcher (Plain) / Grill'}},
+  {id: 'dana-poc', category: 'dana', name: {tr: 'Pöç', en: 'Pöç (Rump)'}},
 
-  // ---- Şarküteri ----
-  {id: 'ev-sucuk', category: 'sarkuteri', unit: KG, name: {tr: 'Ev Yapımı Sucuk', en: 'Homemade Sucuk'}, note: {tr: 'Baharatı bizden, dinlenmesi sabırdan.', en: 'Our spice, rested with patience.'}},
-  {id: 'kangal-sucuk', category: 'sarkuteri', unit: KG, name: {tr: 'Kangal Sucuk', en: 'Coil Sucuk'}, note: {tr: 'Kahvaltıya ve mangala.', en: 'For breakfast and the grill.'}},
-  {id: 'pastirma', category: 'sarkuteri', unit: PAKET, name: {tr: 'Pastırma', en: 'Pastırma'}, note: {tr: 'İnce dilim, çemenli.', en: 'Thin-sliced, fenugreek-cured.'}},
-  {id: 'dana-salam', category: 'sarkuteri', unit: PAKET, name: {tr: 'Dana Salam', en: 'Beef Salami'}, note: {tr: 'Tost ve atıştırmalık.', en: 'For toasties and snacks.'}},
-  {id: 'hindi-jambon', category: 'sarkuteri', unit: PAKET, name: {tr: 'Hindi Jambon', en: 'Turkey Ham'}, note: {tr: 'Hafif, dilimli.', en: 'Light, sliced.'}},
-  {id: 'kavurma', category: 'sarkuteri', unit: KG, name: {tr: 'Kavurma', en: 'Confit Kavurma'}, note: {tr: 'Kendi yağında, hazır ısıt-ye.', en: 'In its own fat, heat & eat.'}},
+  // ---- TAVUK / Chicken ----
+  {id: 'tavuk-kanat', category: 'tavuk', name: {tr: 'Tavuk Kanat', en: 'Chicken Wings'}},
+  {id: 'tavuk-pirzola', category: 'tavuk', name: {tr: 'Tavuk Pirzola', en: 'Chicken Chop'}},
+  {id: 'tavuk-baget', category: 'tavuk', name: {tr: 'Tavuk Baget', en: 'Chicken Drumstick'}},
+  {id: 'tavuk-bonfile', category: 'tavuk', name: {tr: 'Tavuk Bonfile', en: 'Chicken Tenderloin'}},
+  {id: 'tavuk-kalcali-but', category: 'tavuk', name: {tr: 'Kalçalı But', en: 'Chicken Leg Quarter'}},
+  {id: 'tavuk-kelebek', category: 'tavuk', name: {tr: 'Tavuk Kelebek', en: 'Chicken Butterfly'}},
+  {id: 'tavuk-butun', category: 'tavuk', name: {tr: 'Bütün Tavuk', en: 'Whole Chicken'}},
+  {id: 'tavuk-sis', category: 'tavuk', name: {tr: 'Tavuk Şiş', en: 'Chicken Skewer'}},
+  {id: 'tavuk-izgara-tava', category: 'tavuk', name: {tr: 'Izgara Tava', en: 'Grill-Pan Chicken'}},
+  {id: 'koy-tavugu', category: 'tavuk', name: {tr: 'Köy Tavuğu', en: 'Free-range Chicken'}},
+  {id: 'citir-tavuk', category: 'tavuk', name: {tr: 'Çıtır Tavuk Ürünleri', en: 'Crispy Chicken Products'}},
+  {id: 'tavuk-soslu', category: 'tavuk', name: {tr: 'İsteğe Göre Soslu', en: 'Sauced to Order'}},
 
-  // ---- Mangal & Hazır ----
-  {id: 'marine-kanat', category: 'mangal', unit: KG, name: {tr: 'Marine Tavuk Kanat', en: 'Marinated Wings'}, note: {tr: 'Marine edilmiş, ateşe hazır.', en: 'Marinated, ready for the fire.'}},
-  {id: 'izgara-kofte', category: 'mangal', unit: KG, name: {tr: 'Izgara Köfte', en: 'Grill Meatballs'}, note: {tr: 'Elde yoğrulmuş, baharatlı.', en: 'Hand-kneaded, spiced.'}},
-  {id: 'dana-sis', category: 'mangal', unit: KG, name: {tr: 'Dana Şiş', en: 'Beef Skewers'}, note: {tr: 'Şişe dizili, hazır.', en: 'Skewered, ready to grill.'}},
-  {id: 'adana', category: 'mangal', unit: KG, name: {tr: 'Adana', en: 'Adana Kebab'}, note: {tr: 'Zırh kıyma, acılı/acısız.', en: 'Hand-minced, mild or hot.'}},
-  {id: 'cop-sis', category: 'mangal', unit: PAKET, name: {tr: 'Çöp Şiş', en: 'Çöp Şiş Skewers'}, note: {tr: 'Küçük şişler, hızlı pişer.', en: 'Small skewers, quick to cook.'}},
-  {id: 'marine-pirzola', category: 'mangal', unit: KG, name: {tr: 'Marine Kuzu Pirzola', en: 'Marinated Lamb Chops'}, note: {tr: 'Dinlendirilmiş marine.', en: 'Rested in marinade.'}},
+  // ---- MANGAL & KEBAP / Grill & Kebab ----
+  {id: 'adana-kebab', category: 'mangal', name: {tr: 'Adana Kebab', en: 'Adana Kebab'}},
+  {id: 'beyti-sarma', category: 'mangal', name: {tr: 'Beyti Sarma', en: 'Beyti Wrap'}},
+  {id: 'hamburger', category: 'mangal', name: {tr: 'Hamburger', en: 'Hamburger'}, note: {tr: '200 gr', en: '200 g'}},
+  {id: 'urfa-kebab', category: 'mangal', name: {tr: 'Urfa Kebab', en: 'Urfa Kebab'}},
+  {id: 'patlican-kebab', category: 'mangal', name: {tr: 'Patlıcan Kebab', en: 'Aubergine Kebab'}},
+  {id: 'tandir-kelle', category: 'mangal', name: {tr: 'Tandır Kelle', en: 'Tandır (Head)'}},
 
-  // ---- Kahvaltılık ----
-  {id: 'kasar', category: 'kahvalti', unit: KG, name: {tr: 'Kaşar Peyniri', en: 'Kaşar Cheese'}, note: {tr: 'Tost ve mangal yanı.', en: 'For toasties and the grill.'}},
-  {id: 'beyaz-peynir', category: 'kahvalti', unit: KG, name: {tr: 'Beyaz Peynir', en: 'White Cheese'}, note: {tr: 'Tam yağlı, kahvaltılık.', en: 'Full-fat, for breakfast.'}},
-  {id: 'tereyagi', category: 'kahvalti', unit: PAKET, name: {tr: 'Köy Tereyağı', en: 'Village Butter'}, note: {tr: 'Günlük, taze.', en: 'Daily, fresh.'}},
-  {id: 'zeytin', category: 'kahvalti', unit: PAKET, name: {tr: 'Yeşil Zeytin', en: 'Green Olives'}, note: {tr: 'Kahvaltı sofrasına.', en: 'For the breakfast table.'}},
-  {id: 'yumurta', category: 'kahvalti', unit: PAKET, name: {tr: 'Köy Yumurtası (30’lu)', en: 'Village Eggs (30s)'}, note: {tr: 'Gezen tavuk.', en: 'Free-range.'}},
+  // ---- ŞARKÜTERİ / Deli (yalnız 3) ----
+  {id: 'sucuk', category: 'sarkuteri', name: {tr: 'Sucuk', en: 'Sucuk'}},
+  {id: 'pastirma', category: 'sarkuteri', name: {tr: 'Pastırma', en: 'Pastırma'}},
+  {id: 'kuru-et', category: 'sarkuteri', name: {tr: 'Kuru Et', en: 'Cured Beef'}},
 
-  // ---- Ekstra ----
-  {id: 'mangal-komuru', category: 'ekstra', unit: PAKET, name: {tr: 'Mangal Kömürü', en: 'Grill Charcoal'}, note: {tr: 'Uzun yanan meşe.', en: 'Long-burning oak.'}},
-  {id: 'et-baharati', category: 'ekstra', unit: PAKET, name: {tr: 'Et Baharatı', en: 'Meat Spice Mix'}, note: {tr: 'Usta harmanı.', en: "The master's blend."}},
-  {id: 'marinasyon', category: 'ekstra', unit: PAKET, name: {tr: 'Marinasyon Sosu', en: 'Marinade Sauce'}, note: {tr: 'Eti gece bekletmeden.', en: 'No overnight wait needed.'}},
+  // ---- DRY AGE / Dry Aged ----
+  {id: 'dry-age-urunler', category: 'dryage', name: {tr: 'Dry Age Ürünler', en: 'Dry-Aged Selection'}, note: {tr: 'Dana antrikot & pirzola', en: 'Beef ribeye & chops'}, dryAged: true},
+
+  // ---- SAKATAT & EKSTRA / Offal & Extras ----
+  {id: 'iskembe', category: 'sakatat', name: {tr: 'İşkembe', en: 'Tripe'}, note: {tr: 'Dana / Kuzu', en: 'Beef / Lamb'}},
+  {id: 'ayak-paca', category: 'sakatat', name: {tr: 'Ayak Paça', en: 'Trotters'}, note: {tr: 'Dana / Kuzu', en: 'Beef / Lamb'}},
+  {id: 'kuzu-bobrek', category: 'sakatat', name: {tr: 'Kuzu Böbrek', en: 'Lamb Kidney'}},
+  {id: 'kuyruk-yagi', category: 'sakatat', name: {tr: 'Kuyruk Yağı', en: 'Tail Fat'}},
 ];

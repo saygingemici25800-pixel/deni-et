@@ -11,6 +11,7 @@
     "contact": "Contact",
     "blog": "Blog",
     "call": "Call Now",
+    "weekly": "Pick of the Week",
     "lang": "TR"
   },
   "hero": {
@@ -71,6 +72,12 @@
     "optional": "optional",
     "required": "Full name and phone are required.",
     "submit": "Finish Order on WhatsApp"
+  },
+  "dryage": {
+    "eyebrow": "DRY AGE",
+    "title": "Meat the time has matured.",
+    "text": "Dry ageing is the art of patience — weeks of resting in controlled cold. Moisture slowly draws out, enzymes tenderise the fibres, and what remains is a deep, nutty, concentrated flavour. On beef ribeye and chops: the counter's most special cuts.",
+    "cta": "Discover Dry Age"
   },
   "showcase": {
     "eyebrow": "Counter Cuts",

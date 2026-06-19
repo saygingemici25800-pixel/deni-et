@@ -11,6 +11,7 @@
     "contact": "İletişim",
     "blog": "Blog",
     "call": "Hemen Ara",
+    "weekly": "Haftanın Ürünü",
     "lang": "EN"
   },
   "hero": {
@@ -71,6 +72,12 @@
     "optional": "opsiyonel",
     "required": "Ad Soyad ve telefon zorunlu.",
     "submit": "WhatsApp'ta Siparişi Bitir"
+  },
+  "dryage": {
+    "eyebrow": "DRY AGE",
+    "title": "Zamanın olgunlaştırdığı et.",
+    "text": "Dry age — kuru dinlendirme — etin haftalarca kontrollü soğukta, sabırla beklemesidir. Nem yavaşça çekilir, enzimler lifleri yumuşatır; geriye yoğun, fındıksı, derin bir lezzet kalır. Dana antrikot ve pirzolada, tezgahın en özel parçaları.",
+    "cta": "Dry Age'i Keşfet"
   },
   "showcase": {
     "eyebrow": "TEZGAHTAN",

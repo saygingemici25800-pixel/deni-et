@@ -6,6 +6,7 @@ import {HashScroll} from '@/components/HashScroll';
 import {HeroMount} from '@/components/hero3d/HeroMount';
 import {BoatMarquee} from '@/components/BoatMarquee';
 import {IntroCurtain} from '@/components/IntroCurtain';
+import {DryAgeCard} from '@/components/DryAgeCard';
 
 type Props = {
   params: Promise<{locale: string}>;
@@ -25,6 +26,9 @@ export default async function Page({params}: Props) {
       <HeroMount fallback={<Hero />} />
       <hr className="hairline" />
       <Showcase />
+      <hr className="hairline" />
+      {/* Dry aged premium kart — hikâyenin hemen üstünde */}
+      <DryAgeCard />
       <hr className="hairline" />
       <Timeline />
       {/* Viewport altına SABİT kayan tekne şeridi — YALNIZCA ana sayfa */}

@@ -80,7 +80,7 @@ function ProductCard({
       </div>
       <div className="flex flex-1 flex-col p-4 md:p-5">
         <h3 className="type-heading-sm text-ink">{name}</h3>
-        <p className="type-eyebrow mt-1 text-ink-soft">{p.unit[locale]}</p>
+        {p.unit && <p className="type-eyebrow mt-1 text-ink-soft">{p.unit[locale]}</p>}
         {p.note && <p className="type-body mt-2 text-ink-soft">{p.note[locale]}</p>}
 
         <div className="mt-4 flex flex-col gap-2.5">

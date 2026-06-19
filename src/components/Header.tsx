@@ -1,10 +1,11 @@
 'use client';
 
 import {useEffect, useState} from 'react';
-import {useTranslations} from 'next-intl';
+import {useTranslations, useLocale} from 'next-intl';
 import {Menu, X, Phone} from 'lucide-react';
 import {Link, usePathname} from '@/i18n/navigation';
 import {telLink} from '@/lib/contact';
+import {weeklyProduct} from '@/content/featured';
 import {Wordmark} from './ui';
 import {AnchorLink} from './AnchorLink';
 import {LangSwitch} from './LangSwitch';
@@ -20,6 +21,7 @@ const NAV = [
 
 export function Header() {
   const t = useTranslations();
+  const locale = useLocale() as 'tr' | 'en';
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname(); // locale'siz yol: '/' ana sayfa
@@ -102,8 +104,34 @@ export function Header() {
             )}
           </nav>
 
-          {/* Sağ — masaüstü: dil + birincil Hemen Ara (tel) */}
+          {/* Sağ — masaüstü: haftanın ürünü + dil + birincil Hemen Ara (tel) */}
           <div className="hidden items-center gap-3 md:flex">
+            {/* Haftanın Ürünü — diskret mini pill (yalnız geniş ekran ≥lg) */}
+            <Link
+              href={weeklyProduct.href}
+              aria-label={`${t('nav.weekly')}: ${weeklyProduct.name[locale]}`}
+              className="hidden items-center gap-2 rounded-full border border-[rgba(200,149,28,0.4)] py-1 pl-1 pr-3 transition-colors hover:border-brass lg:inline-flex"
+            >
+              <span
+                aria-hidden="true"
+                className="grid h-7 w-7 shrink-0 place-items-center overflow-hidden rounded-full"
+                style={{
+                  background: weeklyProduct.image
+                    ? `center/cover no-repeat url(${weeklyProduct.image})`
+                    : 'linear-gradient(135deg, #7A1C1C, #241B16)',
+                }}
+              >
+                {!weeklyProduct.image && <span className="h-1.5 w-1.5 rounded-full bg-brass" />}
+              </span>
+              <span className="flex flex-col leading-none">
+                <span className="text-brass" style={{fontSize: '0.58rem', letterSpacing: '0.1em'}}>
+                  {t('nav.weekly').toLocaleUpperCase(locale)}
+                </span>
+                <span className="mt-0.5 text-bone" style={{fontSize: '0.78rem'}}>
+                  {weeklyProduct.name[locale]}
+                </span>
+              </span>
+            </Link>
             <LangSwitch className="text-bone" />
             <a href={telLink()} className="btn btn-primary">
               <Phone size={18} strokeWidth={1.75} />
@@ -196,6 +224,30 @@ export function Header() {
         </nav>
 
         <div className="flex flex-col gap-4 px-7 pb-10">
+          {/* Haftanın Ürünü — drawer içinde diskret pill */}
+          <Link
+            href={weeklyProduct.href}
+            onClick={() => setOpen(false)}
+            className="flex items-center gap-3 rounded-full border border-[rgba(200,149,28,0.4)] p-1.5 pr-4 text-bone transition-colors hover:border-brass"
+          >
+            <span
+              aria-hidden="true"
+              className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-full"
+              style={{
+                background: weeklyProduct.image
+                  ? `center/cover no-repeat url(${weeklyProduct.image})`
+                  : 'linear-gradient(135deg, #7A1C1C, #241B16)',
+              }}
+            >
+              {!weeklyProduct.image && <span className="h-2 w-2 rounded-full bg-brass" />}
+            </span>
+            <span className="flex flex-col leading-tight">
+              <span className="text-brass" style={{fontSize: '0.6rem', letterSpacing: '0.1em'}}>
+                {t('nav.weekly').toLocaleUpperCase(locale)}
+              </span>
+              <span className="type-body">{weeklyProduct.name[locale]}</span>
+            </span>
+          </Link>
           <hr className="hairline" />
           <div className="flex items-center justify-between">
             <LangSwitch className="text-bone" onSwitch={() => setOpen(false)} />
