@@ -7,15 +7,15 @@ import {BOAT_PRODUCTS, type Locale} from '@/content/boat-products';
 import {useCart} from './CartProvider';
 
 /* Sağdan açılan sepet + sipariş paneli. <form> YOK — controlled inputs + onClick.
-   Geçerli (ad+telefon) ise tüm bilgiyi tek WhatsApp mesajına derleyip wa.me'yi yeni
-   sekmede açar. Mobilde tam genişlik, dokunma dostu. Esc + gövde kilidi + focus/aria. */
+   Geçerli (yalnız Ad Soyad) ise tüm bilgiyi tek WhatsApp mesajına derleyip wa.me'yi yeni
+   sekmede açar. Telefon ALANI yok (numara WhatsApp'ta görünür). Mobilde tam genişlik,
+   dokunma dostu, premium kontrast. Esc + gövde kilidi + focus/aria. */
 export function CartDrawer() {
   const t = useTranslations();
   const locale = useLocale() as Locale;
   const {items, count, open, setOpen, incr, decr, remove, clear} = useCart();
 
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
   const [boat, setBoat] = useState('');
   const [place, setPlace] = useState('');
   const [note, setNote] = useState('');
@@ -23,7 +23,7 @@ export function CartDrawer() {
   const [sent, setSent] = useState(false);
 
   const byId = useMemo(() => new Map(BOAT_PRODUCTS.map((p) => [p.id, p])), []);
-  const valid = name.trim().length > 0 && phone.trim().length > 0;
+  const valid = name.trim().length > 0;
 
   // Açıkken Esc ile kapat + gövde kaydırmayı kilitle.
   useEffect(() => {
@@ -39,7 +39,7 @@ export function CartDrawer() {
   }, [open, setOpen]);
 
   const buildMessage = () => {
-    const L: string[] = [t('cart.waIntro'), '', `${t('form.name')}: ${name.trim()}`, `${t('form.phone')}: ${phone.trim()}`];
+    const L: string[] = [t('cart.waIntro'), '', `${t('form.name')}: ${name.trim()}`];
     if (boat.trim()) L.push(`${t('form.boat')}: ${boat.trim()}`);
     if (place.trim()) L.push(`${t('form.location')}: ${place.trim()}`);
     L.push('---', t('cart.waOrder'));
@@ -60,8 +60,8 @@ export function CartDrawer() {
   };
 
   const field =
-    'w-full rounded-[4px] border border-[color:var(--line)] bg-[color:var(--color-espresso-2)] px-3 py-3 text-bone placeholder:text-cream-soft/40 focus:border-[color:var(--color-brass)] focus:outline-none';
-  const labelCls = 'type-eyebrow text-cream-soft';
+    'w-full rounded-[5px] border border-[rgba(244,238,228,0.24)] bg-[#241B16] px-3.5 py-3 text-bone placeholder:text-[rgba(244,238,228,0.4)] transition-colors focus:border-[color:var(--color-brass)] focus:outline-none focus:ring-1 focus:ring-[color:var(--color-brass)]';
+  const labelCls = 'type-eyebrow text-bone';
 
   return (
     <>
@@ -80,7 +80,8 @@ export function CartDrawer() {
         aria-modal="true"
         aria-label={t('cart.title')}
         aria-hidden={!open}
-        className={`fixed right-0 top-0 z-[100] flex h-full w-full max-w-md flex-col bg-[color:var(--color-espresso)] text-bone shadow-2xl transition-transform duration-300 motion-reduce:transition-none ${
+        style={{background: 'linear-gradient(180deg, #221A15 0%, #181210 62%)'}}
+        className={`fixed right-0 top-0 z-[100] flex h-full w-full max-w-md flex-col text-bone shadow-[-20px_0_60px_rgba(0,0,0,0.45)] transition-transform duration-300 motion-reduce:transition-none ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -130,7 +131,7 @@ export function CartDrawer() {
                           type="button"
                           onClick={() => decr(it.productId)}
                           aria-label="−"
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--line)] text-bone transition-colors hover:border-[color:var(--color-brass)]"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[rgba(244,238,228,0.3)] text-bone transition-colors hover:border-[color:var(--color-brass)] hover:text-brass"
                         >
                           <span aria-hidden="true" className="text-lg leading-none">
                             −
@@ -141,7 +142,7 @@ export function CartDrawer() {
                           type="button"
                           onClick={() => incr(it.productId)}
                           aria-label="+"
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--line)] text-bone transition-colors hover:border-[color:var(--color-brass)]"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[rgba(244,238,228,0.3)] text-bone transition-colors hover:border-[color:var(--color-brass)] hover:text-brass"
                         >
                           <span aria-hidden="true" className="text-lg leading-none">
                             +
@@ -192,22 +193,6 @@ export function CartDrawer() {
                     />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="cart-phone" className={labelCls}>
-                      {t('form.phone')} *
-                    </label>
-                    <input
-                      id="cart-phone"
-                      type="tel"
-                      inputMode="tel"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      autoComplete="tel"
-                      aria-required="true"
-                      aria-invalid={touched && phone.trim().length === 0}
-                      className={field}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1.5">
                     <label htmlFor="cart-boat" className={labelCls}>
                       {t('form.boat')} <span className="opacity-60">({t('form.optional')})</span>
                     </label>
@@ -248,7 +233,7 @@ export function CartDrawer() {
             className="shrink-0 border-t border-[color:var(--line)] px-5 py-4"
             style={{paddingBottom: 'calc(1rem + env(safe-area-inset-bottom, 0px))'}}
           >
-            {sent && <p className="type-body mb-3 text-cream-soft">{t('cart.confirm')}</p>}
+            {sent && <p className="type-body mb-3 text-bone">{t('cart.confirm')}</p>}
             <button
               type="button"
               onClick={submit}

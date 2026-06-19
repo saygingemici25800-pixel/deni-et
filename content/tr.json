@@ -12,6 +12,7 @@
     "blog": "Blog",
     "call": "Hemen Ara",
     "weekly": "Haftanın Ürünü",
+    "weeklyCta": "Haftanın Ürününü Keşfet",
     "lang": "EN"
   },
   "hero": {
@@ -70,7 +71,7 @@
     "location": "Teslimat yeri / marina",
     "note": "Not",
     "optional": "opsiyonel",
-    "required": "Ad Soyad ve telefon zorunlu.",
+    "required": "Ad Soyad zorunlu.",
     "submit": "WhatsApp'ta Siparişi Bitir"
   },
   "dryage": {

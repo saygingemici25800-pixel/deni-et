@@ -12,6 +12,7 @@
     "blog": "Blog",
     "call": "Call Now",
     "weekly": "Pick of the Week",
+    "weeklyCta": "Discover This Week's Pick",
     "lang": "TR"
   },
   "hero": {
@@ -70,7 +71,7 @@
     "location": "Delivery location / marina",
     "note": "Note",
     "optional": "optional",
-    "required": "Full name and phone are required.",
+    "required": "Full name is required.",
     "submit": "Finish Order on WhatsApp"
   },
   "dryage": {
