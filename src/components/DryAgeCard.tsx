@@ -1,16 +1,18 @@
 import {useTranslations} from 'next-intl';
 import {Link} from '@/i18n/navigation';
+import {FallbackImage} from './FallbackImage';
+import {BOAT_PRODUCTS} from '@/content/boat-products';
 
 const wrap = 'mx-auto max-w-[1200px] px-5 md:px-12';
 
-// Premium foto placeholder — koyu gradyan + ince brass mermerlenme damarları + sıcak köz
-// parıltısı + "Dry Age" filigranı. {/* TODO: gerçek dry age fotoğrafı */}
+// Dry age kartı, görseli ürün verisinin image alanından okur (public/products/dry-age-urunler.jpg).
+const dryAgeImage = BOAT_PRODUCTS.find((p) => p.id === 'dry-age-urunler')?.image;
+
+// Premium foto placeholder — ince brass mermerlenme damarları + sıcak köz parıltısı + "Dry Age"
+// filigranı. Konteyner (aspect/zemin) dışarıda; bu yalnız fallback içeriği. Görsel gelince üzerine biner.
 function DryAgeArt() {
   return (
-    <div
-      className="relative aspect-[5/4] overflow-hidden rounded-[4px] border border-[rgba(200,149,28,0.3)] md:aspect-[4/3]"
-      style={{background: 'linear-gradient(135deg, #2A1411 0%, #130F0C 58%, #1A1411 100%)'}}
-    >
+    <>
       <svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true" className="absolute inset-0 h-full w-full">
         <defs>
           <radialGradient id="da-glow" cx="32%" cy="38%" r="58%">
@@ -35,7 +37,7 @@ function DryAgeArt() {
       >
         Dry Age
       </span>
-    </div>
+    </>
   );
 }
 
@@ -49,7 +51,17 @@ export function DryAgeCard() {
       <div className={`${wrap} py-20 md:py-28`}>
         <div className="grid gap-10 md:grid-cols-12 md:items-center md:gap-14">
           <div className="md:col-span-7">
-            <DryAgeArt />
+            <div
+              className="relative aspect-[5/4] overflow-hidden rounded-[4px] border border-[rgba(200,149,28,0.3)] md:aspect-[4/3]"
+              style={{background: 'linear-gradient(135deg, #2A1411 0%, #130F0C 58%, #1A1411 100%)'}}
+            >
+              <FallbackImage
+                src={dryAgeImage}
+                alt={t('dryage.title')}
+                sizes="(max-width: 768px) 100vw, 58vw"
+                fallback={<DryAgeArt />}
+              />
+            </div>
           </div>
           <div className="md:col-span-5">
             <p className="type-eyebrow text-brass">{t('dryage.eyebrow')}</p>

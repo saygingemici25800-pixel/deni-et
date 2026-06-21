@@ -25,7 +25,7 @@ export const CATEGORIES: Category[] = [
   {id: 'sakatat', label: {tr: 'Sakatat & Ekstra', en: 'Offal & Extras'}},
 ];
 
-export const BOAT_PRODUCTS: BoatProduct[] = [
+const RAW_PRODUCTS: BoatProduct[] = [
   // ---- KUZU / Lamb ----
   {id: 'kuzu-but', category: 'kuzu', name: {tr: 'Kuzu But', en: 'Lamb Leg'}},
   {id: 'kuzu-kol', category: 'kuzu', name: {tr: 'Kuzu Kol', en: 'Lamb Shoulder'}},
@@ -102,3 +102,10 @@ export const BOAT_PRODUCTS: BoatProduct[] = [
   {id: 'kuzu-bobrek', category: 'sakatat', name: {tr: 'Kuzu Böbrek', en: 'Lamb Kidney'}},
   {id: 'kuyruk-yagi', category: 'sakatat', name: {tr: 'Kuyruk Yağı', en: 'Tail Fat'}},
 ];
+
+// Her ürünün görseli public/products/{id}.jpg'den okunur. Dosya YOKSA kartlar zarif
+// placeholder'a düşer (FallbackImage onError ile). Açıkça image verilmiş ürünlerde o korunur.
+export const BOAT_PRODUCTS: BoatProduct[] = RAW_PRODUCTS.map((p) => ({
+  ...p,
+  image: p.image ?? `/products/${p.id}.jpg`,
+}));

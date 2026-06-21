@@ -7,6 +7,8 @@ export const weeklyProduct: {name: Bi; text: Bi; image?: string; href: string} =
     tr: 'Bu hafta tezgahın yıldızı: haftalarca kuru dinlendirilmiş dana antrikot. Yoğun, fındıksı, mermerlenmesi bol. Yüksek ateşte mühürleyin, beş dakika dinlendirin — gerisini et anlatır.',
     en: "This week's star of the counter: beef ribeye, dry-aged for weeks. Deep, nutty and beautifully marbled. Sear it hot, rest it five minutes — and let the meat do the talking.",
   },
-  image: undefined, // {/* TODO: gerçek foto */}
+  // Haftanın ürünü = Dana Antrikot — Dry Age → public/products/dana-antrikot.jpg.
+  // Dosya yoksa WeeklyModal zarif placeholder'a düşer (FallbackImage onError).
+  image: '/products/dana-antrikot.jpg',
   href: '/tekne',
 };

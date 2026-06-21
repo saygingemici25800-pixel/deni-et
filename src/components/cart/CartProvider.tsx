@@ -27,17 +27,20 @@ export function CartProvider({children}: {children: ReactNode}) {
   const [hydrated, setHydrated] = useState(false);
   const [open, setOpen] = useState(false);
 
-  // İlk mount: localStorage'tan oku (window guard).
+  // İlk mount: localStorage'tan oku (window guard). Sanitize + aynı productId'leri TEK satırda
+  // birleştir → bozuk/yinelenen veri badge'i şişiremez (çift sayma engellenir).
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       const parsed = raw ? JSON.parse(raw) : null;
       if (Array.isArray(parsed)) {
-        setItems(
-          parsed
-            .filter((x) => x && typeof x.productId === 'string' && Number.isFinite(x.qty) && x.qty > 0)
-            .map((x) => ({productId: x.productId as string, qty: Math.floor(x.qty)})),
-        );
+        const merged = new Map<string, number>();
+        for (const x of parsed) {
+          if (x && typeof x.productId === 'string' && Number.isFinite(x.qty) && x.qty > 0) {
+            merged.set(x.productId, (merged.get(x.productId) ?? 0) + Math.floor(x.qty));
+          }
+        }
+        setItems(Array.from(merged, ([productId, qty]) => ({productId, qty})));
       }
     } catch {
       /* bozuk veri → yok say */
@@ -46,10 +49,12 @@ export function CartProvider({children}: {children: ReactNode}) {
   }, []);
 
   // Değişince yaz (yalnız hydrate sonrası — ilk boş state'i yazıp ezmesin).
+  // Sepet boşsa anahtarı TAMAMEN sil → "Sepeti Boşalt" sonrası localStorage gerçekten temiz.
   useEffect(() => {
     if (!hydrated) return;
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+      if (items.length === 0) window.localStorage.removeItem(STORAGE_KEY);
+      else window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
     } catch {
       /* kota/erişim → yok say */
     }

@@ -1,10 +1,10 @@
 'use client';
 
 import {useState} from 'react';
-import Image from 'next/image';
 import {useLocale, useTranslations} from 'next-intl';
 import {waLink} from '@/lib/contact';
 import {WhatsAppIcon} from './ui';
+import {FallbackImage} from './FallbackImage';
 import {BOAT_PRODUCTS, CATEGORIES, type BoatProduct, type Locale} from '@/content/boat-products';
 import {useCart} from './cart/CartProvider';
 
@@ -72,11 +72,12 @@ function ProductCard({
   return (
     <article className="flex flex-col overflow-hidden border border-[color:var(--line)] bg-bone transition-colors hover:border-[color:var(--color-et)]">
       <div className="relative aspect-[4/3] overflow-hidden border-b border-[color:var(--line)]">
-        {p.image ? (
-          <Image src={p.image} alt={name} fill sizes="(max-width: 768px) 50vw, 25vw" className="object-cover" />
-        ) : (
-          <ProductArt label={name} />
-        )}
+        <FallbackImage
+          src={p.image}
+          alt={name}
+          sizes="(max-width: 768px) 50vw, 25vw"
+          fallback={<ProductArt label={name} />}
+        />
       </div>
       <div className="flex flex-1 flex-col p-4 md:p-5">
         <h3 className="type-heading-sm text-ink">{name}</h3>

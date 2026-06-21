@@ -5,7 +5,38 @@ import {useLocale, useTranslations} from 'next-intl';
 import {Link} from '@/i18n/navigation';
 import {waLink} from '@/lib/contact';
 import {weeklyProduct} from '@/content/featured';
+import {FallbackImage} from './FallbackImage';
 import {WhatsAppIcon} from './ui';
+
+// Görsel yoksa/yüklenmezse gösterilen premium placeholder (brass mermerlenme + köz + filigran).
+// Konteyner (aspect/zemin) dışarıda; bu yalnız fallback içeriği.
+function WeeklyArt() {
+  return (
+    <>
+      <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true" className="absolute inset-0 h-full w-full">
+        <defs>
+          <radialGradient id="wm-glow" cx="34%" cy="40%" r="58%">
+            <stop offset="0%" stopColor="#7A1C1C" stopOpacity="0.45" />
+            <stop offset="100%" stopColor="#7A1C1C" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+        <rect width="400" height="250" fill="url(#wm-glow)" />
+        <g stroke="#C8951C" fill="none" strokeLinecap="round" opacity="0.26">
+          <path d="M30 95 C100 70, 160 120, 232 88 C292 62, 350 110, 388 84" strokeWidth="1.3" />
+          <path d="M24 150 C92 122, 152 172, 222 138 C284 112, 352 166, 392 132" strokeWidth="1.1" />
+          <path d="M40 195 C112 170, 172 210, 244 180" strokeWidth="0.9" opacity="0.7" />
+        </g>
+      </svg>
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-3 right-4 font-bold leading-none text-bone"
+        style={{opacity: 0.12, fontSize: '1.8rem', letterSpacing: '-0.02em'}}
+      >
+        Dry Age
+      </span>
+    </>
+  );
+}
 
 /* Haftanın ürünü kartı — ortada modal/dialog. Foto + ad + anlatı + CTA.
    ✕ / backdrop / Esc ile kapanır; açılınca focus ✕'e, kapanınca tetikleyene döner;
@@ -62,40 +93,17 @@ export function WeeklyModal({open, onClose}: {open: boolean; onClose: () => void
           </span>
         </button>
 
-        {/* Ürün fotoğrafı — gerçek varsa kullan, yoksa premium placeholder */}
+        {/* Ürün fotoğrafı — image alanından oku; dosya yoksa premium placeholder (kırılma yok) */}
         <div
           className="relative aspect-[16/10] w-full overflow-hidden border-b border-[rgba(200,149,28,0.25)]"
-          style={{
-            background: weeklyProduct.image
-              ? `center/cover no-repeat url(${weeklyProduct.image})`
-              : 'linear-gradient(135deg, #2A1411 0%, #130F0C 60%, #1A1411 100%)',
-          }}
+          style={{background: 'linear-gradient(135deg, #2A1411 0%, #130F0C 60%, #1A1411 100%)'}}
         >
-          {!weeklyProduct.image && (
-            <>
-              <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true" className="absolute inset-0 h-full w-full">
-                <defs>
-                  <radialGradient id="wm-glow" cx="34%" cy="40%" r="58%">
-                    <stop offset="0%" stopColor="#7A1C1C" stopOpacity="0.45" />
-                    <stop offset="100%" stopColor="#7A1C1C" stopOpacity="0" />
-                  </radialGradient>
-                </defs>
-                <rect width="400" height="250" fill="url(#wm-glow)" />
-                <g stroke="#C8951C" fill="none" strokeLinecap="round" opacity="0.26">
-                  <path d="M30 95 C100 70, 160 120, 232 88 C292 62, 350 110, 388 84" strokeWidth="1.3" />
-                  <path d="M24 150 C92 122, 152 172, 222 138 C284 112, 352 166, 392 132" strokeWidth="1.1" />
-                  <path d="M40 195 C112 170, 172 210, 244 180" strokeWidth="0.9" opacity="0.7" />
-                </g>
-              </svg>
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute bottom-3 right-4 font-bold leading-none text-bone"
-                style={{opacity: 0.12, fontSize: '1.8rem', letterSpacing: '-0.02em'}}
-              >
-                Dry Age
-              </span>
-            </>
-          )}
+          <FallbackImage
+            src={weeklyProduct.image}
+            alt={name}
+            sizes="(max-width: 768px) 100vw, 28rem"
+            fallback={<WeeklyArt />}
+          />
         </div>
 
         {/* Anlatı */}
