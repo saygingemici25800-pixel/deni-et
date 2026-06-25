@@ -4,12 +4,12 @@ import {useEffect} from 'react';
 import {useThree} from '@react-three/fiber';
 import * as THREE from 'three';
 
-// Ölçülen cow.glb (world, MODEL_SCALE=2.85 sonrası): yarı-boyutlar + merkez.
-// X 0.932 → hx 0.466 · Y 1.605 → hy 0.802 (taban y=0, merkez y=0.802) · Z 2.839 → hz 1.419.
-const HY = 0.802;
+// Ölçülen cow.glb YENİ mesh (world, MODEL_SCALE=2.85 sonrası): yarı-boyutlar + merkez.
+// X 0.871 → hx 0.435 · Y 1.778 → hy 0.889 (taban y=0, merkez y=0.889) · Z 2.794 → hz 1.397.
+const HY = 0.889;
 const CENTER = new THREE.Vector3(0, HY, 0);
 // Y-dönüşünden BAĞIMSIZ yatay yarı-genişlik (paralaks/sway/¾ açı hiç taşırmaz).
-const HH = Math.hypot(0.466, 1.419); // ~1.494
+const HH = Math.hypot(0.435, 1.397); // ~1.463
 
 /**
  * Auto-fit kamera: model bounding-box + viewport en-boy oranına göre danayı TAM sığdırır.
@@ -22,7 +22,7 @@ export function CameraFit({mobile, pad = 1.14}: {mobile: boolean; pad?: number})
   const height = useThree((s) => s.size.height);
 
   useEffect(() => {
-    const az = mobile ? THREE.MathUtils.degToRad(-22) : 0; // ¾ (baş tarafı) / yan profil
+    const az = mobile ? THREE.MathUtils.degToRad(22) : 0; // ¾ baş tarafı (baş=+Z) / yan profil
     camera.fov = mobile ? 38 : 30;
 
     const vfov = THREE.MathUtils.degToRad(camera.fov);
