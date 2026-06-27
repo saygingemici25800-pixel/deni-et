@@ -8,7 +8,7 @@ type Milestone = {year: string; title: string; text: string};
 
 const wrap = 'mx-auto max-w-[1200px] px-5 md:px-12';
 
-/* #hikaye-timeline — YATAY zaman şeridi (6 kilometre taşı).
+/* #hikaye-timeline — YATAY zaman şeridi (5 kilometre taşı).
    MASAÜSTÜ + hareket: "sticky horizontal scroll" — dış section yüksek; içeride sticky
    viewport; dikey scroll ilerlemesi (scroll progress) → track translateX (yıllar sağa akar).
    Bölüm bitince sticky bırakır → normal dikey scroll'a temiz geçer (kilit yok).
