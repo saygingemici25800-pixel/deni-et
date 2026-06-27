@@ -11,7 +11,7 @@ import {useCart} from './cart/CartProvider';
 // Zarif placeholder — krem gradyan + ince bıçak/köz motifi + ürün adı filigranı (boş kutu DEĞİL).
 function ProductArt({label}: {label: string}) {
   return (
-    <div className="absolute inset-0 text-ink" style={{background: 'linear-gradient(135deg, #F6F1E8 0%, #E8DECF 100%)'}}>
+    <div className="absolute inset-0 text-ink" style={{background: 'linear-gradient(135deg, #F7F1F0 0%, #ECE3E2 100%)'}}>
       <svg viewBox="0 0 200 150" aria-hidden="true" fill="none" className="absolute inset-0 h-full w-full">
         <defs>
           <radialGradient id="ba-ember" cx="50%" cy="50%" r="50%">

@@ -102,7 +102,7 @@ function ShowcaseArt({label, idx}: {label: string; idx: number}) {
   return (
     <div
       className="absolute inset-0 text-ink"
-      style={{background: 'linear-gradient(135deg, #F6F1E8 0%, #E8DECF 100%)'}}
+      style={{background: 'linear-gradient(135deg, #F7F1F0 0%, #ECE3E2 100%)'}}
     >
       <svg viewBox="0 0 200 150" aria-hidden="true" fill="none" className="absolute inset-0 h-full w-full">
         <defs>
