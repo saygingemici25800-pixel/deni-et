@@ -16,13 +16,13 @@
   --color-espresso: #1A1411;     /* ana koyu zemin (sıcak siyah) */
   --color-espresso-2: #241B16;   /* yükseltilmiş koyu yüzey */
   /* Açık / kağıt */
-  --color-bone: #F4EEE4;         /* krem yüzey */
+  --color-bone: #FCF6F5;         /* krem yüzey */
   --color-bone-2: #E8DECF;       /* ikincil krem */
   /* Marka kırmızısı */
-  --color-et: #9A2424;           /* birincil aksiyon / vurgu */
-  --color-et-deep: #6E1A1A;      /* derinlik, hover, gölge */
+  --color-et: #990011;           /* birincil aksiyon / vurgu */
+  --color-et-deep: #990011;      /* derinlik, hover, gölge */
   /* Pirinç — az kullan */
-  --color-brass: #C8951C;        /* altın detay, alt çizgi, küçük vurgu */
+  --color-brass: #FFD662;        /* altın detay, alt çizgi, küçük vurgu */
   /* Nötr metin */
   --color-ink: #1A1411;          /* krem üstünde metin */
   --color-ink-soft: #5A4F46;     /* ikincil metin */
@@ -31,8 +31,8 @@
 
 /* Tailwind utility'sine girmeyen ham token'lar (alpha ayraç + fokus). */
 :root {
-  --line: rgba(154, 36, 36, 0.22); /* ince bordo hairline */
-  --focus: #C8951C;                /* görünür fokus = pirinç */
+  --line: rgba(153, 0, 17, 0.22); /* ince bordo hairline */
+  --focus: #FFD662;                /* görünür fokus = pirinç */
 }
 
 /* =================================================================
@@ -363,9 +363,9 @@
     background: radial-gradient(
       circle at 50% 42%,
       #f4c257 0%,
-      #c8951c 20%,
-      #9a2424 50%,
-      rgba(110, 26, 26, 0) 70%
+      #FFD662 20%,
+      #990011 50%,
+      rgba(153, 0, 17, 0) 70%
     );
     filter: blur(2px);
     pointer-events: none;
@@ -691,7 +691,7 @@
   align-items: center;
   overflow: hidden;
   background-color: var(--color-espresso); /* espresso bant */
-  border-top: 1px solid rgba(200, 149, 28, 0.5); /* ince brass üst hairline */
+  border-top: 1px solid rgba(255, 214, 98, 0.5); /* ince brass üst hairline */
   -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
   mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
   transition: filter 0.2s;

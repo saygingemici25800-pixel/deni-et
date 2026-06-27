@@ -20,14 +20,14 @@ export function BoatScene({mobile, reduced}: {mobile: boolean; reduced: boolean}
       {/* sıcak key */}
       <directionalLight position={[4, 5, 3]} intensity={1.3} color="#FFE7C2" />
       {/* brass rim */}
-      <directionalLight position={[-4, 2, -3]} intensity={0.6} color="#C8951C" />
+      <directionalLight position={[-4, 2, -3]} intensity={0.6} color="#FFD662" />
       <Suspense fallback={null}>
         <YachtModel reduced={reduced} />
         {/* Su çizgisi — ince brass ışık (yatay düzlem, additive) */}
         <mesh position={[0, 0.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[7, 1.6]} />
           <meshBasicMaterial
-            color="#C8951C"
+            color="#FFD662"
             transparent
             opacity={0.07}
             blending={THREE.AdditiveBlending}

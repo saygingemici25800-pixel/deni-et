@@ -108,7 +108,7 @@ function ShowcaseArt({label, idx}: {label: string; idx: number}) {
         <defs>
           <radialGradient id={gid} cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#F4C257" stopOpacity="0.45" />
-            <stop offset="100%" stopColor="#C8951C" stopOpacity="0" />
+            <stop offset="100%" stopColor="#FFD662" stopOpacity="0" />
           </radialGradient>
         </defs>
         <ellipse cx="100" cy="98" rx="62" ry="15" fill={`url(#${gid})`} />
@@ -118,7 +118,7 @@ function ShowcaseArt({label, idx}: {label: string; idx: number}) {
           <path d="M74 96 L64 116" />
           <path d="M64 116 L58 130 L76 130 L70 116 Z" />
         </g>
-        <g fill="#C8951C" opacity="0.8">
+        <g fill="#FFD662" opacity="0.8">
           <circle cx="86" cy="98" r="4" />
           <circle cx="104" cy="94" r="5" />
           <circle cx="122" cy="98" r="4" />

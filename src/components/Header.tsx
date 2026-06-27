@@ -112,7 +112,7 @@ export function Header() {
               type="button"
               onClick={() => setWeeklyOpen(true)}
               aria-haspopup="dialog"
-              className="hidden items-center gap-2 rounded-full border border-[rgba(200,149,28,0.4)] py-1.5 pl-1.5 pr-4 text-bone transition-colors hover:border-brass lg:inline-flex"
+              className="hidden items-center gap-2 rounded-full border border-[rgba(255, 214, 98,0.4)] py-1.5 pl-1.5 pr-4 text-bone transition-colors hover:border-brass lg:inline-flex"
             >
               <span
                 aria-hidden="true"
@@ -227,7 +227,7 @@ export function Header() {
               setWeeklyOpen(true);
             }}
             aria-haspopup="dialog"
-            className="flex items-center gap-3 rounded-full border border-[rgba(200,149,28,0.4)] p-1.5 pr-4 text-bone transition-colors hover:border-brass"
+            className="flex items-center gap-3 rounded-full border border-[rgba(255, 214, 98,0.4)] p-1.5 pr-4 text-bone transition-colors hover:border-brass"
           >
             <span
               aria-hidden="true"

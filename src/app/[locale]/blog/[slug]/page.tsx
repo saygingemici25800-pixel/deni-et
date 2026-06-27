@@ -93,7 +93,7 @@ export default async function BlogPost({params}: Props) {
 
           <div className="mt-10 flex flex-wrap items-center gap-2.5 type-eyebrow text-cream-soft">
             {post.category && (
-              <span className="rounded-full border border-[rgba(244,238,228,0.35)] px-2.5 py-1 text-brass">
+              <span className="rounded-full border border-[rgba(252, 246, 245,0.35)] px-2.5 py-1 text-brass">
                 {post.category}
               </span>
             )}

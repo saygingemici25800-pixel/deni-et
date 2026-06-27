@@ -63,8 +63,8 @@ export function PostCover({
   className?: string;
 }) {
   const dark = tone !== 'cream';
-  const ink = dark ? '#F4EEE4' : '#1A1411';
-  const brass = '#C8951C';
+  const ink = dark ? '#FCF6F5' : '#1A1411';
+  const brass = '#FFD662';
   return (
     <div className={`relative overflow-hidden ${className ?? ''}`} aria-hidden="true">
       <div

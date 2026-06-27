@@ -22,7 +22,7 @@ function DryAgeArt() {
         </defs>
         <rect width="400" height="320" fill="url(#da-glow)" />
         {/* mermerlenme — ince brass damarlar */}
-        <g stroke="#C8951C" fill="none" strokeLinecap="round" opacity="0.26">
+        <g stroke="#FFD662" fill="none" strokeLinecap="round" opacity="0.26">
           <path d="M36 118 C100 88, 160 150, 232 108 C292 76, 342 142, 384 108" strokeWidth="1.5" />
           <path d="M28 180 C92 150, 150 212, 222 170 C284 138, 352 202, 392 164" strokeWidth="1.2" />
           <path d="M48 232 C112 202, 172 256, 242 216 C302 184, 352 240, 384 216" strokeWidth="1" />
@@ -52,7 +52,7 @@ export function DryAgeCard() {
         <div className="grid gap-10 md:grid-cols-12 md:items-center md:gap-14">
           <div className="md:col-span-7">
             <div
-              className="relative aspect-[5/4] overflow-hidden rounded-[4px] border border-[rgba(200,149,28,0.3)] md:aspect-[4/3]"
+              className="relative aspect-[5/4] overflow-hidden rounded-[4px] border border-[rgba(255, 214, 98,0.3)] md:aspect-[4/3]"
               style={{background: 'linear-gradient(135deg, #2A1411 0%, #130F0C 58%, #1A1411 100%)'}}
             >
               <FallbackImage

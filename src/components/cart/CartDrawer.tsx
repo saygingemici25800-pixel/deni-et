@@ -60,7 +60,7 @@ export function CartDrawer() {
   };
 
   const field =
-    'w-full rounded-[5px] border border-[rgba(244,238,228,0.24)] bg-[#241B16] px-3.5 py-3 text-bone placeholder:text-[rgba(244,238,228,0.4)] transition-colors focus:border-[color:var(--color-brass)] focus:outline-none focus:ring-1 focus:ring-[color:var(--color-brass)]';
+    'w-full rounded-[5px] border border-[rgba(252, 246, 245,0.24)] bg-[#241B16] px-3.5 py-3 text-bone placeholder:text-[rgba(252, 246, 245,0.4)] transition-colors focus:border-[color:var(--color-brass)] focus:outline-none focus:ring-1 focus:ring-[color:var(--color-brass)]';
   const labelCls = 'type-eyebrow text-bone';
 
   return (
@@ -131,7 +131,7 @@ export function CartDrawer() {
                           type="button"
                           onClick={() => decr(it.productId)}
                           aria-label="−"
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[rgba(244,238,228,0.3)] text-bone transition-colors hover:border-[color:var(--color-brass)] hover:text-brass"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[rgba(252, 246, 245,0.3)] text-bone transition-colors hover:border-[color:var(--color-brass)] hover:text-brass"
                         >
                           <span aria-hidden="true" className="text-lg leading-none">
                             −
@@ -142,7 +142,7 @@ export function CartDrawer() {
                           type="button"
                           onClick={() => incr(it.productId)}
                           aria-label="+"
-                          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[rgba(244,238,228,0.3)] text-bone transition-colors hover:border-[color:var(--color-brass)] hover:text-brass"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[rgba(252, 246, 245,0.3)] text-bone transition-colors hover:border-[color:var(--color-brass)] hover:text-brass"
                         >
                           <span aria-hidden="true" className="text-lg leading-none">
                             +

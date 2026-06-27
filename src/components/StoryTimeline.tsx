@@ -113,7 +113,7 @@ export function StoryTimeline() {
       <span
         aria-hidden="true"
         className="pointer-events-none absolute left-0 right-0 top-4 border-t border-dashed"
-        style={{borderColor: 'rgba(200,149,28,0.5)'}}
+        style={{borderColor: 'rgba(255, 214, 98,0.5)'}}
       />
       {milestones.map((m) => (
         <article

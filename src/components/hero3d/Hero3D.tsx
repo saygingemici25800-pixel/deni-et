@@ -23,7 +23,7 @@ const SCENE_CSS = `
 .denizet-tip[data-show="true"]{opacity:1;}
 .denizet-pill{transition:opacity .5s ease,transform .5s ease;animation:denizet-pill-pulse 2.4s ease-in-out infinite;}
 .denizet-pill[data-hide="true"]{opacity:0;transform:translateY(8px);pointer-events:none;}
-@keyframes denizet-pill-pulse{0%,100%{box-shadow:0 0 0 0 rgba(154,36,36,0);}50%{box-shadow:0 0 0 5px rgba(154,36,36,0.10);}}
+@keyframes denizet-pill-pulse{0%,100%{box-shadow:0 0 0 0 rgba(153, 0, 17,0);}50%{box-shadow:0 0 0 5px rgba(153, 0, 17,0.10);}}
 @media (prefers-reduced-motion: reduce){.denizet-card,.denizet-pill,.denizet-tip{transition:none;}.denizet-pill{animation:none;}}
 `;
 
@@ -83,7 +83,7 @@ export function Hero3D() {
       className="relative isolate min-h-[100svh] overflow-hidden"
       style={{
         background:
-          'radial-gradient(125% 100% at 50% 0%, #F8F3EA 0%, #F4EEE4 45%, #EFE6D6 100%)',
+          'radial-gradient(125% 100% at 50% 0%, #F8F3EA 0%, #FCF6F5 45%, #EFE6D6 100%)',
       }}
     >
       <style>{SCENE_CSS}</style>
@@ -261,7 +261,7 @@ export function Hero3D() {
                 shadow-mapSize-width={1024}
                 shadow-mapSize-height={1024}
               />
-              <directionalLight position={[-4, 2, -4]} intensity={0.5} color="#C8951C" />
+              <directionalLight position={[-4, 2, -4]} intensity={0.5} color="#FFD662" />
               <Suspense fallback={null}>
                 <CowModel selected={selected} onSelect={handleSelect} onHover={handleHover} touch={isMobile} />
                 <ContactShadows

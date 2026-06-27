@@ -21,7 +21,7 @@ function WeeklyArt() {
           </radialGradient>
         </defs>
         <rect width="400" height="250" fill="url(#wm-glow)" />
-        <g stroke="#C8951C" fill="none" strokeLinecap="round" opacity="0.26">
+        <g stroke="#FFD662" fill="none" strokeLinecap="round" opacity="0.26">
           <path d="M30 95 C100 70, 160 120, 232 88 C292 62, 350 110, 388 84" strokeWidth="1.3" />
           <path d="M24 150 C92 122, 152 172, 222 138 C284 112, 352 166, 392 132" strokeWidth="1.1" />
           <path d="M40 195 C112 170, 172 210, 244 180" strokeWidth="0.9" opacity="0.7" />
@@ -77,7 +77,7 @@ export function WeeklyModal({open, onClose}: {open: boolean; onClose: () => void
         role="dialog"
         aria-modal="true"
         aria-label={t('nav.weekly')}
-        className={`relative w-full max-w-md overflow-hidden rounded-[6px] border border-[rgba(200,149,28,0.35)] bg-[color:var(--color-espresso)] text-bone shadow-[0_24px_70px_rgba(0,0,0,0.5)] transition-[transform,opacity] duration-200 motion-reduce:transition-none ${
+        className={`relative w-full max-w-md overflow-hidden rounded-[6px] border border-[rgba(255, 214, 98,0.35)] bg-[color:var(--color-espresso)] text-bone shadow-[0_24px_70px_rgba(0,0,0,0.5)] transition-[transform,opacity] duration-200 motion-reduce:transition-none ${
           open ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
         }`}
       >
@@ -95,7 +95,7 @@ export function WeeklyModal({open, onClose}: {open: boolean; onClose: () => void
 
         {/* Ürün fotoğrafı — image alanından oku; dosya yoksa premium placeholder (kırılma yok) */}
         <div
-          className="relative aspect-[16/10] w-full overflow-hidden border-b border-[rgba(200,149,28,0.25)]"
+          className="relative aspect-[16/10] w-full overflow-hidden border-b border-[rgba(255, 214, 98,0.25)]"
           style={{background: 'linear-gradient(135deg, #2A1411 0%, #130F0C 60%, #1A1411 100%)'}}
         >
           <FallbackImage
