@@ -690,8 +690,8 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  background-color: var(--color-espresso); /* espresso bant */
-  border-top: 1px solid rgba(255, 214, 98, 0.5); /* ince brass üst hairline */
+  background-color: var(--color-bone); /* krem bant */
+  border-top: 1px solid var(--line); /* ince bordo hairline — krem footer/sayfadan ayırır */
   -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
   mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
   transition: filter 0.2s;
@@ -711,7 +711,7 @@
 .boat-marquee-word {
   font-family: var(--font-sans); /* Bonny */
   font-weight: 500; /* Medium */
-  color: var(--color-brass); /* brass — espresso üstünde sıcak altın */
+  color: var(--color-ink); /* koyu — krem bant üstünde net okunur */
   font-size: 3.2rem; /* ~ şerit yüksekliğinin ~%50'si, iri okunaklı */
   line-height: 1;
   letter-spacing: 0.04em; /* ferah harf aralığı */
@@ -722,8 +722,11 @@
   flex: none;
   width: 232px;
   height: 88px; /* ~ şerit yüksekliğinin ~%80'i, büyük/net */
-  /* PNG eksikse arka plan boş kalır — kırık görsel ikonu çıkmaz, yazı yine kayar. */
-  background: url("/yacht-marquee.png") center / contain no-repeat;
+  /* Yat silüeti: PNG'nin alfa şekli maske, dolgu espresso → krem zeminde koyu/okunur.
+     PNG eksikse maske boş kalır — kırık görsel ikonu çıkmaz, yazı yine kayar. */
+  background-color: var(--color-espresso);
+  -webkit-mask: url("/yacht-marquee.png") center / contain no-repeat;
+  mask: url("/yacht-marquee.png") center / contain no-repeat;
 }
 @media (max-width: 767px) {
   /* Mobilde DİKEYDE daha ince: şerit + tekne yüksekliği ~%30 küçük. YATAY (genişlik,
