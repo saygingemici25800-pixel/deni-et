@@ -16,8 +16,8 @@ function DryAgeArt() {
       <svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true" className="absolute inset-0 h-full w-full">
         <defs>
           <radialGradient id="da-glow" cx="32%" cy="38%" r="58%">
-            <stop offset="0%" stopColor="#7A1C1C" stopOpacity="0.45" />
-            <stop offset="100%" stopColor="#7A1C1C" stopOpacity="0" />
+            <stop offset="0%" stopColor="#990011" stopOpacity="0.45" />
+            <stop offset="100%" stopColor="#990011" stopOpacity="0" />
           </radialGradient>
         </defs>
         <rect width="400" height="320" fill="url(#da-glow)" />

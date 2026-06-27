@@ -362,7 +362,7 @@
     border-radius: 9999px;
     background: radial-gradient(
       circle at 50% 42%,
-      #f4c257 0%,
+      #FFD662 0%,
       #FFD662 20%,
       #990011 50%,
       rgba(153, 0, 17, 0) 70%
@@ -377,7 +377,7 @@
     position: absolute;
     inset: 28%;
     border-radius: 9999px;
-    background: radial-gradient(circle, #ffe3a8 0%, rgba(244, 194, 87, 0) 70%);
+    background: radial-gradient(circle, #FFD662 0%, rgba(255, 214, 98, 0) 70%);
     animation: ember-flicker 2.3s ease-in-out infinite;
   }
 }

@@ -6,7 +6,7 @@ import type {PostCoverSpec} from '@/content/posts';
 
 const GRADIENTS: Record<PostCoverSpec['tone'], string> = {
   char: 'linear-gradient(135deg, #241B16 0%, #130F0C 100%)',
-  bordo: 'linear-gradient(135deg, #7A1C1C 0%, #2A1411 100%)',
+  bordo: 'linear-gradient(135deg, #990011 0%, #2A1411 100%)',
   cream: 'linear-gradient(135deg, #F6F1E8 0%, #E2D6C4 100%)',
 };
 

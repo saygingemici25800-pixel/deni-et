@@ -15,7 +15,7 @@ function ProductArt({label}: {label: string}) {
       <svg viewBox="0 0 200 150" aria-hidden="true" fill="none" className="absolute inset-0 h-full w-full">
         <defs>
           <radialGradient id="ba-ember" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#F4C257" stopOpacity="0.45" />
+            <stop offset="0%" stopColor="#FFD662" stopOpacity="0.45" />
             <stop offset="100%" stopColor="#FFD662" stopOpacity="0" />
           </radialGradient>
         </defs>

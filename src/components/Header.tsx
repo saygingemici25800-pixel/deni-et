@@ -120,7 +120,7 @@ export function Header() {
                 style={{
                   background: weeklyProduct.image
                     ? `center/cover no-repeat url(${weeklyProduct.image})`
-                    : 'linear-gradient(135deg, #7A1C1C, #241B16)',
+                    : 'linear-gradient(135deg, #990011, #241B16)',
                 }}
               >
                 {!weeklyProduct.image && <span className="h-1.5 w-1.5 rounded-full bg-brass" />}
@@ -235,7 +235,7 @@ export function Header() {
               style={{
                 background: weeklyProduct.image
                   ? `center/cover no-repeat url(${weeklyProduct.image})`
-                  : 'linear-gradient(135deg, #7A1C1C, #241B16)',
+                  : 'linear-gradient(135deg, #990011, #241B16)',
               }}
             >
               {!weeklyProduct.image && <span className="h-2 w-2 rounded-full bg-brass" />}
