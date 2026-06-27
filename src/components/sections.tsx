@@ -4,6 +4,8 @@ import {waLink} from '@/lib/contact';
 import {Link} from '@/i18n/navigation';
 import {WhatsAppIcon} from './ui';
 import {StoryTimeline} from './StoryTimeline';
+import {FallbackImage} from './FallbackImage';
+import {BOAT_PRODUCTS} from '@/content/boat-products';
 
 /* =================================================================
    FAZ 2 — Bölümler. Tüm metin content/<locale>.json'dan.
@@ -99,7 +101,7 @@ function ShowcaseArt({label, idx}: {label: string; idx: number}) {
   const gid = `sc-ember-${idx}`;
   return (
     <div
-      className="relative aspect-[4/3] overflow-hidden text-ink"
+      className="absolute inset-0 text-ink"
       style={{background: 'linear-gradient(135deg, #F6F1E8 0%, #E8DECF 100%)'}}
     >
       <svg viewBox="0 0 200 150" aria-hidden="true" fill="none" className="absolute inset-0 h-full w-full">
@@ -138,6 +140,9 @@ function ShowcaseArt({label, idx}: {label: string; idx: number}) {
    SOL: eyebrow → ince↔kalın başlık → metin → /tekne CTA'ları.
    SAĞ: 4 ürün kartı (zarif placeholder + ad + not), hafif asimetrik dizilim. */
 type ShowItem = {name: string; note: string};
+// Vitrin kartı index → ürün id; görsel o ürünün image alanından (public/products/{id}.jpg),
+// yoksa zarif placeholder (FallbackImage). showcase.items sırası ile eşleşir.
+const SHOWCASE_IDS = ['dana-antrikot', 'kuzu-pirzola', 'sucuk', 'dana-kiyma-koftelik'];
 export function Showcase() {
   const t = useTranslations();
   const items = t.raw('showcase.items') as ShowItem[];
@@ -181,7 +186,14 @@ export function Showcase() {
                     i % 2 === 1 ? 'md:mt-10' : ''
                   }`}
                 >
-                  <ShowcaseArt label={it.name} idx={i} />
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <FallbackImage
+                      src={BOAT_PRODUCTS.find((p) => p.id === SHOWCASE_IDS[i])?.image}
+                      alt={it.name}
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                      fallback={<ShowcaseArt label={it.name} idx={i} />}
+                    />
+                  </div>
                   <div className="border-t border-[color:var(--line)] p-4 md:p-5">
                     <h3 className="type-heading-sm text-ink">{it.name}</h3>
                     <p className="type-body mt-1 text-ink-soft">{it.note}</p>
