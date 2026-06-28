@@ -97,11 +97,11 @@
     "eyebrow": "HİKÂYE",
     "title": "Bir tezgah, üç nesil.",
     "milestones": [
-      { "year": "1967", "title": "İlk dükkân", "text": "Fethiye'de küçük bir tezgahla yola çıkıldı." },
-      { "year": "1980", "title": "Kasap Orhan", "text": "Orhan usta tezgahın başına geçti; ustalık burada başladı." },
-      { "year": "1995", "title": "Ev yapımı sucuk", "text": "Kendi baharatımız, kendi reçetemiz; mahallenin tadı." },
-      { "year": "2018", "title": "Tekne kumanya", "text": "Muğla ve Kuşadası kıyılarına teslimat başladı." },
-      { "year": "2024", "title": "Üçüncü nesil", "text": "Kırk yılı aşan emek, aynı sözle devam ediyor." }
+      { "year": "1974", "title": "Market olarak kurulduk", "text": "Yolculuk küçük bir market tezgahıyla başladı." },
+      { "year": "1980", "title": "Kasaplığa geçtik", "text": "Tezgah ete döndü; kasaplık zanaatı burada başladı." },
+      { "year": "1995", "title": "Kendi üretim ve dağıtım ağında ilk adımlar", "text": "Üretimi ve dağıtımı kendi elimize almaya başladık." },
+      { "year": "2012", "title": "Tekne kumanya hizmeti başladı", "text": "Teknelere kumanya teslimatı bu yıl başladı." },
+      { "year": "2026", "title": "Üç nesil, baba–oğul devam ediyoruz", "text": "Aynı özen, aynı söz; üç nesil baba–oğul sürüyor." }
     ]
   },
   "trustBadge": {
