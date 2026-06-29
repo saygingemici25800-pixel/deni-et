@@ -5,6 +5,6 @@ import {routing} from './i18n/routing';
 export default createMiddleware(routing);
 
 export const config = {
-  // /api, /_next, /_vercel ve nokta içeren (statik) yollar hariç her şeyi eşle.
-  matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)',
+  // Kök "/" + locale-prefix'li yollar + (api/_next/_vercel ve nokta içeren statikler hariç) her şey.
+  matcher: ['/', '/(tr|en|ru)/:path*', '/((?!api|_next|_vercel|.*\\..*).*)'],
 };
