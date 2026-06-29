@@ -3,6 +3,7 @@ import {hasLocale} from 'next-intl';
 import {setRequestLocale, getTranslations} from 'next-intl/server';
 import {MapPin, Phone, Clock} from 'lucide-react';
 import {routing} from '@/i18n/routing';
+import {localeAlternates} from '@/lib/seo';
 import {telLink, waLink, mapsLink, mapsEmbed} from '@/lib/contact';
 import {WhatsAppIcon, InstagramIcon} from '@/components/ui';
 
@@ -23,6 +24,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
   return {
     title: `${t('contact.pageTitle')} · ${t('meta.siteName')}`,
     description: t('contact.lead'),
+    alternates: localeAlternates(locale, '/iletisim'),
   };
 }
 

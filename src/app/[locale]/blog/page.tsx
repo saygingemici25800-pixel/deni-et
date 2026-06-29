@@ -3,6 +3,7 @@ import {hasLocale} from 'next-intl';
 import {setRequestLocale, getTranslations} from 'next-intl/server';
 import {ArrowRight} from 'lucide-react';
 import {routing} from '@/i18n/routing';
+import {localeAlternates} from '@/lib/seo';
 import {Link} from '@/i18n/navigation';
 import {getPosts, type Locale, type Post} from '@/content/posts';
 import {splitZitlik} from '@/lib/text';
@@ -32,6 +33,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
   return {
     title: `${t('blog.eyebrow')} · ${t('meta.siteName')}`,
     description: t('blog.intro'),
+    alternates: localeAlternates(locale, '/blog'),
   };
 }
 

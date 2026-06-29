@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import {hasLocale} from 'next-intl';
 import {setRequestLocale, getTranslations} from 'next-intl/server';
 import {routing} from '@/i18n/routing';
+import {localeAlternates} from '@/lib/seo';
 import {waLink} from '@/lib/contact';
 import {WhatsAppIcon} from '@/components/ui';
 import {TekneShop} from '@/components/cart/TekneShop';
@@ -25,6 +26,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
   return {
     title: `${t('boat.pageTitle')} · ${t('meta.siteName')}`,
     description: t('boat.lead'),
+    alternates: localeAlternates(locale, '/tekne'),
   };
 }
 
