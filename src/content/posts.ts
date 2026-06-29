@@ -1,7 +1,11 @@
 // Blog içerik kaynağı — "Tezgah Notları" (BLOG.md). Hafif: salt TS veri, MDX/CMS yok.
 // İki dil paralel; aynı slug TR/EN sayfayı eşler. UI etiketleri content/<locale>.json'da (blog.*).
 
-export type Locale = 'tr' | 'en';
+export type Locale = 'tr' | 'en' | 'ru';
+
+// Blog metni yalnız tr/en'de var; ru içeriği henüz yok → ru, içerikte tr'ye düşer (UI ru kalır).
+type ContentLocale = 'tr' | 'en';
+const contentLocale = (l: Locale): ContentLocale => (l === 'ru' ? 'tr' : l);
 
 // Gövde bloğu: düz paragraf ya da dev Bonny pull-quote (BLOG.md §3).
 export type PostBlock = {type: 'p'; text: string} | {type: 'quote'; text: string};
@@ -305,7 +309,7 @@ const en: Post[] = [
   },
 ];
 
-const POSTS: Record<Locale, Post[]> = {tr, en};
+const POSTS: Record<ContentLocale, Post[]> = {tr, en};
 
 // Editoryal placeholder meta — hook/kategori (iki dil) + kapak teması. Postta yoksa doldurulur.
 // {/* TODO: gerçek kapak fotoğrafları + içerik */}
@@ -348,19 +352,19 @@ function decorate(locale: Locale, p: Post): Post {
   if (!m) return p;
   return {
     ...p,
-    hook: p.hook ?? m.hook[locale],
-    category: p.category ?? m.category[locale],
+    hook: p.hook ?? m.hook[contentLocale(locale)],
+    category: p.category ?? m.category[contentLocale(locale)],
     cover: p.cover ?? m.cover,
   };
 }
 
 // Tarihe göre yeni→eski. Taslaklar da listede durur (excerpt ile).
 export function getPosts(locale: Locale): Post[] {
-  return [...POSTS[locale]].sort((a, b) => (a.date < b.date ? 1 : -1)).map((p) => decorate(locale, p));
+  return [...POSTS[contentLocale(locale)]].sort((a, b) => (a.date < b.date ? 1 : -1)).map((p) => decorate(locale, p));
 }
 
 export function getPost(locale: Locale, slug: string): Post | undefined {
-  const found = POSTS[locale].find((p) => p.slug === slug);
+  const found = POSTS[contentLocale(locale)].find((p) => p.slug === slug);
   return found ? decorate(locale, found) : undefined;
 }
 
