@@ -3,10 +3,6 @@
 
 export type Locale = 'tr' | 'en' | 'ru';
 
-// Blog metni yalnız tr/en'de var; ru içeriği henüz yok → ru, içerikte tr'ye düşer (UI ru kalır).
-type ContentLocale = 'tr' | 'en';
-const contentLocale = (l: Locale): ContentLocale => (l === 'ru' ? 'tr' : l);
-
 // Gövde bloğu: düz paragraf ya da dev Bonny pull-quote (BLOG.md §3).
 export type PostBlock = {type: 'p'; text: string} | {type: 'quote'; text: string};
 
@@ -309,40 +305,181 @@ const en: Post[] = [
   },
 ];
 
-const POSTS: Record<ContentLocale, Post[]> = {tr, en};
+const ru: Post[] = [
+  {
+    slug: 'etini-tani-dananin-parcalari',
+    title: 'Знай своё мясо: 10 отрубов говядины и для чего каждый',
+    excerpt:
+      'Говядина — это не одно мясо. От корейки до голяшки у каждого отруба своя текстура и своя задача. Выбрать правильный отруб — наполовину приготовить блюдо ещё до огня.',
+    statement: 'У каждого отруба своя задача.',
+    date: '2026-06-04',
+    readingMinutes: 5,
+    body: [
+      {
+        type: 'p',
+        text: 'Говядина — не единое мясо; от корейки до голяшки у каждого отруба своя текстура, свой жир, своя задача. Чем больше животное работало мышцей, тем жёстче — и тем вкуснее — этот отруб. Понимая это, вы зададите у прилавка правильный вопрос.',
+      },
+      {
+        type: 'p',
+        text: 'Спинная часть работает меньше всего, потому она самая нежная. Рибай и стриплойн — для гриля и стейка: сильный жар, короткое время, потом отдых. Вырезка — самый постный и нежный отруб; готовится мгновенно, и лишняя секунда её пересушит.',
+      },
+      {
+        type: 'p',
+        text: 'Рёбра и отбивные — отрубы на кости, отрубы терпения. Они любят мангал и духовку, на среднем жаре, без спешки. Кость вбирает вкус мяса и отдаёт его обратно — поэтому отруб на кости всегда вкуснее.',
+      },
+      {
+        type: 'p',
+        text: 'Огузок — нуар, оковалок, ссек — отруб для жаркого, бифштекса и дёнера. Постный, с выраженным волокном. Среднее приготовление и тонкая нарезка делают его изящным; нарежете толсто и поспешите — останется сухим.',
+      },
+      {
+        type: 'p',
+        text: 'Шея, голяшка и грудинка — много работающие мышцы: сначала жёсткие, но на низком жаре за долгое время они желатинизируются и распадаются под вилкой. Это золотые отрубы для тушёных блюд, бульонов и запечённой голяшки. Требуют терпения и сполна его вознаграждают.',
+      },
+      {
+        type: 'quote',
+        text: 'Дешёвых отрубов не бывает; бывают неправильно приготовленные.',
+      },
+      {
+        type: 'p',
+        text: 'Знать, что купить, начинается с того, чтобы знать, у кого спросить. Придя к прилавку, сначала скажите, что собираетесь готовить; отруб выберем вместе. Остальное расскажет само мясо.',
+      },
+    ],
+  },
+  {
+    slug: 'mangalda-kusursuz-et',
+    title: 'Идеальное мясо на мангале: огонь, отдых и три ошибки',
+    excerpt:
+      'Секрет мангала не в мясе, а в терпении. Большинство ошибается в одних и тех же трёх местах: кладут мясо холодным, часто переворачивают, режут без отдыха.',
+    statement: 'Огонь не терпит спешки.',
+    date: '2026-05-28',
+    readingMinutes: 4,
+    body: [
+      {
+        type: 'p',
+        text: 'Секрет мангала не в мясе, а в терпении. Три ошибки, что портят хороший вечер, всегда собираются в одном месте: положить мясо холодным, часто переворачивать, резать без отдыха. Все три — дело спешки.',
+      },
+      {
+        type: 'p',
+        text: 'Огонь. Не клади мясо без углей. Пламя не готовит, а сушит; снаружи чернеет, внутри остаётся сырым. Если можешь удержать ладонь в десяти сантиметрах над решёткой три секунды — жар готов. Угли должны гореть ровного цвета, подёрнутые пеплом и спокойные.',
+      },
+      {
+        type: 'p',
+        text: 'Переворачивание. Не тычь мясо, едва положив на решётку. Подожди, пока одна сторона не схватится и сама не отойдёт от решётки; эта тонкая корочка держит сок внутри. Для большинства отрубов хватает одного переворота.',
+      },
+      {
+        type: 'p',
+        text: 'Отдых. Сняв с огня, не трогай пять минут. Сок, выгнанный к поверхности при жарке, во время отдыха возвращается в волокна. Горячее, но наспех нарезанное мясо оставляет сок на тарелке; отдохнувшее — на языке.',
+      },
+      {
+        type: 'quote',
+        text: 'Правильный отруб — половина дела: рибай и отбивные — звёзды мангала.',
+      },
+      {
+        type: 'p',
+        text: 'Остальное в твоих руках: соли заранее, дождись углей терпеливо, берись за нож в последний момент. Стоит один раз освоить эти три шага — и мангал больше никогда не будет лотереей.',
+      },
+    ],
+  },
+  {
+    slug: 'ev-yapimi-sucuk',
+    title: 'Почему домашний суджук другой: специи, терпение, время',
+    excerpt:
+      'Разница между магазинным суджуком и тем, что делают за прилавком, в одном слове: время. Чтобы специи улеглись, а мясо отдохнуло, спешка ни к чему.',
+    statement: 'Специи — от нас, терпение — от вас.',
+    date: '2026-05-20',
+    readingMinutes: 3,
+    draft: true,
+    body: [
+      {
+        type: 'p',
+        text: 'Эта статья готовится. Чем отличается домашний суджук — баланс специй, время выдержки и правильное соотношение мяса — мы скоро расскажем здесь, словами мастера.',
+      },
+    ],
+  },
+  {
+    slug: 'taze-et-nasil-anlasilir',
+    title: 'Как распознать свежее мясо: гид по цвету, запаху и текстуре',
+    excerpt:
+      'Свежее мясо узнают глазом, носом и пальцем. Три простых признака никогда вас не подведут — нужно лишь знать, на что смотреть у прилавка.',
+    statement: 'Глаз, нос, палец.',
+    date: '2026-05-12',
+    readingMinutes: 3,
+    draft: true,
+    body: [
+      {
+        type: 'p',
+        text: 'Эта статья готовится. Яркость цвета, чистота запаха и упругость текстуры — три признака свежего мяса мы скоро разберём шаг за шагом.',
+      },
+    ],
+  },
+  {
+    slug: 'kuzu-lokum',
+    title: 'Бараний лукум: откуда в названии эта нежность',
+    excerpt:
+      'Отруб, что тает во рту, как и его название. Нежность бараньего лукума скрыта в выборе, в нарезке и в мере при готовке.',
+    statement: 'Как и название: тает во рту.',
+    date: '2026-05-05',
+    readingMinutes: 3,
+    draft: true,
+    body: [
+      {
+        type: 'p',
+        text: 'Эта статья готовится. Из какого отруба получают бараний лукум, почему он так нежен и как его правильно готовить — мы скоро расскажем.',
+      },
+    ],
+  },
+  {
+    slug: 'eti-dinlendirmek',
+    title: 'Почему отдых мяса удваивает вкус',
+    excerpt:
+      'Пять минут терпения оставляют сок мяса не на тарелке, а во рту. Отдых — последний шаг не приготовления, а вкуса.',
+    statement: 'Пять минут меняют всё.',
+    date: '2026-04-28',
+    readingMinutes: 3,
+    draft: true,
+    body: [
+      {
+        type: 'p',
+        text: 'Эта статья готовится. Что отдых делает с волокнами и сколько должен ждать каждый отруб — мы скоро распишем подробно.',
+      },
+    ],
+  },
+];
+
+const POSTS: Record<Locale, Post[]> = {tr, en, ru};
 
 // Editoryal placeholder meta — hook/kategori (iki dil) + kapak teması. Postta yoksa doldurulur.
 // {/* TODO: gerçek kapak fotoğrafları + içerik */}
-type Bi = {tr: string; en: string};
+type Bi = {tr: string; en: string; ru: string};
 const META: Record<string, {hook: Bi; category: Bi; cover: PostCoverSpec}> = {
   'etini-tani-dananin-parcalari': {
-    hook: {tr: 'Hangi parça neye yakışır?', en: 'Which cut is for what?'},
-    category: {tr: 'Tezgah Notları', en: 'Counter Notes'},
+    hook: {tr: 'Hangi parça neye yakışır?', en: 'Which cut is for what?', ru: 'Какой отруб для чего?'},
+    category: {tr: 'Tezgah Notları', en: 'Counter Notes', ru: 'Заметки с прилавка'},
     cover: {tone: 'char', motif: 'cleaver'},
   },
   'mangalda-kusursuz-et': {
-    hook: {tr: 'Mangalda et neden sertleşir?', en: 'Why does grilled meat turn tough?'},
-    category: {tr: 'Pişirme', en: 'Cooking'},
+    hook: {tr: 'Mangalda et neden sertleşir?', en: 'Why does grilled meat turn tough?', ru: 'Почему мясо на мангале жёсткое?'},
+    category: {tr: 'Pişirme', en: 'Cooking', ru: 'Приготовление'},
     cover: {tone: 'bordo', motif: 'ember'},
   },
   'ev-yapimi-sucuk': {
-    hook: {tr: 'Ev sucuğu neden bekler?', en: 'Why does homemade sucuk wait?'},
-    category: {tr: 'Şarküteri', en: 'Deli'},
+    hook: {tr: 'Ev sucuğu neden bekler?', en: 'Why does homemade sucuk wait?', ru: 'Почему домашний суджук выдерживают?'},
+    category: {tr: 'Şarküteri', en: 'Deli', ru: 'Деликатесы'},
     cover: {tone: 'bordo', motif: 'smoke'},
   },
   'taze-et-nasil-anlasilir': {
-    hook: {tr: 'Taze eti nasıl anlarsın?', en: 'How do you spot fresh meat?'},
-    category: {tr: 'Tezgah Notları', en: 'Counter Notes'},
+    hook: {tr: 'Taze eti nasıl anlarsın?', en: 'How do you spot fresh meat?', ru: 'Как распознать свежее мясо?'},
+    category: {tr: 'Tezgah Notları', en: 'Counter Notes', ru: 'Заметки с прилавка'},
     cover: {tone: 'cream', motif: 'cleaver'},
   },
   'kuzu-lokum': {
-    hook: {tr: 'Adı neden “lokum”?', en: 'Why is it called “delight”?'},
-    category: {tr: 'Kumanya', en: 'Provisions'},
+    hook: {tr: 'Adı neden “lokum”?', en: 'Why is it called “delight”?', ru: 'Почему «лукум»?'},
+    category: {tr: 'Kumanya', en: 'Provisions', ru: 'Провизия'},
     cover: {tone: 'char', motif: 'ember'},
   },
   'eti-dinlendirmek': {
-    hook: {tr: 'Beş dakika neyi değiştirir?', en: 'What do five minutes change?'},
-    category: {tr: 'Pişirme', en: 'Cooking'},
+    hook: {tr: 'Beş dakika neyi değiştirir?', en: 'What do five minutes change?', ru: 'Что меняют пять минут?'},
+    category: {tr: 'Pişirme', en: 'Cooking', ru: 'Приготовление'},
     cover: {tone: 'bordo', motif: 'smoke'},
   },
 };
@@ -352,19 +489,19 @@ function decorate(locale: Locale, p: Post): Post {
   if (!m) return p;
   return {
     ...p,
-    hook: p.hook ?? m.hook[contentLocale(locale)],
-    category: p.category ?? m.category[contentLocale(locale)],
+    hook: p.hook ?? m.hook[locale],
+    category: p.category ?? m.category[locale],
     cover: p.cover ?? m.cover,
   };
 }
 
 // Tarihe göre yeni→eski. Taslaklar da listede durur (excerpt ile).
 export function getPosts(locale: Locale): Post[] {
-  return [...POSTS[contentLocale(locale)]].sort((a, b) => (a.date < b.date ? 1 : -1)).map((p) => decorate(locale, p));
+  return [...(POSTS[locale] ?? POSTS.tr)].sort((a, b) => (a.date < b.date ? 1 : -1)).map((p) => decorate(locale, p));
 }
 
 export function getPost(locale: Locale, slug: string): Post | undefined {
-  const found = POSTS[contentLocale(locale)].find((p) => p.slug === slug);
+  const found = (POSTS[locale] ?? POSTS.tr).find((p) => p.slug === slug);
   return found ? decorate(locale, found) : undefined;
 }
 

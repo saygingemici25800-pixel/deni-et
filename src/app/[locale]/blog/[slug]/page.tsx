@@ -23,7 +23,7 @@ function narrow(requested: string): Locale {
 }
 
 function formatDate(locale: Locale, iso: string): string {
-  return new Intl.DateTimeFormat(locale === 'tr' ? 'tr-TR' : 'en-US', {
+  return new Intl.DateTimeFormat(locale === 'tr' ? 'tr-TR' : locale === 'ru' ? 'ru-RU' : 'en-US', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
