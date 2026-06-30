@@ -1,7 +1,7 @@
 import {routing} from '@/i18n/routing';
 
 // Çok dilli SEO için site kökü. NOT: gerçek domain gelince YALNIZ bu satır değişecek.
-export const BASE = 'https://deni-et-c9am.vercel.app';
+export const BASE = 'https://denizetfethiye.com';
 
 /**
  * hreflang alternates — locale-siz path ('' | '/tekne' | `/blog/${slug}` …) için.
