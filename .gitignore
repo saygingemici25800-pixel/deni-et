@@ -29,6 +29,6 @@ next-env.d.ts
 .DS_Store
 *.pem
 
-# 3D inek scratch dosyalari (yedek + ara cikti, commit disi)
+# 3D model scratch/yedek dosyalari (ara cikti + yedekler, commit disi)
 public/models/cow_new.glb
-public/models/cow_old_backup.glb
+public/models/*_old_backup.glb
