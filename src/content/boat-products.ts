@@ -46,6 +46,11 @@ const RAW_PRODUCTS: BoatProduct[] = [
   {id: 'kuzu-biftek', category: 'kuzu', name: {tr: 'Kuzu Biftek', en: 'Lamb Steak'}},
   {id: 'kokorec', category: 'kuzu', name: {tr: 'Kokoreç', en: 'Kokoreç'}},
   {id: 'kuzu-ciger', category: 'kuzu', name: {tr: 'Kuzu Ciğer', en: 'Lamb Liver'}, note: {tr: 'Takım / Sade', en: 'Set / Plain'}},
+  {id: 'kuzu-cakir', category: 'kuzu', name: {tr: 'Kuzu Çakır', en: 'Lamb Çakır'}},
+  {id: 'marine-kuzu-cakir', category: 'kuzu', name: {tr: 'Marine Kuzu Çakır', en: 'Marinated Lamb Çakır'}},
+  {id: 'kuzu-yagli-kara', category: 'kuzu', name: {tr: 'Kuzu Yağlı Kara', en: 'Lamb Yağlı Kara'}},
+  {id: 'kuzu-cizbiz-pirzola', category: 'kuzu', name: {tr: 'Kuzu Cızbız Pirzola', en: 'Lamb Cızbız Chops'}},
+  {id: 'izgaralik-kemik', category: 'kuzu', name: {tr: 'Izgaralık İlik Kemik', en: 'Grill Marrow Bone'}},
 
   // ---- DANA / Beef ----
   {id: 'dana-kusbasi', category: 'dana', name: {tr: 'Dana Kuşbaşı', en: 'Beef Cubes'}},
@@ -65,6 +70,12 @@ const RAW_PRODUCTS: BoatProduct[] = [
   {id: 'dana-ciger', category: 'dana', name: {tr: 'Dana Ciğer', en: 'Beef Liver'}, note: {tr: 'Yaprak / Arnavut (Küp)', en: 'Sliced / Albanian (Diced)'}},
   {id: 'dana-kofte', category: 'dana', name: {tr: 'Köfte', en: 'Köfte'}, note: {tr: 'Ev (Soğanlı Maydanozlu) / Kasap (Sade) / Izgara', en: 'Homestyle (Onion-Parsley) / Butcher (Plain) / Grill'}},
   {id: 'dana-poc', category: 'dana', name: {tr: 'Pöç', en: 'Pöç (Rump)'}},
+  {id: 'dana-biftek', category: 'dana', name: {tr: 'Dana Biftek', en: 'Beef Steak'}},
+  {id: 'antrikot-sis', category: 'dana', name: {tr: 'Antrikot Şiş', en: 'Ribeye Skewer'}},
+  {id: 'dana-lokum-sis', category: 'dana', name: {tr: 'Dana Lokum Şiş', en: 'Beef Cube Skewer'}},
+  {id: 'ciger-sis', category: 'dana', name: {tr: 'Ciğer Şiş', en: 'Liver Skewer'}},
+  {id: 'izgara-kofte', category: 'dana', name: {tr: 'Izgara Köfte', en: 'Grill Meatballs'}},
+  {id: 'kasarli-kofte', category: 'dana', name: {tr: 'Kaşarlı Köfte', en: 'Cheese Meatballs'}},
 
   // ---- TAVUK / Chicken ----
   {id: 'tavuk-kanat', category: 'tavuk', name: {tr: 'Tavuk Kanat', en: 'Chicken Wings'}},
@@ -87,6 +98,9 @@ const RAW_PRODUCTS: BoatProduct[] = [
   {id: 'urfa-kebab', category: 'mangal', name: {tr: 'Urfa Kebab', en: 'Urfa Kebab'}},
   {id: 'patlican-kebab', category: 'mangal', name: {tr: 'Patlıcan Kebab', en: 'Aubergine Kebab'}},
   {id: 'tandir-kelle', category: 'mangal', name: {tr: 'Tandır Kelle', en: 'Tandır (Head)'}},
+  {id: 'kaburga-beyti', category: 'mangal', name: {tr: 'Kaburga Beyti', en: 'Rib Beyti'}},
+  {id: 'sirali-beyti-kebap', category: 'mangal', name: {tr: 'Sıralı Beyti Kebap', en: 'Beyti Kebab'}},
+  {id: 'kuzu-kelle-tandir', category: 'mangal', name: {tr: 'Kuzu Kelle Tandır', en: 'Lamb Head Tandır'}},
 
   // ---- ŞARKÜTERİ / Deli (yalnız 3) ----
   {id: 'sucuk', category: 'sarkuteri', name: {tr: 'Sucuk', en: 'Sucuk'}},
