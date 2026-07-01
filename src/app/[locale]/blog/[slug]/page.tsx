@@ -4,7 +4,7 @@ import {hasLocale} from 'next-intl';
 import {setRequestLocale, getTranslations} from 'next-intl/server';
 import {ArrowLeft} from 'lucide-react';
 import {routing} from '@/i18n/routing';
-import {localeAlternates} from '@/lib/seo';
+import {localeAlternates, ogFor} from '@/lib/seo';
 import {Link} from '@/i18n/navigation';
 import {waLink} from '@/lib/contact';
 import {WhatsAppIcon} from '@/components/ui';
@@ -40,6 +40,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
     title: `${post.title} · ${t('meta.siteName')}`,
     description: post.excerpt,
     alternates: localeAlternates(locale, '/blog/' + slug),
+    ...ogFor({locale, title: `${post.title} · ${t('meta.siteName')}`, description: post.excerpt, path: '/blog/' + slug, type: 'article'}),
   };
 }
 

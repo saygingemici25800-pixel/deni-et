@@ -3,7 +3,7 @@ import {NextIntlClientProvider, hasLocale} from 'next-intl';
 import {setRequestLocale, getTranslations} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
-import {BASE, localeAlternates} from '@/lib/seo';
+import {BASE, localeAlternates, ogFor} from '@/lib/seo';
 import {bonny} from '@/fonts';
 import {Header} from '@/components/Header';
 import {Footer} from '@/components/Footer';
@@ -38,6 +38,7 @@ export async function generateMetadata({
     title: t('meta.title'),
     description: t('meta.description'),
     alternates: localeAlternates(locale, ''),
+    ...ogFor({locale, title: t('meta.title'), description: t('meta.description'), path: '', type: 'website'}),
   };
 }
 
