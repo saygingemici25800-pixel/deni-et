@@ -721,12 +721,9 @@
   display: block;
   flex: none;
   width: 232px;
-  height: 88px; /* ~ şerit yüksekliğinin ~%80'i, büyük/net */
-  /* Yat silüeti: PNG'nin alfa şekli maske, dolgu espresso → krem zeminde koyu/okunur.
-     PNG eksikse maske boş kalır — kırık görsel ikonu çıkmaz, yazı yine kayar. */
-  background-color: var(--color-espresso);
-  -webkit-mask: url("/yacht-marquee.png") center / contain no-repeat;
-  mask: url("/yacht-marquee.png") center / contain no-repeat;
+  height: 88px; /* ~ şerit yüksekliğinin ~%80'i */
+  /* Mini canlı 3D yelkenli (YachtMini) bu slot'a oturur; içindeki <Canvas> %100 doldurur.
+     PNG maske kaldırıldı. Model yüklenene dek aynı ölçüde boş span → layout kaymaz. */
 }
 @media (max-width: 767px) {
   /* Mobilde DİKEYDE daha ince: şerit + tekne yüksekliği ~%30 küçük. YATAY (genişlik,
