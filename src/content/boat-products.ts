@@ -13,7 +13,15 @@ export type BoatProduct = {
   unit?: Bi; // opsiyonel — çoğu kg; belirtilmezse gösterilmez
   image?: string; // varsa <Image>, yoksa zarif placeholder
   dryAged?: boolean; // kuru dinlendirilmiş ürünler
+  cuts?: Bi[]; // seçilebilir kesim varyantı (Standart/Jumbo/Lokum) — sepette AYRI satır
 };
+
+// Kesim varyantları — yalnız birkaç dana ürününde. Aynı ürünün farklı kesimi sepette ayrı satır.
+const CUTS: Bi[] = [
+  {tr: 'Standart', en: 'Standard'},
+  {tr: 'Jumbo', en: 'Jumbo'},
+  {tr: 'Lokum', en: 'Lokum'},
+];
 
 export const CATEGORIES: Category[] = [
   {id: 'kuzu', label: {tr: 'Kuzu', en: 'Lamb'}},
@@ -54,8 +62,8 @@ const RAW_PRODUCTS: BoatProduct[] = [
 
   // ---- DANA / Beef ----
   {id: 'dana-kusbasi', category: 'dana', name: {tr: 'Dana Kuşbaşı', en: 'Beef Cubes'}},
-  {id: 'dana-antrikot', category: 'dana', name: {tr: 'Dana Antrikot', en: 'Beef Ribeye'}, note: {tr: 'Standart / Wet age / Dry age', en: 'Standard / Wet-aged / Dry-aged'}, dryAged: true},
-  {id: 'dana-bonfile', category: 'dana', name: {tr: 'Dana Bonfile', en: 'Beef Tenderloin'}, note: {tr: 'Standart / Jumbo / Lokum', en: 'Standard / Jumbo / Lokum'}},
+  {id: 'dana-antrikot', category: 'dana', name: {tr: 'Dana Antrikot', en: 'Beef Ribeye'}, note: {tr: 'Standart / Wet age / Dry age', en: 'Standard / Wet-aged / Dry-aged'}, dryAged: true, cuts: CUTS},
+  {id: 'dana-bonfile', category: 'dana', name: {tr: 'Dana Bonfile', en: 'Beef Tenderloin'}, note: {tr: 'Standart / Jumbo / Lokum', en: 'Standard / Jumbo / Lokum'}, cuts: CUTS},
   {id: 'dana-tbone', category: 'dana', name: {tr: 'T-Bone', en: 'T-Bone'}},
   {id: 'dana-rosto', category: 'dana', name: {tr: 'Dana Rosto', en: 'Beef Roast'}},
   {id: 'dana-pirzola-dallas', category: 'dana', name: {tr: 'Dana Pirzola (Dallas)', en: 'Beef Chop (Dallas)'}, note: {tr: 'Wet age / Dry age', en: 'Wet-aged / Dry-aged'}, dryAged: true},
@@ -70,7 +78,7 @@ const RAW_PRODUCTS: BoatProduct[] = [
   {id: 'dana-ciger', category: 'dana', name: {tr: 'Dana Ciğer', en: 'Beef Liver'}, note: {tr: 'Yaprak / Arnavut (Küp)', en: 'Sliced / Albanian (Diced)'}},
   {id: 'dana-kofte', category: 'dana', name: {tr: 'Köfte', en: 'Köfte'}, note: {tr: 'Ev (Soğanlı Maydanozlu) / Kasap (Sade) / Izgara', en: 'Homestyle (Onion-Parsley) / Butcher (Plain) / Grill'}},
   {id: 'dana-poc', category: 'dana', name: {tr: 'Pöç', en: 'Pöç (Rump)'}},
-  {id: 'dana-biftek', category: 'dana', name: {tr: 'Dana Biftek', en: 'Beef Steak'}},
+  {id: 'dana-biftek', category: 'dana', name: {tr: 'Dana Biftek', en: 'Beef Steak'}, cuts: CUTS},
   {id: 'antrikot-sis', category: 'dana', name: {tr: 'Antrikot Şiş', en: 'Ribeye Skewer'}},
   {id: 'dana-lokum-sis', category: 'dana', name: {tr: 'Dana Lokum Şiş', en: 'Beef Cube Skewer'}},
   {id: 'ciger-sis', category: 'dana', name: {tr: 'Ciğer Şiş', en: 'Liver Skewer'}},

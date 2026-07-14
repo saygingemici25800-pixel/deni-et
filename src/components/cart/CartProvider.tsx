@@ -2,7 +2,7 @@
 
 import {createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode} from 'react';
 
-export type CartItem = {productId: string; qty: number};
+export type CartItem = {productId: string; qty: number; cut?: string};
 
 type CartContextValue = {
   items: CartItem[];
@@ -10,15 +10,19 @@ type CartContextValue = {
   hydrated: boolean; // localStorage okundu mu (badge yanıp sönmesini önler)
   open: boolean;
   setOpen: (v: boolean) => void;
-  add: (id: string) => void;
-  incr: (id: string) => void;
-  decr: (id: string) => void;
-  remove: (id: string) => void;
+  add: (id: string, cut?: string) => void;
+  incr: (id: string, cut?: string) => void;
+  decr: (id: string, cut?: string) => void;
+  remove: (id: string, cut?: string) => void;
   clear: () => void;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
 const STORAGE_KEY = 'denizet-cart';
+
+// Birleşik satır kimliği: aynı ürün farklı kesimle (cut) AYRI satır. cut yoksa boş → eski davranış.
+const lineKey = (productId: string, cut?: string) => `${productId}::${cut ?? ''}`;
+const sameLine = (i: CartItem, id: string, cut?: string) => i.productId === id && (i.cut ?? '') === (cut ?? '');
 
 /* Sepet state'i — client, localStorage'da kalıcı. Backend YOK. SSR-safe:
    ilk render [] (sunucuyla eşleşir), mount sonrası localStorage okunur → mismatch yok. */
@@ -34,13 +38,18 @@ export function CartProvider({children}: {children: ReactNode}) {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       const parsed = raw ? JSON.parse(raw) : null;
       if (Array.isArray(parsed)) {
-        const merged = new Map<string, number>();
+        // Aynı (productId + cut) satırlarını birleştir → çift sayma engellenir; farklı cut ayrı kalır.
+        const merged = new Map<string, CartItem>();
         for (const x of parsed) {
           if (x && typeof x.productId === 'string' && Number.isFinite(x.qty) && x.qty > 0) {
-            merged.set(x.productId, (merged.get(x.productId) ?? 0) + Math.floor(x.qty));
+            const cut = typeof x.cut === 'string' && x.cut ? x.cut : undefined;
+            const key = lineKey(x.productId, cut);
+            const existing = merged.get(key);
+            if (existing) existing.qty += Math.floor(x.qty);
+            else merged.set(key, {productId: x.productId, qty: Math.floor(x.qty), ...(cut ? {cut} : {})});
           }
         }
-        setItems(Array.from(merged, ([productId, qty]) => ({productId, qty})));
+        setItems(Array.from(merged.values()));
       }
     } catch {
       /* bozuk veri → yok say */
@@ -60,24 +69,24 @@ export function CartProvider({children}: {children: ReactNode}) {
     }
   }, [items, hydrated]);
 
-  const add = useCallback((id: string) => {
+  const add = useCallback((id: string, cut?: string) => {
     setItems((prev) => {
-      const found = prev.find((i) => i.productId === id);
-      if (found) return prev.map((i) => (i.productId === id ? {...i, qty: i.qty + 1} : i));
-      return [...prev, {productId: id, qty: 1}];
+      const found = prev.find((i) => sameLine(i, id, cut));
+      if (found) return prev.map((i) => (sameLine(i, id, cut) ? {...i, qty: i.qty + 1} : i));
+      return [...prev, {productId: id, qty: 1, ...(cut ? {cut} : {})}];
     });
   }, []);
 
-  const incr = useCallback((id: string) => {
-    setItems((prev) => prev.map((i) => (i.productId === id ? {...i, qty: i.qty + 1} : i)));
+  const incr = useCallback((id: string, cut?: string) => {
+    setItems((prev) => prev.map((i) => (sameLine(i, id, cut) ? {...i, qty: i.qty + 1} : i)));
   }, []);
 
-  const decr = useCallback((id: string) => {
-    setItems((prev) => prev.flatMap((i) => (i.productId !== id ? [i] : i.qty <= 1 ? [] : [{...i, qty: i.qty - 1}])));
+  const decr = useCallback((id: string, cut?: string) => {
+    setItems((prev) => prev.flatMap((i) => (!sameLine(i, id, cut) ? [i] : i.qty <= 1 ? [] : [{...i, qty: i.qty - 1}])));
   }, []);
 
-  const remove = useCallback((id: string) => {
-    setItems((prev) => prev.filter((i) => i.productId !== id));
+  const remove = useCallback((id: string, cut?: string) => {
+    setItems((prev) => prev.filter((i) => !sameLine(i, id, cut)));
   }, []);
 
   const clear = useCallback(() => setItems([]), []);

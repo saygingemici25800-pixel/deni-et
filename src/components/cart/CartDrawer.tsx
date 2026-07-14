@@ -45,7 +45,7 @@ export function CartDrawer() {
     L.push('---', t('cart.waOrder'));
     items.forEach((it) => {
       const p = byId.get(it.productId);
-      if (p) L.push(`• ${p.name[locale]} × ${it.qty}${p.unit ? ' ' + p.unit[locale] : ''}`);
+      if (p) L.push(`• ${p.name[locale]}${it.cut ? ` (${it.cut})` : ''} × ${it.qty}${p.unit ? ' ' + p.unit[locale] : ''}`);
     });
     if (note.trim()) L.push('', `${t('form.note')}: ${note.trim()}`);
     return L.join('\n');
@@ -118,9 +118,12 @@ export function CartDrawer() {
                   const p = byId.get(it.productId);
                   if (!p) return null;
                   return (
-                    <li key={it.productId} className="flex items-center gap-3 py-3">
+                    <li key={`${it.productId}::${it.cut ?? ''}`} className="flex items-center gap-3 py-3">
                       <div className="min-w-0 flex-1">
-                        <p className="type-body text-bone">{p.name[locale]}</p>
+                        <p className="type-body text-bone">
+                          {p.name[locale]}
+                          {it.cut ? ` (${it.cut})` : ''}
+                        </p>
                         {(p.note ?? p.unit) && (
                           <p className="type-eyebrow mt-0.5 text-cream-soft">{(p.note ?? p.unit)![locale]}</p>
                         )}
@@ -129,7 +132,7 @@ export function CartDrawer() {
                       <div className="flex items-center gap-1">
                         <button
                           type="button"
-                          onClick={() => decr(it.productId)}
+                          onClick={() => decr(it.productId, it.cut)}
                           aria-label="−"
                           className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[rgba(252, 246, 245,0.3)] text-bone transition-colors hover:border-[color:var(--color-brass)] hover:text-brass"
                         >
@@ -140,7 +143,7 @@ export function CartDrawer() {
                         <span className="w-7 text-center type-body tabular-nums text-bone">{it.qty}</span>
                         <button
                           type="button"
-                          onClick={() => incr(it.productId)}
+                          onClick={() => incr(it.productId, it.cut)}
                           aria-label="+"
                           className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[rgba(252, 246, 245,0.3)] text-bone transition-colors hover:border-[color:var(--color-brass)] hover:text-brass"
                         >
@@ -152,7 +155,7 @@ export function CartDrawer() {
                       {/* Çıkar */}
                       <button
                         type="button"
-                        onClick={() => remove(it.productId)}
+                        onClick={() => remove(it.productId, it.cut)}
                         aria-label={`${t('cart.remove')} — ${p.name[locale]}`}
                         className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-cream-soft transition-colors hover:text-et"
                       >

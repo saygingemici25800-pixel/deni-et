@@ -50,6 +50,7 @@ function ProductCard({
   ask,
   addLabel,
   addedLabel,
+  chooseCutLabel,
   itemWa,
 }: {
   p: BoatProduct;
@@ -57,14 +58,17 @@ function ProductCard({
   ask: string;
   addLabel: string;
   addedLabel: string;
+  chooseCutLabel: string;
   itemWa: string;
 }) {
   const {add} = useCart();
   const [justAdded, setJustAdded] = useState(false);
+  const [cutIdx, setCutIdx] = useState(0); // yalnız p.cuts olan ürünlerde anlamlı
   const name = p.name[locale];
 
   const onAdd = () => {
-    add(p.id);
+    // cut'lı ürün → seçili kesim etiketini (locale) gönder; diğerlerinde undefined (eski davranış).
+    add(p.id, p.cuts ? p.cuts[cutIdx][locale] : undefined);
     setJustAdded(true);
     window.setTimeout(() => setJustAdded(false), 1400);
   };
@@ -85,6 +89,24 @@ function ProductCard({
         {p.note && <p className="type-body mt-2 text-ink-soft">{p.note[locale]}</p>}
 
         <div className="mt-4 flex flex-col gap-2.5">
+          {/* Kesim seçici — yalnız p.cuts olan ürünlerde (dana-biftek/antrikot/bonfile) */}
+          {p.cuts && (
+            <label className="flex flex-col gap-1">
+              <span className="type-eyebrow text-ink-soft">{chooseCutLabel}</span>
+              <select
+                value={cutIdx}
+                onChange={(e) => setCutIdx(Number(e.target.value))}
+                aria-label={chooseCutLabel}
+                className="w-full rounded-[5px] border border-[color:var(--line)] bg-bone px-3 py-2.5 text-ink transition-colors focus:border-[color:var(--color-et)] focus:outline-none"
+              >
+                {p.cuts.map((c, i) => (
+                  <option key={c.tr} value={i}>
+                    {c[locale]}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
           {/* Birincil — Sepete Ekle */}
           <button
             type="button"
@@ -122,6 +144,7 @@ export function BoatGallery() {
   const ask = t('boat.ask');
   const addLabel = t('cart.add');
   const addedLabel = t('cart.added');
+  const chooseCutLabel = t('cart.chooseCut');
 
   const tabs = [{id: 'all', label: t('boat.all')}, ...CATEGORIES.map((c) => ({id: c.id, label: c.label[locale]}))];
   const products = active === 'all' ? BOAT_PRODUCTS : BOAT_PRODUCTS.filter((p) => p.category === active);
@@ -165,6 +188,7 @@ export function BoatGallery() {
             ask={ask}
             addLabel={addLabel}
             addedLabel={addedLabel}
+            chooseCutLabel={chooseCutLabel}
             itemWa={waLink(prefillItem.replace('{product}', p.name[locale]))}
           />
         ))}

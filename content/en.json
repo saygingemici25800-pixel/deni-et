@@ -60,6 +60,7 @@
     "close": "Close",
     "checkout": "Complete Order",
     "count": "{n} items",
+    "chooseCut": "Choose Cut",
     "waIntro": "Hello, I'd like to place a Deniz Et provisions order.",
     "waOrder": "Order:",
     "confirm": "Your order opened in WhatsApp. We'll get back to you once you send the message."
