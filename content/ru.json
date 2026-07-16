@@ -73,6 +73,8 @@
     "note": "Примечание",
     "optional": "необязательно",
     "required": "Укажите имя и фамилию.",
+    "deliveryTime": "Время доставки",
+    "timeRequired": "Укажите время доставки.",
     "submit": "Завершить заказ в WhatsApp"
   },
   "dryage": {

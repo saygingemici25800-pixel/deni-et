@@ -73,6 +73,8 @@
     "note": "Note",
     "optional": "optional",
     "required": "Full name is required.",
+    "deliveryTime": "Delivery Time",
+    "timeRequired": "Delivery time is required.",
     "submit": "Finish Order on WhatsApp"
   },
   "dryage": {

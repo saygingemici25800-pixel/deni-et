@@ -16,6 +16,7 @@ export function CartDrawer() {
   const {items, count, open, setOpen, incr, decr, remove, clear} = useCart();
 
   const [name, setName] = useState('');
+  const [time, setTime] = useState(''); // Teslimat saati — ZORUNLU (name gibi)
   const [boat, setBoat] = useState('');
   const [place, setPlace] = useState('');
   const [note, setNote] = useState('');
@@ -23,7 +24,7 @@ export function CartDrawer() {
   const [sent, setSent] = useState(false);
 
   const byId = useMemo(() => new Map(BOAT_PRODUCTS.map((p) => [p.id, p])), []);
-  const valid = name.trim().length > 0;
+  const valid = name.trim().length > 0 && time.trim().length > 0;
 
   // Açıkken Esc ile kapat + gövde kaydırmayı kilitle.
   useEffect(() => {
@@ -42,6 +43,7 @@ export function CartDrawer() {
     const L: string[] = [t('cart.waIntro'), '', `${t('form.name')}: ${name.trim()}`];
     if (boat.trim()) L.push(`${t('form.boat')}: ${boat.trim()}`);
     if (place.trim()) L.push(`${t('form.location')}: ${place.trim()}`);
+    L.push(`${t('form.deliveryTime')}: ${time.trim()}`); // zorunlu → her zaman
     L.push('---', t('cart.waOrder'));
     items.forEach((it) => {
       const p = byId.get(it.productId);
@@ -196,6 +198,20 @@ export function CartDrawer() {
                     />
                   </div>
                   <div className="flex flex-col gap-1.5">
+                    <label htmlFor="cart-time" className={labelCls}>
+                      {t('form.deliveryTime')} *
+                    </label>
+                    <input
+                      id="cart-time"
+                      type="time"
+                      value={time}
+                      onChange={(e) => setTime(e.target.value)}
+                      aria-required="true"
+                      aria-invalid={touched && time.trim().length === 0}
+                      className={field}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
                     <label htmlFor="cart-boat" className={labelCls}>
                       {t('form.boat')} <span className="opacity-60">({t('form.optional')})</span>
                     </label>
@@ -220,9 +236,14 @@ export function CartDrawer() {
                     />
                   </div>
                 </div>
-                {touched && !valid && (
+                {touched && name.trim().length === 0 && (
                   <p role="alert" className="type-body mt-3 text-[color:var(--color-brass)]">
                     {t('form.required')}
+                  </p>
+                )}
+                {touched && time.trim().length === 0 && (
+                  <p role="alert" className="type-body mt-2 text-[color:var(--color-brass)]">
+                    {t('form.timeRequired')}
                   </p>
                 )}
               </div>

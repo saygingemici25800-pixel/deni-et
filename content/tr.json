@@ -73,6 +73,8 @@
     "note": "Not",
     "optional": "opsiyonel",
     "required": "Ad Soyad zorunlu.",
+    "deliveryTime": "Teslimat Saati",
+    "timeRequired": "Teslimat saati zorunlu.",
     "submit": "WhatsApp'ta Siparişi Bitir"
   },
   "dryage": {
